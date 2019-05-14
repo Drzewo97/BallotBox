@@ -1,38 +1,35 @@
 package com.drzewo97.ballotbox.config;
 
+import com.drzewo97.ballotbox.service.userservice.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
-
-import javax.sql.DataSource;
 
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private final DataSource dataSource;
-
     @Autowired
-    public SecurityConfiguration(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
+    private UserService userService;
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception{
         http.authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/h2_console/**").hasRole("ADMIN")
-                .antMatchers("/h2/**").hasRole("ADMIN")
+                .antMatchers("/h2_console/**", "/h2/**").hasRole("ADMIN")
+                .antMatchers("/registration").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
+                    .loginPage("/login")
+                    .permitAll()
+                .and()
+                .logout()
+                    .permitAll()
                 .and()
                 .httpBasic();
 
@@ -42,21 +39,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(final AuthenticationManagerBuilder auth) throws Exception{
-        auth.userDetailsService(getUserDetailsService())
-                .passwordEncoder(getPasswordEncoder());
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(getAuthenticationProvider());
     }
 
     @Bean
-    public UserDetailsService getUserDetailsService(){
-        final JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
-        if(!manager.userExists("admin")){
-            manager.createUser(User.withUsername("admin").password("test").roles("ADMIN", "USER").build());
-        }
-        if(!manager.userExists("user")) {
-            manager.createUser(User.withUsername("user").password("test").roles("USER").build());
-        }
-        return manager;
+    public DaoAuthenticationProvider getAuthenticationProvider(){
+        DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
+        auth.setUserDetailsService(userService);
+        auth.setPasswordEncoder(getPasswordEncoder());
+        return auth;
     }
 
     @Bean
