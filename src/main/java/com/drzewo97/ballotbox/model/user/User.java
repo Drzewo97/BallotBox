@@ -1,5 +1,6 @@
 package com.drzewo97.ballotbox.model.user;
 
+import com.drzewo97.ballotbox.model.poll.Poll;
 import com.drzewo97.ballotbox.model.role.Role;
 
 import javax.persistence.*;
@@ -27,6 +28,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
+
+    @OneToMany
+    private Set<Poll> pollsCreated;
 
     public User() {}
 
@@ -60,5 +64,13 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<Poll> getPollsCreated() {
+        return pollsCreated;
+    }
+
+    public void setPollsCreated(Set<Poll> pollsCreated) {
+        this.pollsCreated = pollsCreated;
     }
 }
