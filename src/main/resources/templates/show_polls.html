@@ -6,10 +6,13 @@
 </head>
 <body>
     <div th:if="${param.voted}">
-        <div class="alert alert-info">
-            You've already voted in this poll!
-        </div>
+        You've already voted in this poll!
     </div>
+
+    <div th:if="${param.success}">
+        You've casted your vote!
+    </div>
+
     <table>
         <caption><h3>Polls:</h3></caption>
         <thead>

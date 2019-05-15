@@ -76,6 +76,6 @@ public class PollVoteController {
         // Mark that this user voted
         userService.voted(currentPrincipalName, poll.get());
 
-        return "redirect:/polls/" + id + "/vote?success";
+        return "redirect:/polls?success";
     }
 }
