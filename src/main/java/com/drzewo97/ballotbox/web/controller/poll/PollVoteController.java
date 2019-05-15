@@ -1,9 +1,9 @@
-package com.drzewo97.ballotbox.web.controller;
+package com.drzewo97.ballotbox.web.controller.poll;
 
 import com.drzewo97.ballotbox.model.poll.Poll;
 import com.drzewo97.ballotbox.service.pollservice.PollService;
 import com.drzewo97.ballotbox.service.userservice.UserService;
-import com.drzewo97.ballotbox.web.dto.VoteDto;
+import com.drzewo97.ballotbox.web.dto.votedto.VoteDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

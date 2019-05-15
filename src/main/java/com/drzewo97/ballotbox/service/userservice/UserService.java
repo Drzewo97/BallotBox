@@ -2,7 +2,7 @@ package com.drzewo97.ballotbox.service.userservice;
 
 import com.drzewo97.ballotbox.model.poll.Poll;
 import com.drzewo97.ballotbox.model.user.User;
-import com.drzewo97.ballotbox.web.dto.UserDto;
+import com.drzewo97.ballotbox.web.dto.userdto.UserDto;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.Optional;

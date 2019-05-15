@@ -1,9 +1,8 @@
-package com.drzewo97.ballotbox.web.controller;
+package com.drzewo97.ballotbox.web.controller.user;
 
 import com.drzewo97.ballotbox.model.user.User;
-import com.drzewo97.ballotbox.model.user.UserRepository;
 import com.drzewo97.ballotbox.service.userservice.UserService;
-import com.drzewo97.ballotbox.web.dto.UserDto;
+import com.drzewo97.ballotbox.web.dto.userdto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

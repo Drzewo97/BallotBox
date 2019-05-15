@@ -4,7 +4,7 @@ import com.drzewo97.ballotbox.model.poll.Poll;
 import com.drzewo97.ballotbox.model.role.Role;
 import com.drzewo97.ballotbox.model.user.User;
 import com.drzewo97.ballotbox.model.user.UserRepository;
-import com.drzewo97.ballotbox.web.dto.UserDto;
+import com.drzewo97.ballotbox.web.dto.userdto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

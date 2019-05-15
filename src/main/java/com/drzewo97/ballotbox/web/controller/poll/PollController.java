@@ -1,4 +1,4 @@
-package com.drzewo97.ballotbox.web.controller;
+package com.drzewo97.ballotbox.web.controller.poll;
 
 import com.drzewo97.ballotbox.model.poll.Poll;
 import com.drzewo97.ballotbox.model.poll.PollRepository;
