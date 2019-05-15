@@ -5,6 +5,11 @@
     <title>Title</title>
 </head>
 <body>
+    <div th:if="${param.voted}">
+        <div class="alert alert-info">
+            You've already voted in this poll!
+        </div>
+    </div>
     <table>
         <caption><h3>Polls:</h3></caption>
         <thead>
@@ -20,7 +25,7 @@
             <td th:text="${poll.id}" />
             <td th:text="${poll.name}" />
             <td th:text="${poll.description}" />
-            <td><a>Vote</a></td>
+            <td><a th:href="@{/polls/} + ${poll.id} + '/vote'">Vote</a></td>
         </tr>
         </tbody>
     </table>

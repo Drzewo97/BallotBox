@@ -1,0 +1,81 @@
+package com.drzewo97.ballotbox.service.pollservice;
+
+import com.drzewo97.ballotbox.model.choice.Choice;
+import com.drzewo97.ballotbox.model.poll.Poll;
+import com.drzewo97.ballotbox.model.poll.PollRepository;
+import com.drzewo97.ballotbox.model.user.User;
+import com.drzewo97.ballotbox.model.vote.Vote;
+import com.drzewo97.ballotbox.model.vote.VoteRepository;
+import com.drzewo97.ballotbox.service.userservice.UserService;
+import com.drzewo97.ballotbox.web.dto.ChoiceDto;
+import com.drzewo97.ballotbox.web.dto.VoteDto;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+
+@Service
+public class PollServiceImpl implements PollService {
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private PollRepository pollRepository;
+
+    @Autowired
+    private VoteRepository voteRepository;
+
+    @Override
+    public Boolean hasVoted(String username, Long pollId) {
+        // find user
+        Optional<User> user = userService.findByUsername(username);
+
+        if(user.isPresent()){
+            for(Poll poll : user.get().getPollsVoted()){
+                // Check if there is a poll of this id in user's pollsVoted
+                if(poll.getId().equals(pollId))
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
+    @Override
+    public Optional<Poll> findById(Long id) {
+        return pollRepository.findById(id);
+    }
+
+    @Override
+    public void registerVotes(Poll poll, VoteDto voteDto) {
+        Set<Choice> choices = new HashSet<>();
+
+        // Pick those choices from poll.choices that match chosen from voteDto.choices
+        //TODO: refactor choices in vote to list
+        for(ChoiceDto c : voteDto.getChoices()){
+            if(c.getChosen()){
+                for(Choice ch : poll.getChoices()){
+                    if(c.getName().equals(ch.getName())) {
+                        choices.add(ch);
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Construct new vote
+        Vote vote = new Vote();
+        vote.setPoll(poll);
+        vote.setChoice(choices);
+        voteRepository.save(vote);
+
+        // TODO: Probably not the best practice
+        poll.appendVote(vote);
+        pollRepository.save(poll);
+    }
+
+
+}

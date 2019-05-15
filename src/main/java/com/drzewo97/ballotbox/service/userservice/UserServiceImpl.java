@@ -1,5 +1,6 @@
 package com.drzewo97.ballotbox.service.userservice;
 
+import com.drzewo97.ballotbox.model.poll.Poll;
 import com.drzewo97.ballotbox.model.role.Role;
 import com.drzewo97.ballotbox.model.user.User;
 import com.drzewo97.ballotbox.model.user.UserRepository;
@@ -50,10 +51,20 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-
     @Override
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public void voted(String username, Poll poll) {
+        Optional<User> user = userRepository.findByUsername(username);
+        if(user.isEmpty())
+            //TODO: throw?
+            return;
+
+        user.get().appendPollsVoted(poll);
+        userRepository.save(user.get());
     }
 
     /**
