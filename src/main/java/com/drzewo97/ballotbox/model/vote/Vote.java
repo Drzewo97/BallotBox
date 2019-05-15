@@ -4,6 +4,7 @@ import com.drzewo97.ballotbox.model.choice.Choice;
 import com.drzewo97.ballotbox.model.poll.Poll;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Vote {
@@ -15,8 +16,14 @@ public class Vote {
     @ManyToOne
     private Poll poll;
 
-    @ManyToOne
-    private Choice choice;
+    @ManyToMany
+    @JoinTable(
+            name = "votes_choices",
+            joinColumns = @JoinColumn(
+                    name = "vote_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "choice_id", referencedColumnName = "id"))
+    private Set<Choice> choice;
 
     public Vote() {
     }
@@ -37,11 +44,11 @@ public class Vote {
         this.poll = poll;
     }
 
-    public Choice getChoice() {
+    public Set<Choice> getChoice() {
         return choice;
     }
 
-    public void setChoice(Choice choice) {
+    public void setChoice(Set<Choice> choice) {
         this.choice = choice;
     }
 }

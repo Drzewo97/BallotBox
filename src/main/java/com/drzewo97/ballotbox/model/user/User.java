@@ -32,6 +32,15 @@ public class User {
     @OneToMany
     private Set<Poll> pollsCreated;
 
+    @ManyToMany
+    @JoinTable(
+            name = "users_poles_voted",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "poll_id", referencedColumnName = "id"))
+    private Set<Poll> pollsVoted;
+
     public User() {}
 
     public Long getId() {
@@ -72,5 +81,17 @@ public class User {
 
     public void setPollsCreated(Set<Poll> pollsCreated) {
         this.pollsCreated = pollsCreated;
+    }
+
+    public Set<Poll> getPollsVoted() {
+        return pollsVoted;
+    }
+
+    public void setPollsVoted(Set<Poll> pollsVoted) {
+        this.pollsVoted = pollsVoted;
+    }
+
+    public void appendPollsVoted(Poll poll){
+        this.pollsVoted.add(poll);
     }
 }

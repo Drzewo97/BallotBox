@@ -52,6 +52,9 @@ public class Poll {
 
     private LocalDateTime openUntil;
 
+    @ManyToMany(mappedBy = "pollsVoted")
+    private Set<User> voters;
+
     public Poll() {
     }
 
@@ -133,5 +136,17 @@ public class Poll {
 
     public void setOpenUntil(LocalDateTime openUntil) {
         this.openUntil = openUntil;
+    }
+
+    public Set<User> getVoters() {
+        return voters;
+    }
+
+    public void setVoters(Set<User> voters) {
+        this.voters = voters;
+    }
+
+    public void appendVote(Vote vote){
+        this.votes.add(vote);
     }
 }

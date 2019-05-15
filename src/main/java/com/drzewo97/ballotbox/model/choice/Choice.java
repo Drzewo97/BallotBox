@@ -13,7 +13,7 @@ public class Choice {
 
     private String name;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "choices")
     private Set<Poll> polls;
 
     public Choice() {
