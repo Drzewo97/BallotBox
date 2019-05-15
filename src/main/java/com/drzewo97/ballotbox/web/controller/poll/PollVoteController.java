@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+/**
+ * Controller for controlling poll voting form
+ */
 @Controller
 @RequestMapping(path = "/polls/{id}/vote")
 public class PollVoteController {
@@ -27,19 +30,17 @@ public class PollVoteController {
 
     @GetMapping
     private String showPollVote(@PathVariable Long id, Model model){
-        // if no poll of such id
+        // poll of id passed in parameter
         Optional<Poll> poll = pollService.findById(id);
-        if(poll.isEmpty()){
-            return "redirect:/polls";
-        }
 
         //Get username
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
 
-        // if user already voted in this poll
-        if(poll.get().hasVoted(currentPrincipalName)){
-            return "redirect:/polls?voted=true";
+        // Redirect if user cannot vote on this pole
+        String redirection;
+        if((redirection = validate(poll, currentPrincipalName)) != null){
+            return redirection;
         }
 
         VoteDto vote = new VoteDto(poll.get());
@@ -54,20 +55,17 @@ public class PollVoteController {
     public String registerUserAccount(@ModelAttribute("vote") VoteDto voteDto,
                                       @PathVariable Long id,
                                       BindingResult result){
-        //TODO: same validation code
-        // if no poll of such id
+        // poll of id passed in parameter
         Optional<Poll> poll = pollService.findById(id);
-        if(poll.isEmpty()){
-            return "redirect:/polls";
-        }
 
         //Get username
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
 
-        // if user already voted in this poll
-        if(poll.get().hasVoted(currentPrincipalName)){
-            return "redirect:/polls?voted=true";
+        // Redirect if user cannot vote on this pole
+        String redirection;
+        if((redirection = validate(poll, currentPrincipalName)) != null){
+            return redirection;
         }
 
         // Register user votes
@@ -77,5 +75,25 @@ public class PollVoteController {
         userService.voted(currentPrincipalName, poll.get());
 
         return "redirect:/polls?success";
+    }
+
+    /**
+     * Check if user can vote on this poll
+     * @param poll poll that the user wants to vote in
+     * @param username name of the user
+     * @return null if user can vote, string with redirection link otherwise
+     */
+    private String validate(Optional<Poll> poll, String username){
+        // If no such poll
+        if(poll.isEmpty()){
+            return "redirect:/polls";
+        }
+
+        // if user already voted in this poll
+        if(poll.get().hasVoted(username)){
+            return "redirect:/polls?voted";
+        }
+
+        return null;
     }
 }
