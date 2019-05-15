@@ -149,4 +149,19 @@ public class Poll {
     public void appendVote(Vote vote){
         this.votes.add(vote);
     }
+
+    /**
+     * Check if user of username has already voted on this poll
+     * @param username voter to be checked
+     * @return true if has voted already, false otherwise
+     */
+    public Boolean hasVoted(String username){
+        for(User u : voters){
+            if(username.equals(u.getUsername())){
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

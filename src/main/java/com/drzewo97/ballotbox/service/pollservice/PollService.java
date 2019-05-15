@@ -11,7 +11,11 @@ public interface PollService {
      * @param username username of the user
      * @param pollId id of poll to be checked
      * @return true only if user has voted, 0 in any other case
+     * @deprecated use only when you don't need to persist Poll entity,
+     * otherwise use method provided in Poll class (only because I say so)
+     * @see Poll
      */
+    @Deprecated
     Boolean hasVoted(String username, Long pollId);
 
     Optional<Poll> findById(Long id);

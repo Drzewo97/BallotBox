@@ -38,8 +38,7 @@ public class PollVoteController {
         String currentPrincipalName = authentication.getName();
 
         // if user already voted in this poll
-        //TODO: private method on object above, maybe public method of object
-        if(pollService.hasVoted(currentPrincipalName, id)){
+        if(poll.get().hasVoted(currentPrincipalName)){
             return "redirect:/polls?voted=true";
         }
 
@@ -67,8 +66,7 @@ public class PollVoteController {
         String currentPrincipalName = authentication.getName();
 
         // if user already voted in this poll
-        //TODO: private method on object above, maybe public method of object
-        if(pollService.hasVoted(currentPrincipalName, id)){
+        if(poll.get().hasVoted(currentPrincipalName)){
             return "redirect:/polls?voted=true";
         }
 
