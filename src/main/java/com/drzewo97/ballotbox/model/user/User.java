@@ -94,4 +94,8 @@ public class User {
     public void appendPollsVoted(Poll poll){
         this.pollsVoted.add(poll);
     }
+
+    public void appendPollsCreated(Poll poll){
+        this.pollsCreated.add(poll);
+    }
 }

@@ -86,16 +86,12 @@ public class PollServiceImpl implements PollService {
 
         // Set all fields
         Poll poll = new Poll();
-        // username from security context - caller (PollCreateController) requires USER role, so it has to be authenticated previously
-        // unless something happens between caller receiving request and program reaches this point
-        poll.setCreator(user.get());
         poll.setName(pollDto.getName());
         poll.setDescription(pollDto.getDescription());
         poll.setChoices(pollDto.getChoices());
         poll.setOpenFrom(pollDto.getOpenFrom());
         poll.setOpenUntil(pollDto.getOpenUntil());
         poll.setChoicesCount(pollDto.getChoicesCount());
-
         // Just to simplify, and not deal with enum in template form
         if(pollDto.getExactly()){
             poll.setVotingMode(VotingMode.EXACTLY);
@@ -103,6 +99,11 @@ public class PollServiceImpl implements PollService {
         else{
             poll.setVotingMode(VotingMode.AT_MOST);
         }
+
+        // username from security context - caller (PollCreateController) requires USER role, so it has to be authenticated previously
+        // unless something happens between caller receiving request and program reaches this point
+        poll.setCreator(user.get());
+        user.get().appendPollsCreated(poll);
 
         pollRepository.save(poll);
     }
