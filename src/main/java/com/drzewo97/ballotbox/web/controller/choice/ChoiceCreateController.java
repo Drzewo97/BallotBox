@@ -42,6 +42,6 @@ public class ChoiceCreateController {
         }
 
         choiceService.save(choiceDto);
-        return "redirect:/choice/create?success";
+        return "redirect:/choices/create?success";
     }
 }
