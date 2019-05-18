@@ -6,6 +6,9 @@ import com.drzewo97.ballotbox.web.dto.choicedto.ChoiceDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class ChoiceServiceImpl implements ChoiceService {
 
@@ -23,5 +26,13 @@ public class ChoiceServiceImpl implements ChoiceService {
         choice.setName(choiceDto.getName());
 
         choiceRepository.save(choice);
+    }
+
+    @Override
+    public List<Choice> findAllChoices() {
+        List<Choice> choices = new ArrayList<>();
+        choiceRepository.findAll().forEach(choices::add);
+
+        return choices;
     }
 }
