@@ -1,6 +1,6 @@
 package com.drzewo97.ballotbox.web.dto.userdto;
 
-import com.drzewo97.ballotbox.constraint.FieldMatch;
+import com.drzewo97.ballotbox.constraint.fieldmatch.FieldMatch;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

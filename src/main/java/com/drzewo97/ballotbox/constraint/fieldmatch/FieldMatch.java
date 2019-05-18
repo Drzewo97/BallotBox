@@ -1,4 +1,4 @@
-package com.drzewo97.ballotbox.constraint;
+package com.drzewo97.ballotbox.constraint.fieldmatch;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

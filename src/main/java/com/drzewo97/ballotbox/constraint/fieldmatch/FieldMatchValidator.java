@@ -1,4 +1,4 @@
-package com.drzewo97.ballotbox.constraint;
+package com.drzewo97.ballotbox.constraint.fieldmatch;
 
 import org.springframework.beans.BeanWrapperImpl;
 
@@ -7,7 +7,7 @@ import javax.validation.ConstraintValidatorContext;
 import java.beans.PropertyDescriptor;
 
 /**
- * Validator for FieldMatch annotation
+ * Validator for fieldmatch annotation
  * @see FieldMatch
  */
 public class FieldMatchValidator implements ConstraintValidator<FieldMatch, Object> {
