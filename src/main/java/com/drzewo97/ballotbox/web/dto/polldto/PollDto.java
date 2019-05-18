@@ -1,22 +1,34 @@
 package com.drzewo97.ballotbox.web.dto.polldto;
 
+import com.drzewo97.ballotbox.constraint.collectionsize.CollectionSize;
+import com.drzewo97.ballotbox.constraint.datesorder.DatesOrder;
 import com.drzewo97.ballotbox.model.choice.Choice;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 import java.util.Set;
 
 /**
  * @see com.drzewo97.ballotbox.model.poll.Poll
  */
+@DatesOrder(before = "openFrom", after = "openUntil", message = "From must be before Until")
+@CollectionSize(size = "choicesCount", collection = "choices")
 public class PollDto {
+    @NotEmpty
     private String name;
 
     private String description;
 
     //TODO: choiceDao/String?
+    @NotEmpty
     private Set<Choice> choices;
 
+    @NotNull
+    @Positive
     private Integer choicesCount;
 
     /**
@@ -24,11 +36,15 @@ public class PollDto {
      * if true - VotingMode.EXACTLY, false - VotingMode.AT_MOST
      * @see com.drzewo97.ballotbox.model.poll.VotingMode
      */
+    @NotNull
     private Boolean exactly;
 
+    @NotNull
+    @Future
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime openFrom;
 
+    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime openUntil;
 

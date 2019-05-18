@@ -29,4 +29,11 @@ public interface PollService {
      * @param creatorUsername username of creator
      */
     void save(PollDto pollDto, String creatorUsername);
+
+    /**
+     * Check if Poll exists by name provided
+     * @param name name of the poll that has to be checked
+     * @return true if name exists in data source, false otherwise
+     */
+    Boolean existsByName(String name);
 }

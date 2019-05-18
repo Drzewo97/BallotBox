@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
+
 @Controller
 @RequestMapping(path = "/polls/create")
 public class PollCreateController {
@@ -35,8 +37,10 @@ public class PollCreateController {
     }
 
     @PostMapping
-    private String createPoll(@ModelAttribute("poll") PollDto pollDto, BindingResult result){
-        //TODO: validation: doesn't exist, from < until
+    private String createPoll(@ModelAttribute("poll") @Valid PollDto pollDto, BindingResult result){
+        if(pollService.existsByName(pollDto.getName())){
+            result.rejectValue("name", "name.exist", "Poll already exists.");
+        }
         if(result.hasErrors()){
             return "poll_create";
         }

@@ -106,4 +106,9 @@ public class PollServiceImpl implements PollService {
 
         pollRepository.save(poll);
     }
+
+    @Override
+    public Boolean existsByName(String name) {
+        return pollRepository.existsByName(name);
+    }
 }

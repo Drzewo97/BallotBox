@@ -11,8 +11,15 @@
         You've successfully created a poll!
     </div>
 </div>
+
 <h1>Create poll</h1>
 <form th:action="@{/polls/create}" th:object="${poll}" method="post">
+
+    <!-- Doesn't show percise errors -->
+    <ul th:if="${#fields.hasAnyErrors()}">
+        <li th:each="err : ${#fields.allErrors()}" th:text="${err}">Input is incorrect</li>
+    </ul>
+
     <div>
         <label for="name">Name</label>
         <input id="name"
