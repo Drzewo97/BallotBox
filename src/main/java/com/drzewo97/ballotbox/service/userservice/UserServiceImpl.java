@@ -2,8 +2,10 @@ package com.drzewo97.ballotbox.service.userservice;
 
 import com.drzewo97.ballotbox.model.poll.Poll;
 import com.drzewo97.ballotbox.model.role.Role;
+import com.drzewo97.ballotbox.model.role.RoleRepository;
 import com.drzewo97.ballotbox.model.user.User;
 import com.drzewo97.ballotbox.model.user.UserRepository;
+import com.drzewo97.ballotbox.web.dao.userdao.UserDao;
 import com.drzewo97.ballotbox.web.dto.userdto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,6 +23,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
@@ -73,5 +78,39 @@ public class UserServiceImpl implements UserService {
      */
     private Collection<GrantedAuthority> getUserAuthorities(User user){
         return user.getRoles().stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UserDao> getAllUsers() {
+        List<UserDao> userDaos = new ArrayList<>();
+        userRepository.findAll().forEach(u -> userDaos.add(new UserDao(u.getId(), u.getUsername(), u.getRoles())));
+
+        return userDaos;
+    }
+
+    @Override
+    public void toggleModeratorRole(Long userId) {
+        // Check if user exists
+        Optional<User> user = userRepository.findById(userId);
+        if(user.isEmpty()){
+            return;
+        }
+
+        // get moderator role
+        Optional<Role> moderatorRole = roleRepository.findByName("ROLE_MODERATOR");
+        if(moderatorRole.isEmpty()){
+            throw new RuntimeException("There is no moderator role");
+        }
+
+        // Toggle moderator role on user
+        if(user.get().getRoles().contains(moderatorRole.get())){
+            user.get().getRoles().remove(moderatorRole.get());
+        }
+        else{
+            user.get().getRoles().add(moderatorRole.get());
+        }
+
+        // save user
+        userRepository.save(user.get());
     }
 }
