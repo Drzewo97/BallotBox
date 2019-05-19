@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage users</title>
+</head>
+<body>
+    <table>
+        <caption><h3>Users:</h3></caption>
+        <thead>
+        <tr>
+            <td>Id</td>
+            <td>Username</td>
+            <td>Actions</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}" />
+            <td th:text="${user.username}" />
+            <td>
+                <!-- TODO: manage roles -->
+                <a th:href="@{/manage/users/toggle-moderator/} + ${user.id}" th:if="${user.roles.?[name == 'ROLE_MODERATOR'].isEmpty()}">Make moderator</a>
+                <a th:href="@{/manage/users/toggle-moderator/} + ${user.id}" th:if="${not user.roles.?[name == 'ROLE_MODERATOR'].isEmpty()}">Unmake moderator</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

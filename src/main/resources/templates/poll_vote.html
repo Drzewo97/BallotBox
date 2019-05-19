@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+
+    <title>Vote</title>
+</head>
+<body>
+
+<h1>Vote</h1>
+
+<form th:action="@{/polls/} + ${poll.id} + '/vote'" th:object="${vote}" method="post">
+    <table th:each="choice, itemStat : *{choices}">
+        <td>
+            <!-- TODO: Definitely wrong way to do this, but hey, it works and i'm tired -->
+            <input readonly="readonly" th:field="*{choices[__${itemStat.index}__].name}"/>
+        </td>
+        <td>
+            <input type="checkbox" th:field="*{choices[__${itemStat.index}__].chosen}"/>
+        </td>
+    </table>
+    <button type="submit">Vote</button>
+</form>
+
+</body>
+</html>

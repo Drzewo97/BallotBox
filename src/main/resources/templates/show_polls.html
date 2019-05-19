@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:if="${param.voted}">
+        You've already voted in this poll!
+    </div>
+
+    <div th:if="${param.success}">
+        You've casted your vote!
+    </div>
+
+    <table>
+        <caption><h3>Polls:</h3></caption>
+        <thead>
+        <tr>
+            <td>Id</td>
+            <td>Poll Name</td>
+            <td>Poll Description</td>
+            <td>Actions</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="poll : ${polls}">
+            <td th:text="${poll.id}" />
+            <td th:text="${poll.name}" />
+            <td th:text="${poll.description}" />
+            <td><a th:href="@{/polls/} + ${poll.id} + '/vote'">Vote</a></td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>
