@@ -13,7 +13,7 @@
 </div>
 
 <h1>Create poll</h1>
-<form th:action="@{/polls/create}" th:object="${poll}" method="post">
+<form th:action="@{/manage/polls/create}" th:object="${poll}" method="post">
 
     <!-- Doesn't show percise errors -->
     <ul th:if="${#fields.hasAnyErrors()}">

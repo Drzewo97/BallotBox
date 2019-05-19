@@ -12,7 +12,7 @@
 </div>
 <h1>Create choice:</h1>
 
-<form th:action="@{/choices/create}" th:object="${choice}" method="post">
+<form th:action="@{/manage/choices/create}" th:object="${choice}" method="post">
 
     <p th:each="error : ${#fields.errors('name')}"
        th:text="${error}">Validation error</p>

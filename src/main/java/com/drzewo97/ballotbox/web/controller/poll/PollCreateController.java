@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping(path = "/polls/create")
+@RequestMapping(path = "/manage/polls/create")
 public class PollCreateController {
 
     @Autowired
@@ -49,6 +49,6 @@ public class PollCreateController {
         String currentPrincipalName = SecurityContextHolder.getContext().getAuthentication().getName();
 
         pollService.save(pollDto, currentPrincipalName);
-        return "redirect:/polls/create?success";
+        return "redirect:create?success";
     }
 }

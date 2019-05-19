@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(path = "/choices/create")
+@RequestMapping(path = "/manage/choices/create")
 public class ChoiceCreateController {
 
     @Autowired
@@ -42,6 +42,6 @@ public class ChoiceCreateController {
         }
 
         choiceService.save(choiceDto);
-        return "redirect:/choices/create?success";
+        return "redirect:create?success";
     }
 }
