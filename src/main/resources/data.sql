@@ -11,12 +11,9 @@ insert into user (id, username, password) values
 insert into users_roles (user_id, role_id) values
 -- admin
   ('1', '1'),
-  ('1', '2'),
-  ('1', '3'),
 -- user
   ('2', '2'),
 -- moderator
-  ('3', '2'),
   ('3', '3');
 
 insert into choice(id, name) values
