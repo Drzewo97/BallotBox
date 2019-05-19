@@ -1,15 +1,23 @@
 insert into role (id, name) values
   ('1', 'ROLE_ADMIN'),
-  ('2', 'ROLE_USER');
+  ('2', 'ROLE_USER'),
+  ('3', 'ROLE_MODERATOR');
 
 insert into user (id, username, password) values
   ('1', 'admin', 'test'),
-  ('2', 'user', 'test');
+  ('2', 'user', 'test'),
+  ('3', 'moderator', 'test');
 
 insert into users_roles (user_id, role_id) values
+-- admin
   ('1', '1'),
   ('1', '2'),
-  ('2', '2');
+  ('1', '3'),
+-- user
+  ('2', '2'),
+-- moderator
+  ('3', '2'),
+  ('3', '3');
 
 insert into choice(id, name) values
   ('1', 'choice1'),
