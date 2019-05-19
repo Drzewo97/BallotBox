@@ -14,6 +14,7 @@ insert into users_roles (user_id, role_id) values
 -- user
   ('2', '2'),
 -- moderator
+  ('3', '2'),
   ('3', '3');
 
 insert into choice(id, name) values
