@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDao> getAllUsers() {
         List<UserDao> userDaos = new ArrayList<>();
-        userRepository.findAll().forEach(u -> userDaos.add(new UserDao(u.getId(), u.getUsername(), u.getRoles())));
+        userRepository.findAll().forEach(u -> userDaos.add(UserDao.construct(u)));
 
         return userDaos;
     }

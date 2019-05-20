@@ -1,6 +1,7 @@
 package com.drzewo97.ballotbox.web.dao.userdao;
 
 import com.drzewo97.ballotbox.model.role.Role;
+import com.drzewo97.ballotbox.model.user.User;
 
 import java.util.Set;
 
@@ -12,10 +13,15 @@ public class UserDao {
 
     private Set<Role> roles;
 
-    public UserDao() {
+    public static UserDao construct(User user){
+        return new UserDao(user.getId(), user.getUsername(), user.getRoles());
     }
 
-    public UserDao(Long id, String username, Set<Role> roles) {
+    private UserDao(){
+
+    }
+
+    private UserDao(Long id, String username, Set<Role> roles) {
         this.id = id;
         this.username = username;
         this.roles = roles;
