@@ -15,4 +15,6 @@ public interface UserService extends UserDetailsService {
     void save(UserDto userDto);
     List<UserDao> getAllUsers();
     void toggleModeratorRole(Long userId);
+    Optional<UserDao> findById(Long id);
+    Boolean existsById(Long id);
 }

@@ -113,4 +113,19 @@ public class UserServiceImpl implements UserService {
         // save user
         userRepository.save(user.get());
     }
+
+    @Override
+    public Optional<UserDao> findById(Long id) {
+        Optional<User> user = userRepository.findById(id);
+        if(user.isEmpty()){
+            return Optional.empty();
+        }
+
+        return Optional.of(UserDao.construct(user.get()));
+    }
+
+    @Override
+    public Boolean existsById(Long id) {
+        return userRepository.existsById(id);
+    }
 }

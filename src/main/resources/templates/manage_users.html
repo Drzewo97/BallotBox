@@ -19,9 +19,7 @@
             <td th:text="${user.id}" />
             <td th:text="${user.username}" />
             <td>
-                <!-- TODO: manage roles -->
-                <a th:href="@{/manage/users/toggle-moderator/} + ${user.id}" th:if="${user.roles.?[name == 'ROLE_MODERATOR'].isEmpty()}">Make moderator</a>
-                <a th:href="@{/manage/users/toggle-moderator/} + ${user.id}" th:if="${not user.roles.?[name == 'ROLE_MODERATOR'].isEmpty()}">Unmake moderator</a>
+                <a th:href="@{/manage/users/} + ${user.id}">Manage</a>
             </td>
         </tr>
         </tbody>
