@@ -1,7 +1,7 @@
 package com.drzewo97.ballotbox.web.dao.userdao;
 
-import com.drzewo97.ballotbox.model.role.Role;
-import com.drzewo97.ballotbox.model.user.User;
+import com.drzewo97.ballotbox.core.model.role.Role;
+import com.drzewo97.ballotbox.core.model.user.User;
 
 import java.util.Set;
 

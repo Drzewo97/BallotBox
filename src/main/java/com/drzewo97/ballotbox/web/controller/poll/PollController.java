@@ -1,7 +1,7 @@
 package com.drzewo97.ballotbox.web.controller.poll;
 
-import com.drzewo97.ballotbox.model.poll.Poll;
-import com.drzewo97.ballotbox.model.poll.PollRepository;
+import com.drzewo97.ballotbox.core.model.poll.Poll;
+import com.drzewo97.ballotbox.core.model.poll.PollRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

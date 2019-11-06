@@ -1,8 +1,8 @@
 package com.drzewo97.ballotbox.web.dto.polldto;
 
-import com.drzewo97.ballotbox.constraint.collectionsize.CollectionSize;
-import com.drzewo97.ballotbox.constraint.datesorder.DatesOrder;
-import com.drzewo97.ballotbox.model.choice.Choice;
+import com.drzewo97.ballotbox.core.constraint.collectionsize.CollectionSize;
+import com.drzewo97.ballotbox.core.constraint.datesorder.DatesOrder;
+import com.drzewo97.ballotbox.core.model.choice.Choice;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Future;
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 /**
- * @see com.drzewo97.ballotbox.model.poll.Poll
+ * @see com.drzewo97.ballotbox.core.model.poll.Poll
  */
 @DatesOrder(before = "openFrom", after = "openUntil", message = "From must be before Until")
 @CollectionSize(size = "choicesCount", collection = "choices")
@@ -34,7 +34,7 @@ public class PollDto {
     /**
      * Just to simplify, and not deal with enum in template form
      * if true - VotingMode.EXACTLY, false - VotingMode.AT_MOST
-     * @see com.drzewo97.ballotbox.model.poll.VotingMode
+     * @see com.drzewo97.ballotbox.core.model.poll.VotingMode
      */
     @NotNull
     private Boolean exactly;

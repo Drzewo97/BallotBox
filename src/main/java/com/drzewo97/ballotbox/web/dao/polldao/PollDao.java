@@ -1,10 +1,10 @@
 package com.drzewo97.ballotbox.web.dao.polldao;
 
-import com.drzewo97.ballotbox.model.poll.Poll;
+import com.drzewo97.ballotbox.core.model.poll.Poll;
 
 /**
  * DAO for Poll entity
- * @see com.drzewo97.ballotbox.model.poll.Poll
+ * @see com.drzewo97.ballotbox.core.model.poll.Poll
  */
 public class PollDao {
 

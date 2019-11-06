@@ -1,6 +1,6 @@
 package com.drzewo97.ballotbox.config;
 
-import com.drzewo97.ballotbox.service.userservice.UserService;
+import com.drzewo97.ballotbox.core.service.userservice.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,8 +28,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/h2_console/**", "/h2/**", "/manage/users/**").hasRole("ADMIN")
                 .antMatchers("/manage/**").hasRole("MODERATOR")
-                .antMatchers("/**").hasRole("USER")
                 .antMatchers("/registration").permitAll()
+                .antMatchers("/**").hasRole("USER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

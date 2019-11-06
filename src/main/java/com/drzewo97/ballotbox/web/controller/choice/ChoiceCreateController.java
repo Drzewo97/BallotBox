@@ -1,6 +1,6 @@
 package com.drzewo97.ballotbox.web.controller.choice;
 
-import com.drzewo97.ballotbox.service.choiceservice.ChoiceService;
+import com.drzewo97.ballotbox.core.service.choiceservice.ChoiceService;
 import com.drzewo97.ballotbox.web.dto.choicedto.ChoiceDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
