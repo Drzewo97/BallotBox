@@ -16,7 +16,7 @@ public class UsersManageController {
 
     @GetMapping
     public String showRegistrationForm(Model model){
-        model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("users", userService.findAll());
         return "manage_users";
     }
 

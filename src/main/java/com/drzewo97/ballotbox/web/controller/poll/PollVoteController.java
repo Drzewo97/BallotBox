@@ -3,7 +3,6 @@ package com.drzewo97.ballotbox.web.controller.poll;
 import com.drzewo97.ballotbox.core.model.poll.Poll;
 import com.drzewo97.ballotbox.core.service.pollservice.PollService;
 import com.drzewo97.ballotbox.core.service.userservice.UserService;
-import com.drzewo97.ballotbox.web.dao.polldao.PollDao;
 import com.drzewo97.ballotbox.web.dto.votedto.VoteDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -45,7 +44,7 @@ public class PollVoteController {
 
         VoteDto vote = new VoteDto(poll.get());
 
-        model.addAttribute("poll", PollDao.construct(poll.get()));
+        model.addAttribute("poll", poll.get());
         model.addAttribute("vote", vote);
 
         return "poll_vote";

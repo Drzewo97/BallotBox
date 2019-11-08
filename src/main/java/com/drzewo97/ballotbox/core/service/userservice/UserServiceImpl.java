@@ -5,7 +5,6 @@ import com.drzewo97.ballotbox.core.model.role.Role;
 import com.drzewo97.ballotbox.core.model.role.RoleRepository;
 import com.drzewo97.ballotbox.core.model.user.User;
 import com.drzewo97.ballotbox.core.model.user.UserRepository;
-import com.drzewo97.ballotbox.web.dao.userdao.UserDao;
 import com.drzewo97.ballotbox.web.dto.userdto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -55,7 +55,12 @@ public class UserServiceImpl implements UserService {
         // save in datasource
         userRepository.save(user);
     }
-
+    
+    @Override
+    public List<User> findAll() {
+        return StreamSupport.stream(userRepository.findAll().spliterator(), false).collect(Collectors.toList());
+    }
+    
     @Override
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
@@ -78,14 +83,6 @@ public class UserServiceImpl implements UserService {
      */
     private Collection<GrantedAuthority> getUserAuthorities(User user){
         return user.getRoles().stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<UserDao> getAllUsers() {
-        List<UserDao> userDaos = new ArrayList<>();
-        userRepository.findAll().forEach(u -> userDaos.add(UserDao.construct(u)));
-
-        return userDaos;
     }
 
     @Override
@@ -113,17 +110,12 @@ public class UserServiceImpl implements UserService {
         // save user
         userRepository.save(user.get());
     }
-
+    
     @Override
-    public Optional<UserDao> findById(Long id) {
-        Optional<User> user = userRepository.findById(id);
-        if(user.isEmpty()){
-            return Optional.empty();
-        }
-
-        return Optional.of(UserDao.construct(user.get()));
+    public Optional<User> findById(Long id) {
+        return Optional.empty();
     }
-
+    
     @Override
     public Boolean existsById(Long id) {
         return userRepository.existsById(id);

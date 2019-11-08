@@ -1,7 +1,7 @@
 package com.drzewo97.ballotbox.web.controller.user;
 
+import com.drzewo97.ballotbox.core.model.user.User;
 import com.drzewo97.ballotbox.core.service.userservice.UserService;
-import com.drzewo97.ballotbox.web.dao.userdao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +20,7 @@ public class UserManageController {
 
     @GetMapping
     public String showUserManage(@PathVariable Long id, Model model){
-        Optional<UserDao> user = userService.findById(id);
+        Optional<User> user = userService.findById(id);
 
         if(user.isEmpty()){
             return "redirect:/manage/users";
