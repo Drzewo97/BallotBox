@@ -13,7 +13,7 @@
 </div>
 
 <h1>Create poll</h1>
-<form th:action="@{/manage/polls/create}" th:object="${poll}" method="post">
+<form th:action="@{/panel/poll/create}" th:object="${poll}" method="post">
 
     <!-- Doesn't show percise errors -->
     <ul th:if="${#fields.hasAnyErrors()}">
@@ -57,7 +57,7 @@
                th:field="*{openUntil}"/>
     </div>
     <div>
-        <label for="choices">Open from</label>
+        <label for="choices">Select available choices</label>
         <select id="choices" th:field="*{choices}" multiple="multiple">
             <option th:each="c : ${allChoices}"
                     th:value="${{c}}"

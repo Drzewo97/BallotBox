@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Ballotbox Administration Panel</title>
+</head>
+<body>
+    <a th:href="@{/panel/poll/create}" sec:authorize="hasRole('ROLE_ADMIN')">Add poll</a>
+    <!-- show all current/future (exclude past) -->
+    <!-- show finished -->
+</body>
+</html>
