@@ -1,7 +1,7 @@
-package com.drzewo97.ballotbox.web.dto.votedto;
+package com.drzewo97.ballotbox.core.dto.votedto;
 
 import com.drzewo97.ballotbox.core.model.poll.Poll;
-import com.drzewo97.ballotbox.web.dto.choicedto.ChoiceDto;
+import com.drzewo97.ballotbox.core.dto.choicedto.ChoiceDto;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;

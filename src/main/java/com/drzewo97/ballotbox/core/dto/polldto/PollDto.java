@@ -1,4 +1,4 @@
-package com.drzewo97.ballotbox.web.dto.polldto;
+package com.drzewo97.ballotbox.core.dto.polldto;
 
 import com.drzewo97.ballotbox.core.constraint.collectionsize.CollectionSize;
 import com.drzewo97.ballotbox.core.constraint.datesorder.DatesOrder;

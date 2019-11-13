@@ -1,4 +1,4 @@
-package com.drzewo97.ballotbox.web.dto.userdto;
+package com.drzewo97.ballotbox.core.dto.userdto;
 
 import com.drzewo97.ballotbox.core.constraint.fieldmatch.FieldMatch;
 

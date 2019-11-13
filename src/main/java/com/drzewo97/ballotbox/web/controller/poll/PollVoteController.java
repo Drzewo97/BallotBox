@@ -3,7 +3,7 @@ package com.drzewo97.ballotbox.web.controller.poll;
 import com.drzewo97.ballotbox.core.model.poll.Poll;
 import com.drzewo97.ballotbox.core.service.pollservice.PollService;
 import com.drzewo97.ballotbox.core.service.userservice.UserService;
-import com.drzewo97.ballotbox.web.dto.votedto.VoteDto;
+import com.drzewo97.ballotbox.core.dto.votedto.VoteDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

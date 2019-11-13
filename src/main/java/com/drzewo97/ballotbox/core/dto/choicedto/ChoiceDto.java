@@ -1,4 +1,4 @@
-package com.drzewo97.ballotbox.web.dto.choicedto;
+package com.drzewo97.ballotbox.core.dto.choicedto;
 
 public class ChoiceDto {
 

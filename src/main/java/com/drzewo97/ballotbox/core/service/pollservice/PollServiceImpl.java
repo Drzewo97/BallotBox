@@ -8,9 +8,9 @@ import com.drzewo97.ballotbox.core.model.user.User;
 import com.drzewo97.ballotbox.core.model.vote.Vote;
 import com.drzewo97.ballotbox.core.model.vote.VoteRepository;
 import com.drzewo97.ballotbox.core.service.userservice.UserService;
-import com.drzewo97.ballotbox.web.dto.choicedto.ChoiceDto;
-import com.drzewo97.ballotbox.web.dto.polldto.PollDto;
-import com.drzewo97.ballotbox.web.dto.votedto.VoteDto;
+import com.drzewo97.ballotbox.core.dto.choicedto.ChoiceDto;
+import com.drzewo97.ballotbox.core.dto.polldto.PollDto;
+import com.drzewo97.ballotbox.core.dto.votedto.VoteDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

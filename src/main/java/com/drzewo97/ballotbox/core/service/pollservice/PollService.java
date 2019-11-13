@@ -1,8 +1,8 @@
 package com.drzewo97.ballotbox.core.service.pollservice;
 
 import com.drzewo97.ballotbox.core.model.poll.Poll;
-import com.drzewo97.ballotbox.web.dto.polldto.PollDto;
-import com.drzewo97.ballotbox.web.dto.votedto.VoteDto;
+import com.drzewo97.ballotbox.core.dto.polldto.PollDto;
+import com.drzewo97.ballotbox.core.dto.votedto.VoteDto;
 
 import java.util.Optional;
 
