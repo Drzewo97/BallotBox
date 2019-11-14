@@ -19,7 +19,7 @@
     <ul th:if="${#fields.hasAnyErrors()}">
         <li th:each="err : ${#fields.allErrors()}" th:text="${err}">Input is incorrect</li>
     </ul>
-
+<!-- TODO: Add ward, district, country selection -->
     <div>
         <label for="name">Name</label>
         <input id="name"
