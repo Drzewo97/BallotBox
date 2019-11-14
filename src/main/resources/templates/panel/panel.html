@@ -6,6 +6,9 @@
 </head>
 <body>
     <a th:href="@{/panel/poll/create}" sec:authorize="hasRole('ROLE_ADMIN')">Add poll</a>
+    <a th:href="@{/panel/country/create}" sec:authorize="hasRole('ROLE_ADMIN')">Add country</a>
+    <a th:href="@{/panel/district/create}" sec:authorize="hasRole('ROLE_ADMIN')">Add district</a>
+    <a th:href="@{/panel/ward/create}" sec:authorize="hasRole('ROLE_ADMIN')">Add ward</a>
     <!-- show all current/future (exclude past) -->
     <!-- show finished -->
 </body>
