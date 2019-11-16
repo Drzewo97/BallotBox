@@ -10,6 +10,7 @@
     <a th:href="@{/panel/district/create}" sec:authorize="hasRole('ROLE_ADMIN')">Add district</a>
     <a th:href="@{/panel/ward/create}" sec:authorize="hasRole('ROLE_ADMIN')">Add ward</a>
     <a th:href="@{/panel/candidate/register}" sec:authorize="hasRole('ROLE_ADMIN')">Register candidate</a>
+    <a th:href="@{/panel/election/create}" sec:authorize="hasRole('ROLE_ADMIN')">Create election</a>
     <!-- show all current/future (exclude past) -->
     <!-- show finished -->
 </body>
