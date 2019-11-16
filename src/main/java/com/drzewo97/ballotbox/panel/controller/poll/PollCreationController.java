@@ -1,5 +1,8 @@
 package com.drzewo97.ballotbox.panel.controller.poll;
 
+import com.drzewo97.ballotbox.core.model.country.CountryRepository;
+import com.drzewo97.ballotbox.core.model.district.DistrictRepository;
+import com.drzewo97.ballotbox.core.model.ward.WardRepository;
 import com.drzewo97.ballotbox.core.service.choiceservice.ChoiceService;
 import com.drzewo97.ballotbox.core.service.pollservice.PollService;
 import com.drzewo97.ballotbox.core.dto.polldto.PollDto;
@@ -20,6 +23,15 @@ import javax.validation.Valid;
 public class PollCreationController {
 	
 	@Autowired
+	private CountryRepository countryRepository;
+	
+	@Autowired
+	private DistrictRepository districtRepository;
+	
+	@Autowired
+	private WardRepository wardRepository;
+	
+	@Autowired
 	private PollService pollService;
 	
 	@Autowired
@@ -32,7 +44,11 @@ public class PollCreationController {
 	
 	@GetMapping
 	private String showPollCreate(Model model){
+		model.addAttribute("countries", countryRepository.findAll());
+		model.addAttribute("districts", districtRepository.findAll());
+		model.addAttribute("wards", wardRepository.findAll());
 		model.addAttribute("allChoices", choiceService.findAllChoices());
+		
 		return "panel/poll_create";
 	}
 	

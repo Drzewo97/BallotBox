@@ -2,7 +2,9 @@ package com.drzewo97.ballotbox.core.dto.polldto;
 
 import com.drzewo97.ballotbox.core.constraint.collectionsize.CollectionSize;
 import com.drzewo97.ballotbox.core.constraint.datesorder.DatesOrder;
-import com.drzewo97.ballotbox.core.model.choice.Choice;
+import com.drzewo97.ballotbox.core.model.country.Country;
+import com.drzewo97.ballotbox.core.model.district.District;
+import com.drzewo97.ballotbox.core.model.ward.Ward;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Future;
@@ -22,10 +24,12 @@ public class PollDto {
     private String name;
 
     private String description;
-
-    //TODO: choiceDao/String?
-    @NotEmpty
-    private Set<Choice> choices;
+    
+    private Set<Country> countries;
+    
+    private Set<District> districts;
+    
+    private Set<Ward> wards;
 
     @NotNull
     @Positive
@@ -67,14 +71,6 @@ public class PollDto {
         this.description = description;
     }
 
-    public Set<Choice> getChoices() {
-        return choices;
-    }
-
-    public void setChoices(Set<Choice> choices) {
-        this.choices = choices;
-    }
-
     public Integer getChoicesCount() {
         return choicesCount;
     }
@@ -105,5 +101,29 @@ public class PollDto {
 
     public void setOpenUntil(LocalDateTime openUntil) {
         this.openUntil = openUntil;
+    }
+    
+    public Set<Country> getCountries() {
+        return countries;
+    }
+    
+    public void setCountries(Set<Country> countries) {
+        this.countries = countries;
+    }
+    
+    public Set<District> getDistricts() {
+        return districts;
+    }
+    
+    public void setDistricts(Set<District> districts) {
+        this.districts = districts;
+    }
+    
+    public Set<Ward> getWards() {
+        return wards;
+    }
+    
+    public void setWards(Set<Ward> wards) {
+        this.wards = wards;
     }
 }

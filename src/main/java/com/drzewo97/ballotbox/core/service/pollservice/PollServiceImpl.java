@@ -88,7 +88,6 @@ public class PollServiceImpl implements PollService {
         Poll poll = new Poll();
         poll.setName(pollDto.getName());
         poll.setDescription(pollDto.getDescription());
-        poll.setChoices(pollDto.getChoices());
         poll.setOpenFrom(pollDto.getOpenFrom());
         poll.setOpenUntil(pollDto.getOpenUntil());
         poll.setChoicesCount(pollDto.getChoicesCount());

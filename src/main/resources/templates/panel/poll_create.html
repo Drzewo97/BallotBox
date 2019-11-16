@@ -19,7 +19,6 @@
     <ul th:if="${#fields.hasAnyErrors()}">
         <li th:each="err : ${#fields.allErrors()}" th:text="${err}">Input is incorrect</li>
     </ul>
-<!-- TODO: Add ward, district, country selection -->
     <div>
         <label for="name">Name</label>
         <input id="name"
@@ -57,11 +56,27 @@
                th:field="*{openUntil}"/>
     </div>
     <div>
-        <label for="choices">Select available choices</label>
-        <select id="choices" th:field="*{choices}" multiple="multiple">
-            <option th:each="c : ${allChoices}"
+        <label for="countries">Select countries</label>
+        <select id="countries" th:field="*{countries}" multiple="multiple">
+            <option th:each="c : ${countries}"
                     th:value="${{c}}"
                     th:text="${c.name}"></option>
+        </select>
+    </div>
+    <div>
+        <label for="districts">Select districts</label>
+        <select id="districts" th:field="*{districts}" multiple="multiple">
+            <option th:each="d : ${districts}"
+                    th:value="${{d}}"
+                    th:text="${d.name} + ': ' + ${d.country.name}"></option>
+        </select>
+    </div>
+    <div>
+        <label for="wards">Select wards</label>
+        <select id="wards" th:field="*{wards}" multiple="multiple">
+            <option th:each="w : ${wards}"
+                    th:value="${{w}}"
+                    th:text="${w.name} + ': ' + ${w.district.name} + ': ' + ${w.district.country.name}"></option>
         </select>
     </div>
     <div>
