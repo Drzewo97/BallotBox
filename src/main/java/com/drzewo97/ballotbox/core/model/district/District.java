@@ -1,6 +1,6 @@
 package com.drzewo97.ballotbox.core.model.district;
 
-import com.drzewo97.ballotbox.core.model.choice.Choice;
+import com.drzewo97.ballotbox.core.model.candidate.Candidate;
 import com.drzewo97.ballotbox.core.model.country.Country;
 import com.drzewo97.ballotbox.core.model.ward.Ward;
 
@@ -23,7 +23,7 @@ public class District {
 	private Country country;
 	
 	@OneToMany(mappedBy = "district")
-	private Set<Choice> choices;
+	private Set<Candidate> candidates;
 	
 	public Long getId() {
 		return id;
@@ -57,11 +57,11 @@ public class District {
 		this.country = country;
 	}
 	
-	public Set<Choice> getChoices() {
-		return choices;
+	public Set<Candidate> getCandidates() {
+		return candidates;
 	}
 	
-	public void setChoices(Set<Choice> choices) {
-		this.choices = choices;
+	public void setCandidates(Set<Candidate> candidates) {
+		this.candidates = candidates;
 	}
 }

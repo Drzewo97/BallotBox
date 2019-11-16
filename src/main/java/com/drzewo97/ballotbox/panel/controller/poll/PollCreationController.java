@@ -3,7 +3,7 @@ package com.drzewo97.ballotbox.panel.controller.poll;
 import com.drzewo97.ballotbox.core.model.country.CountryRepository;
 import com.drzewo97.ballotbox.core.model.district.DistrictRepository;
 import com.drzewo97.ballotbox.core.model.ward.WardRepository;
-import com.drzewo97.ballotbox.core.service.choiceservice.ChoiceService;
+import com.drzewo97.ballotbox.core.service.candidateservice.CandidateService;
 import com.drzewo97.ballotbox.core.service.pollservice.PollService;
 import com.drzewo97.ballotbox.core.dto.polldto.PollDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class PollCreationController {
 	private PollService pollService;
 	
 	@Autowired
-	private ChoiceService choiceService;
+	private CandidateService candidateService;
 	
 	@ModelAttribute("poll")
 	private PollDto pollDto(){
@@ -47,7 +47,7 @@ public class PollCreationController {
 		model.addAttribute("countries", countryRepository.findAll());
 		model.addAttribute("districts", districtRepository.findAll());
 		model.addAttribute("wards", wardRepository.findAll());
-		model.addAttribute("allChoices", choiceService.findAllChoices());
+		model.addAttribute("allCandidates", candidateService.findAllCandidates());
 		
 		return "panel/poll_create";
 	}

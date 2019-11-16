@@ -18,7 +18,7 @@ import java.util.Set;
  * @see com.drzewo97.ballotbox.core.model.poll.Poll
  */
 @DatesOrder(before = "openFrom", after = "openUntil", message = "From must be before Until")
-@CollectionSize(size = "choicesCount", collection = "choices")
+@CollectionSize(size = "candidatesCount", collection = "candidates")
 public class PollDto {
     @NotEmpty
     private String name;
@@ -33,7 +33,7 @@ public class PollDto {
 
     @NotNull
     @Positive
-    private Integer choicesCount;
+    private Integer candidatesCount;
 
     /**
      * Just to simplify, and not deal with enum in template form
@@ -71,12 +71,12 @@ public class PollDto {
         this.description = description;
     }
 
-    public Integer getChoicesCount() {
-        return choicesCount;
+    public Integer getCandidatesCount() {
+        return candidatesCount;
     }
 
-    public void setChoicesCount(Integer choicesCount) {
-        this.choicesCount = choicesCount;
+    public void setCandidatesCount(Integer candidatesCount) {
+        this.candidatesCount = candidatesCount;
     }
 
     public Boolean getExactly() {

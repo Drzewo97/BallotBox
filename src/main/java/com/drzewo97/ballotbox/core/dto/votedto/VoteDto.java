@@ -1,7 +1,7 @@
 package com.drzewo97.ballotbox.core.dto.votedto;
 
 import com.drzewo97.ballotbox.core.model.poll.Poll;
-import com.drzewo97.ballotbox.core.dto.choicedto.ChoiceDto;
+import com.drzewo97.ballotbox.core.dto.candidatedto.CandidateDto;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -13,14 +13,14 @@ public class VoteDto {
     private Poll poll;
 
     @NotNull
-    private List<ChoiceDto> choices;
+    private List<CandidateDto> candidates;
 
     public VoteDto() {
     }
 
     public VoteDto(@NotNull Poll poll) {
         this.poll = poll;
-        this.choices = poll.getChoices().stream().map(c -> new ChoiceDto(c.getName(), false)).collect(Collectors.toList());
+        this.candidates = poll.getCandidates().stream().map(c -> new CandidateDto(c.getName(), false)).collect(Collectors.toList());
     }
 
     public Poll getPoll() {
@@ -31,11 +31,11 @@ public class VoteDto {
         this.poll = poll;
     }
 
-    public List<ChoiceDto> getChoices() {
-        return choices;
+    public List<CandidateDto> getCandidates() {
+        return candidates;
     }
 
-    public void setChoices(List<ChoiceDto> choices) {
-        this.choices = choices;
+    public void setCandidates(List<CandidateDto> candidates) {
+        this.candidates = candidates;
     }
 }

@@ -1,6 +1,6 @@
 package com.drzewo97.ballotbox.core.model.poll;
 
-import com.drzewo97.ballotbox.core.model.choice.Choice;
+import com.drzewo97.ballotbox.core.model.candidate.Candidate;
 import com.drzewo97.ballotbox.core.model.user.User;
 import com.drzewo97.ballotbox.core.model.vote.Vote;
 
@@ -27,12 +27,12 @@ public class Poll {
      */
     @ManyToMany
     @JoinTable(
-            name = "polls_choices",
+            name = "polls_candidates",
             joinColumns = @JoinColumn(
                     name = "poll_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
-                    name = "choice_id", referencedColumnName = "id"))
-    private Set<Choice> choices;
+                    name = "candidate_id", referencedColumnName = "id"))
+    private Set<Candidate> candidates;
 
     /**
      * Set of all casted votes
@@ -43,7 +43,7 @@ public class Poll {
     /**
      * Number of possible choices for a user
      */
-    private Integer choicesCount;
+    private Integer candidatesCount;
 
     @Enumerated(EnumType.STRING)
     private VotingMode votingMode;
@@ -90,12 +90,12 @@ public class Poll {
         this.description = description;
     }
 
-    public Set<Choice> getChoices() {
-        return choices;
+    public Set<Candidate> getCandidates() {
+        return candidates;
     }
 
-    public void setChoices(Set<Choice> choices) {
-        this.choices = choices;
+    public void setCandidates(Set<Candidate> candidates) {
+        this.candidates = candidates;
     }
 
     public Set<Vote> getVotes() {
@@ -106,12 +106,12 @@ public class Poll {
         this.votes = votes;
     }
 
-    public Integer getChoicesCount() {
-        return choicesCount;
+    public Integer getCandidatesCount() {
+        return candidatesCount;
     }
 
-    public void setChoicesCount(Integer choicesCount) {
-        this.choicesCount = choicesCount;
+    public void setCandidatesCount(Integer candidatesCount) {
+        this.candidatesCount = candidatesCount;
     }
 
     public VotingMode getVotingMode() {

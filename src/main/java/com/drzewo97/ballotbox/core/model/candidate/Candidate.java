@@ -1,4 +1,4 @@
-package com.drzewo97.ballotbox.core.model.choice;
+package com.drzewo97.ballotbox.core.model.candidate;
 
 import com.drzewo97.ballotbox.core.model.country.Country;
 import com.drzewo97.ballotbox.core.model.district.District;
@@ -10,38 +10,38 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-public class Choice {
+public class Candidate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
-    @ManyToMany(mappedBy = "choices")
+    @ManyToMany(mappedBy = "candidates")
     private Set<Poll> polls;
     
     /**
-     * district of choice - if null it's not available in poll of district
+     * district of candidate - if null it's not available in poll of district
      */
     @ManyToOne
     @Nullable
     private District district;
     
     /**
-     * country of choice - if null it's not available in poll of country
+     * country of candidate - if null it's not available in poll of country
      */
     @ManyToOne
     @Nullable
     private Country country;
     
     /**
-     * ward of choice - if null it's not available in poll of ward
+     * ward of candidate - if null it's not available in poll of ward
      */
     @ManyToOne
     @Nullable
     private Ward ward;
 
-    public Choice() {
+    public Candidate() {
     }
     
     public Long getId() {

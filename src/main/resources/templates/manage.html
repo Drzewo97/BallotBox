@@ -5,7 +5,7 @@
     <title>Management panel</title>
 </head>
 <body>
-    <a th:href="@{/manage/choices/create}">Create a choice</a>
+    <a th:href="@{/manage/candidates/create}">Create a candidate</a>
     <a th:href="@{/manage/polls/create}">Create a poll</a>
     <a th:href="@{/manage/users}" sec:authorize="hasRole('ROLE_ADMIN')">Manage users</a>
 

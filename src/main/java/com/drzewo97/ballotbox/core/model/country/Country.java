@@ -1,6 +1,6 @@
 package com.drzewo97.ballotbox.core.model.country;
 
-import com.drzewo97.ballotbox.core.model.choice.Choice;
+import com.drzewo97.ballotbox.core.model.candidate.Candidate;
 import com.drzewo97.ballotbox.core.model.district.District;
 
 import javax.persistence.*;
@@ -20,7 +20,7 @@ public class Country {
 	private Set<District> districts;
 	
 	@OneToMany(mappedBy = "country")
-	private Set<Choice> choices;
+	private Set<Candidate> candidates;
 	
 	public Country(){
 	}
@@ -28,7 +28,7 @@ public class Country {
 	public Country(String name) {
 		this.name = name;
 		this.districts = new HashSet<>();
-		this.choices = new HashSet<>();
+		this.candidates = new HashSet<>();
 	}
 	
 	public Long getId() {
@@ -55,11 +55,11 @@ public class Country {
 		this.districts = districts;
 	}
 	
-	public Set<Choice> getChoices() {
-		return choices;
+	public Set<Candidate> getCandidates() {
+		return candidates;
 	}
 	
-	public void setChoices(Set<Choice> choices) {
-		this.choices = choices;
+	public void setCandidates(Set<Candidate> candidates) {
+		this.candidates = candidates;
 	}
 }

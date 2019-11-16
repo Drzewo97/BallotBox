@@ -10,13 +10,13 @@
 <h1>Vote</h1>
 
 <form th:action="@{/polls/} + ${poll.id} + '/vote'" th:object="${vote}" method="post">
-    <table th:each="choice, itemStat : *{choices}">
+    <table th:each="candidate, itemStat : *{candidates}">
         <td>
             <!-- TODO: Definitely wrong way to do this, but hey, it works and i'm tired -->
-            <input readonly="readonly" th:field="*{choices[__${itemStat.index}__].name}"/>
+            <input readonly="readonly" th:field="*{candidates[__${itemStat.index}__].name}"/>
         </td>
         <td>
-            <input type="checkbox" th:field="*{choices[__${itemStat.index}__].chosen}"/>
+            <input type="checkbox" th:field="*{candidates[__${itemStat.index}__].chosen}"/>
         </td>
     </table>
     <button type="submit">Vote</button>

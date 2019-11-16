@@ -1,19 +1,19 @@
-package com.drzewo97.ballotbox.core.dto.choicedto;
+package com.drzewo97.ballotbox.core.dto.candidatedto;
 
-public class ChoiceDto {
+public class CandidateDto {
 
     private String name;
     private Boolean chosen;
 
-    public ChoiceDto() {
+    public CandidateDto() {
     }
 
-    public ChoiceDto(String name, Boolean chosen) {
+    public CandidateDto(String name, Boolean chosen) {
         this.name = name;
         this.chosen = chosen;
     }
 
-    public ChoiceDto(String name) {
+    public CandidateDto(String name) {
         this.name = name;
         this.chosen = false;
     }

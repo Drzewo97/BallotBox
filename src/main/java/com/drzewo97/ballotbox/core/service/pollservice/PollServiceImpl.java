@@ -1,6 +1,6 @@
 package com.drzewo97.ballotbox.core.service.pollservice;
 
-import com.drzewo97.ballotbox.core.model.choice.Choice;
+import com.drzewo97.ballotbox.core.model.candidate.Candidate;
 import com.drzewo97.ballotbox.core.model.poll.Poll;
 import com.drzewo97.ballotbox.core.model.poll.PollRepository;
 import com.drzewo97.ballotbox.core.model.poll.VotingMode;
@@ -8,7 +8,7 @@ import com.drzewo97.ballotbox.core.model.user.User;
 import com.drzewo97.ballotbox.core.model.vote.Vote;
 import com.drzewo97.ballotbox.core.model.vote.VoteRepository;
 import com.drzewo97.ballotbox.core.service.userservice.UserService;
-import com.drzewo97.ballotbox.core.dto.choicedto.ChoiceDto;
+import com.drzewo97.ballotbox.core.dto.candidatedto.CandidateDto;
 import com.drzewo97.ballotbox.core.dto.polldto.PollDto;
 import com.drzewo97.ballotbox.core.dto.votedto.VoteDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,15 +53,15 @@ public class PollServiceImpl implements PollService {
 
     @Override
     public void registerVotes(Poll poll, VoteDto voteDto) {
-        Set<Choice> choices = new HashSet<>();
+        Set<Candidate> candidates = new HashSet<>();
 
         // Pick those choices from poll.choices that match chosen from voteDto.choices
         //TODO: refactor choices in vote to list
-        for(ChoiceDto c : voteDto.getChoices()){
+        for(CandidateDto c : voteDto.getCandidates()){
             if(c.getChosen()){
-                for(Choice ch : poll.getChoices()){
+                for(Candidate ch : poll.getCandidates()){
                     if(c.getName().equals(ch.getName())) {
-                        choices.add(ch);
+                        candidates.add(ch);
                         break;
                     }
                 }
@@ -71,7 +71,7 @@ public class PollServiceImpl implements PollService {
         // Construct new vote
         Vote vote = new Vote();
         vote.setPoll(poll);
-        vote.setChoice(choices);
+        vote.setCandidate(candidates);
         voteRepository.save(vote);
 
         // TODO: Probably not the best practice
@@ -90,7 +90,7 @@ public class PollServiceImpl implements PollService {
         poll.setDescription(pollDto.getDescription());
         poll.setOpenFrom(pollDto.getOpenFrom());
         poll.setOpenUntil(pollDto.getOpenUntil());
-        poll.setChoicesCount(pollDto.getChoicesCount());
+        poll.setCandidatesCount(pollDto.getCandidatesCount());
         // Just to simplify, and not deal with enum in template form
         if(pollDto.getExactly()){
             poll.setVotingMode(VotingMode.EXACTLY);
