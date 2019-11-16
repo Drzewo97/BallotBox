@@ -3,11 +3,11 @@ package com.drzewo97.ballotbox.core.model.candidate;
 import com.drzewo97.ballotbox.core.model.country.Country;
 import com.drzewo97.ballotbox.core.model.district.District;
 import com.drzewo97.ballotbox.core.model.poll.Poll;
+import com.drzewo97.ballotbox.core.model.user.User;
 import com.drzewo97.ballotbox.core.model.ward.Ward;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 public class Candidate {
@@ -16,9 +16,12 @@ public class Candidate {
     private Long id;
 
     private String name;
+    
+    @ManyToOne
+    private User user;
 
-    @ManyToMany(mappedBy = "candidates")
-    private Set<Poll> polls;
+    @ManyToOne
+    private Poll poll;
     
     /**
      * district of candidate - if null it's not available in poll of district
@@ -60,12 +63,20 @@ public class Candidate {
         this.name = name;
     }
     
-    public Set<Poll> getPolls() {
-        return polls;
+    public User getUser() {
+        return user;
     }
     
-    public void setPolls(Set<Poll> polls) {
-        this.polls = polls;
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
+    public Poll getPoll() {
+        return poll;
+    }
+    
+    public void setPoll(Poll poll) {
+        this.poll = poll;
     }
     
     @Nullable

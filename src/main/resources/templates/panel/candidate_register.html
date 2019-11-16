@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+
+    <title>Register candidate</title>
+</head>
+<body>
+<div th:if="${param.success}">
+    <div class="alert alert-info">
+        You've successfully registered a candidate!
+    </div>
+</div>
+
+<h1>Register candidate</h1>
+<form th:action="@{/panel/candidate/register}" th:object="${candidate}" method="post">
+
+    <!-- Doesn't show percise errors -->
+    <ul th:if="${#fields.hasAnyErrors()}">
+        <li th:each="err : ${#fields.allErrors()}" th:text="${err}">Input is incorrect</li>
+    </ul>
+    <div>
+        <label for="user">Select user</label>
+        <!-- TODO: mail, phone?-->
+        <select id="user" th:field="*{user}">
+            <option th:each="u : ${users}"
+                    th:value="${{u}}"
+                    th:text="${u.username}"></option>
+        </select>
+    </div>
+
+    <div>
+        <label for="name">Name</label>
+        <input id="name"
+               type="text"
+               th:field="*{name}"/>
+    </div>
+
+    <div>
+        <label for="poll">Select poll</label>
+        <select id="poll" th:field="*{poll}">
+            <option th:each="p : ${polls}"
+                    th:value="${{p}}"
+                    th:text="${p.name}"></option>
+        </select>
+    </div>
+    <!-- TODO: Only from poll-->
+    <div>
+        <label for="country">Select country</label>
+        <select id="country" th:field="*{country}">
+            <option th:each="c : ${countries}"
+                    th:value="${{c}}"
+                    th:text="${c.name}"></option>
+        </select>
+    </div>
+    <div>
+        <label for="district">Select district</label>
+        <select id="district" th:field="*{district}">
+            <option th:each="d : ${districts}"
+                    th:value="${{d}}"
+                    th:text="${d.name}"></option>
+        </select>
+    </div>
+    <div>
+        <label for="ward">Select ward</label>
+        <select id="ward" th:field="*{ward}">
+            <option th:each="w : ${wards}"
+                    th:value="${{w}}"
+                    th:text="${w.name}"></option>
+        </select>
+    </div>
+
+    <div>
+        <button type="submit">Create</button>
+    </div>
+</form>
+</body>
+</html>
