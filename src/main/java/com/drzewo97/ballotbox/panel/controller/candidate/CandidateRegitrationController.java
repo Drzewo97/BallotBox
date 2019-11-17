@@ -65,6 +65,6 @@ public class CandidateRegitrationController {
 		
 		candidateRepository.save(candidate);
 		
-		return "redirect:create?success";
+		return "redirect:register?success";
 	}
 }
