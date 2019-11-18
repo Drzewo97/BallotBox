@@ -71,7 +71,7 @@ public class PollServiceImpl implements PollService {
         // Construct new vote
         Vote vote = new Vote();
         vote.setPoll(poll);
-        vote.setCandidate(candidates);
+        //vote.setCandidate(candidates);
         voteRepository.save(vote);
 
         // TODO: Probably not the best practice

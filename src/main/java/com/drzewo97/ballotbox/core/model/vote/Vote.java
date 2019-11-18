@@ -1,6 +1,5 @@
 package com.drzewo97.ballotbox.core.model.vote;
 
-import com.drzewo97.ballotbox.core.model.candidate.Candidate;
 import com.drzewo97.ballotbox.core.model.poll.Poll;
 
 import javax.persistence.*;
@@ -16,14 +15,8 @@ public class Vote {
     @ManyToOne
     private Poll poll;
 
-    @ManyToMany
-    @JoinTable(
-            name = "votes_candidates",
-            joinColumns = @JoinColumn(
-                    name = "vote_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "candidate_id", referencedColumnName = "id"))
-    private Set<Candidate> candidate;
+    @OneToMany(mappedBy = "candidate")
+    private Set<VoteInfo> choices;
 
     public Vote() {
     }
@@ -43,12 +36,12 @@ public class Vote {
     public void setPoll(Poll poll) {
         this.poll = poll;
     }
-
-    public Set<Candidate> getCandidate() {
-        return candidate;
+    
+    public Set<VoteInfo> getChoices() {
+        return choices;
     }
-
-    public void setCandidate(Set<Candidate> candidate) {
-        this.candidate = candidate;
+    
+    public void setChoices(Set<VoteInfo> choices) {
+        this.choices = choices;
     }
 }
