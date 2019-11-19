@@ -44,7 +44,11 @@ public class Poll {
      * Number of possible choices for a user
      */
     private Integer candidatesCount;
+    
+    @Enumerated(EnumType.STRING)
+    private VotingMethod votingMethod;
 
+    // is included in voting method?
     @Enumerated(EnumType.STRING)
     private VotingMode votingMode;
 
@@ -149,7 +153,15 @@ public class Poll {
     public void appendVote(Vote vote){
         this.votes.add(vote);
     }
-
+    
+    public VotingMethod getVotingMethod() {
+        return votingMethod;
+    }
+    
+    public void setVotingMethod(VotingMethod votingMethod) {
+        this.votingMethod = votingMethod;
+    }
+    
     /**
      * Check if user of username has already voted on this poll
      * @param username voter to be checked

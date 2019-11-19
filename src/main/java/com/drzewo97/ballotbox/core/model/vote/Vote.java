@@ -15,7 +15,7 @@ public class Vote {
     @ManyToOne
     private Poll poll;
 
-    @OneToMany(mappedBy = "candidate")
+    @OneToMany(mappedBy = "vote")
     private Set<VoteInfo> choices;
 
     public Vote() {

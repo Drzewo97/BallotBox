@@ -1,9 +1,9 @@
 package com.drzewo97.ballotbox.core.dto.polldto;
 
-import com.drzewo97.ballotbox.core.constraint.collectionsize.CollectionSize;
 import com.drzewo97.ballotbox.core.constraint.datesorder.DatesOrder;
 import com.drzewo97.ballotbox.core.model.country.Country;
 import com.drzewo97.ballotbox.core.model.district.District;
+import com.drzewo97.ballotbox.core.model.poll.VotingMethod;
 import com.drzewo97.ballotbox.core.model.ward.Ward;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -18,7 +18,7 @@ import java.util.Set;
  * @see com.drzewo97.ballotbox.core.model.poll.Poll
  */
 @DatesOrder(before = "openFrom", after = "openUntil", message = "From must be before Until")
-@CollectionSize(size = "candidatesCount", collection = "candidates")
+//@CollectionSize(size = "candidatesCount", collection = "candidates")
 public class PollDto {
     @NotEmpty
     private String name;
@@ -42,6 +42,8 @@ public class PollDto {
      */
     @NotNull
     private Boolean exactly;
+    
+    private VotingMethod votingMethod;
 
     @NotNull
     @Future
@@ -125,5 +127,13 @@ public class PollDto {
     
     public void setWards(Set<Ward> wards) {
         this.wards = wards;
+    }
+    
+    public VotingMethod getVotingMethod() {
+        return votingMethod;
+    }
+    
+    public void setVotingMethod(VotingMethod votingMethod) {
+        this.votingMethod = votingMethod;
     }
 }

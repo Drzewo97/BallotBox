@@ -59,7 +59,7 @@
         <label for="countries">Select countries</label>
         <select id="countries" th:field="*{countries}" multiple="multiple">
             <option th:each="c : ${countries}"
-                    th:value="${{c}}"
+                    th:value="${{c.id}}"
                     th:text="${c.name}"></option>
         </select>
     </div>
@@ -67,7 +67,7 @@
         <label for="districts">Select districts</label>
         <select id="districts" th:field="*{districts}" multiple="multiple">
             <option th:each="d : ${districts}"
-                    th:value="${{d}}"
+                    th:value="${{d.id}}"
                     th:text="${d.name} + ': ' + ${d.country.name}"></option>
         </select>
     </div>
@@ -75,8 +75,16 @@
         <label for="wards">Select wards</label>
         <select id="wards" th:field="*{wards}" multiple="multiple">
             <option th:each="w : ${wards}"
-                    th:value="${{w}}"
+                    th:value="${{w.id}}"
                     th:text="${w.name} + ': ' + ${w.district.name} + ': ' + ${w.district.country.name}"></option>
+        </select>
+    </div>
+    <div>
+        <label for="votingMethod">Select voting method</label>
+        <select id="votingMethod" th:field="*{votingMethod}">
+            <option th:each="v : ${T(com.drzewo97.ballotbox.core.model.poll.VotingMethod).values()}"
+                    th:value="${v}"
+                    th:text="${v}"></option>
         </select>
     </div>
     <div>
