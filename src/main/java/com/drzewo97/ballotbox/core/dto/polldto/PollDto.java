@@ -3,7 +3,7 @@ package com.drzewo97.ballotbox.core.dto.polldto;
 import com.drzewo97.ballotbox.core.constraint.datesorder.DatesOrder;
 import com.drzewo97.ballotbox.core.model.country.Country;
 import com.drzewo97.ballotbox.core.model.district.District;
-import com.drzewo97.ballotbox.core.model.poll.VotingMethod;
+import com.drzewo97.ballotbox.core.model.poll.PollType;
 import com.drzewo97.ballotbox.core.model.ward.Ward;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -43,7 +43,7 @@ public class PollDto {
     @NotNull
     private Boolean exactly;
     
-    private VotingMethod votingMethod;
+    private PollType pollType;
 
     @NotNull
     @Future
@@ -129,11 +129,11 @@ public class PollDto {
         this.wards = wards;
     }
     
-    public VotingMethod getVotingMethod() {
-        return votingMethod;
+    public PollType getPollType() {
+        return pollType;
     }
     
-    public void setVotingMethod(VotingMethod votingMethod) {
-        this.votingMethod = votingMethod;
+    public void setPollType(PollType pollType) {
+        this.pollType = pollType;
     }
 }

@@ -80,9 +80,9 @@
         </select>
     </div>
     <div>
-        <label for="votingMethod">Select voting method</label>
-        <select id="votingMethod" th:field="*{votingMethod}">
-            <option th:each="v : ${T(com.drzewo97.ballotbox.core.model.poll.VotingMethod).values()}"
+        <label for="pollType">Select voting method</label>
+        <select id="pollType" th:field="*{pollType}">
+            <option th:each="v : ${T(com.drzewo97.ballotbox.core.model.poll.PollType).values()}"
                     th:value="${v}"
                     th:text="${v}"></option>
         </select>

@@ -46,7 +46,7 @@ public class Poll {
     private Integer candidatesCount;
     
     @Enumerated(EnumType.STRING)
-    private VotingMethod votingMethod;
+    private PollType pollType;
 
     // is included in voting method?
     @Enumerated(EnumType.STRING)
@@ -154,12 +154,12 @@ public class Poll {
         this.votes.add(vote);
     }
     
-    public VotingMethod getVotingMethod() {
-        return votingMethod;
+    public PollType getPollType() {
+        return pollType;
     }
     
-    public void setVotingMethod(VotingMethod votingMethod) {
-        this.votingMethod = votingMethod;
+    public void setPollType(PollType pollType) {
+        this.pollType = pollType;
     }
     
     /**
