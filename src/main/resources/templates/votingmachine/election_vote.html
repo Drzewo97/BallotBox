@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${election.name}"></title>
+</head>
+<body>
+    <form th:action="@{/election/} + ${election.id} + @{/vote}" th:object="${electionVote}" method="post">
+        <th:block th:each="poll, stat : ${election.polls}">
+            <div th:insert="votingmachine/poll_vote :: pollVote"/>
+        </th:block>
+        <div>
+            <button type="submit">Create</button>
+        </div>
+    </form>
+</body>
+</html>

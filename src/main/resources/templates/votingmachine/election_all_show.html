@@ -13,6 +13,10 @@
     You've casted your vote!
 </div>
 
+<div th:if="${param.empty}">
+    No such election!
+</div>
+
 <table>
     <caption><h3>Elections:</h3></caption>
     <thead>

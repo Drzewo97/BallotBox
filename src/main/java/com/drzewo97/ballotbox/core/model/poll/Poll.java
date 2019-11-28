@@ -25,13 +25,7 @@ public class Poll {
     /**
      * Set of possible choices for voter
      */
-    @ManyToMany
-    @JoinTable(
-            name = "polls_candidates",
-            joinColumns = @JoinColumn(
-                    name = "poll_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "candidate_id", referencedColumnName = "id"))
+    @OneToMany(mappedBy = "poll")
     private Set<Candidate> candidates;
 
     /**

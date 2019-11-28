@@ -15,7 +15,7 @@ public class Vote {
     @ManyToOne
     private Poll poll;
 
-    @OneToMany(mappedBy = "vote")
+    @OneToMany(mappedBy = "vote", cascade = CascadeType.PERSIST)
     private Set<VoteInfo> choices;
 
     public Vote() {

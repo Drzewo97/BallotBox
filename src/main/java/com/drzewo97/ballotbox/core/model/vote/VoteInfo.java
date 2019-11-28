@@ -25,6 +25,18 @@ public class VoteInfo {
 	 */
 	private Integer preferenceNumber;
 	
+	public VoteInfo() {
+	}
+	
+	public VoteInfo(Vote vote, Candidate candidate, Integer preferenceNumber) {
+		this.vote = vote;
+		this.candidate = candidate;
+		this.preferenceNumber = preferenceNumber;
+		this.id = new VoteInfoPK();
+		this.id.setCandidateId(candidate.getId());
+		this.id.setVoteId(vote.getId());
+	}
+	
 	public VoteInfoPK getId() {
 		return id;
 	}

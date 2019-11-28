@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="pollVote">
+    <div th:text="${poll.name}" />
+    <div>
+        <label for="candidates">Select candidate(s)</label>
+        <select id="candidates" th:field="*{choices}" multiple="multiple">
+            <!-- TODO: for each above, add preference choice if type of poll is suitable -->
+            <option th:each="c : ${poll.candidates}"
+                    th:value="${c.id}"
+                    th:text="${c.name}"></option>
+        </select>
+    </div>
+</div>
+</body>
+</html>
