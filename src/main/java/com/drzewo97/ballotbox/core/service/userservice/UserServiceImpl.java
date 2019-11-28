@@ -1,11 +1,10 @@
 package com.drzewo97.ballotbox.core.service.userservice;
 
-import com.drzewo97.ballotbox.core.model.poll.Poll;
+import com.drzewo97.ballotbox.core.dto.userdto.UserDto;
 import com.drzewo97.ballotbox.core.model.role.Role;
 import com.drzewo97.ballotbox.core.model.role.RoleRepository;
 import com.drzewo97.ballotbox.core.model.user.User;
 import com.drzewo97.ballotbox.core.model.user.UserRepository;
-import com.drzewo97.ballotbox.core.dto.userdto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,10 +12,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -57,67 +57,15 @@ public class UserServiceImpl implements UserService {
     }
     
     @Override
-    public List<User> findAll() {
-        return StreamSupport.stream(userRepository.findAll().spliterator(), false).collect(Collectors.toList());
-    }
-    
-    @Override
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
-
-    @Override
-    public void voted(String username, Poll poll) {
-        Optional<User> user = userRepository.findByUsername(username);
-        if(user.isEmpty())
-            //TODO: throw?
-            return;
-
-        user.get().appendPollsVoted(poll);
-        userRepository.save(user.get());
-    }
-
+    
     /**
      * map roles of user to granted authorities required by UserDetails interface
      * @see UserDetails
      */
-    private Collection<GrantedAuthority> getUserAuthorities(User user){
+    private Collection<GrantedAuthority> getUserAuthorities(User user) {
         return user.getRoles().stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
-    }
-
-    @Override
-    public void toggleModeratorRole(Long userId) {
-        // Check if user exists
-        Optional<User> user = userRepository.findById(userId);
-        if(user.isEmpty()){
-            return;
-        }
-
-        // get moderator role
-        Optional<Role> moderatorRole = roleRepository.findByName("ROLE_MODERATOR");
-        if(moderatorRole.isEmpty()){
-            throw new RuntimeException("There is no moderator role");
-        }
-
-        // Toggle moderator role on user
-        if(user.get().getRoles().contains(moderatorRole.get())){
-            user.get().getRoles().remove(moderatorRole.get());
-        }
-        else{
-            user.get().getRoles().add(moderatorRole.get());
-        }
-
-        // save user
-        userRepository.save(user.get());
-    }
-    
-    @Override
-    public Optional<User> findById(Long id) {
-        return Optional.empty();
-    }
-    
-    @Override
-    public Boolean existsById(Long id) {
-        return userRepository.existsById(id);
     }
 }

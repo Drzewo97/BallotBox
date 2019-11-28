@@ -1,22 +1,16 @@
 package com.drzewo97.ballotbox.core.service.pollservice;
 
-import com.drzewo97.ballotbox.core.model.candidate.Candidate;
+import com.drzewo97.ballotbox.core.dto.polldto.PollDto;
 import com.drzewo97.ballotbox.core.model.poll.Poll;
 import com.drzewo97.ballotbox.core.model.poll.PollRepository;
 import com.drzewo97.ballotbox.core.model.poll.VotingMode;
 import com.drzewo97.ballotbox.core.model.user.User;
-import com.drzewo97.ballotbox.core.model.vote.Vote;
 import com.drzewo97.ballotbox.core.model.vote.VoteRepository;
 import com.drzewo97.ballotbox.core.service.userservice.UserService;
-import com.drzewo97.ballotbox.core.dto.candidatedto.CandidateDto;
-import com.drzewo97.ballotbox.core.dto.polldto.PollDto;
-import com.drzewo97.ballotbox.core.dto.votedto.VoteDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class PollServiceImpl implements PollService {
@@ -44,39 +38,6 @@ public class PollServiceImpl implements PollService {
         }
 
         return false;
-    }
-
-    @Override
-    public Optional<Poll> findById(Long id) {
-        return pollRepository.findById(id);
-    }
-
-    @Override
-    public void registerVotes(Poll poll, VoteDto voteDto) {
-        Set<Candidate> candidates = new HashSet<>();
-
-        // Pick those choices from poll.choices that match chosen from voteDto.choices
-        //TODO: refactor choices in vote to list
-        for(CandidateDto c : voteDto.getCandidates()){
-            if(c.getChosen()){
-                for(Candidate ch : poll.getCandidates()){
-                    if(c.getName().equals(ch.getName())) {
-                        candidates.add(ch);
-                        break;
-                    }
-                }
-            }
-        }
-
-        // Construct new vote
-        Vote vote = new Vote();
-        vote.setPoll(poll);
-        //vote.setCandidate(candidates);
-        voteRepository.save(vote);
-
-        // TODO: Probably not the best practice
-        poll.appendVote(vote);
-        pollRepository.save(poll);
     }
 
     @Override

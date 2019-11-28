@@ -1,10 +1,7 @@
 package com.drzewo97.ballotbox.core.service.pollservice;
 
-import com.drzewo97.ballotbox.core.model.poll.Poll;
 import com.drzewo97.ballotbox.core.dto.polldto.PollDto;
-import com.drzewo97.ballotbox.core.dto.votedto.VoteDto;
-
-import java.util.Optional;
+import com.drzewo97.ballotbox.core.model.poll.Poll;
 
 public interface PollService {
     /**
@@ -18,10 +15,6 @@ public interface PollService {
      */
     @Deprecated
     Boolean hasVoted(String username, Long pollId);
-
-    Optional<Poll> findById(Long id);
-
-    void registerVotes(Poll poll, VoteDto voteDto);
 
     /**
      * Save pollDto as poll
