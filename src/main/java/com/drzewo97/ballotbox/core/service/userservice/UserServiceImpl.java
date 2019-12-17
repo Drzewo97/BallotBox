@@ -1,7 +1,5 @@
 package com.drzewo97.ballotbox.core.service.userservice;
 
-import com.drzewo97.ballotbox.core.dto.userdto.UserDto;
-import com.drzewo97.ballotbox.core.model.role.Role;
 import com.drzewo97.ballotbox.core.model.role.RoleRepository;
 import com.drzewo97.ballotbox.core.model.user.User;
 import com.drzewo97.ballotbox.core.model.user.UserRepository;
@@ -13,10 +11,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -44,14 +40,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void save(UserDto userDto) {
-        // Construct new user based on DTO
-        User user = new User();
-        user.setUsername(userDto.getUsername());
-        user.setPassword(userDto.getPassword());
-        //TODO: get role prefix (can set it in JdbcUserDetailsManager)
-        user.setRoles(Stream.of(new Role("ROLE_USER")).collect(Collectors.toCollection(HashSet::new)));
-
+    public void save(User user) {
         // save in datasource
         userRepository.save(user);
     }
@@ -67,5 +56,11 @@ public class UserServiceImpl implements UserService {
      */
     private Collection<GrantedAuthority> getUserAuthorities(User user) {
         return user.getRoles().stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
+    }
+    
+    @Override
+    public Boolean isRegisterable(User user) {
+        //TODO: implement logic
+        return true;
     }
 }

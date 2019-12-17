@@ -1,7 +1,10 @@
 package com.drzewo97.ballotbox.core.model.user;
 
+import com.drzewo97.ballotbox.core.model.country.Country;
+import com.drzewo97.ballotbox.core.model.district.District;
 import com.drzewo97.ballotbox.core.model.poll.Poll;
 import com.drzewo97.ballotbox.core.model.role.Role;
+import com.drzewo97.ballotbox.core.model.ward.Ward;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -17,8 +20,29 @@ public class User {
     private Long id;
 
     private String username;
+    
+    private String firstName;
+    
+    private String surname;
 
     private String password;
+    
+    private String citizenId;
+    
+    private String email;
+    
+    private String address;
+    
+    private Boolean active;
+    
+    @ManyToOne
+    private Country country;
+    
+    @ManyToOne
+    private District district;
+    
+    @ManyToOne
+    private Ward ward;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
@@ -42,7 +66,79 @@ public class User {
     private Set<Poll> pollsVoted;
 
     public User() {}
-
+    
+    public String getEmail() {
+        return email;
+    }
+    
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
+    public String getAddress() {
+        return address;
+    }
+    
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    
+    public Boolean getActive() {
+        return active;
+    }
+    
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+    
+    public String getCitizenId() {
+        return citizenId;
+    }
+    
+    public void setCitizenId(String citizenId) {
+        this.citizenId = citizenId;
+    }
+    
+    public Country getCountry() {
+        return country;
+    }
+    
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+    
+    public District getDistrict() {
+        return district;
+    }
+    
+    public void setDistrict(District district) {
+        this.district = district;
+    }
+    
+    public Ward getWard() {
+        return ward;
+    }
+    
+    public void setWard(Ward ward) {
+        this.ward = ward;
+    }
+    
+    public String getFirstName() {
+        return firstName;
+    }
+    
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    
+    public String getSurname() {
+        return surname;
+    }
+    
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+    
     public Long getId() {
         return id;
     }
