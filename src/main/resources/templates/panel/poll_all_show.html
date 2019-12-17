@@ -18,6 +18,7 @@
     <tr th:each="p : ${polls}">
         <td th:text="${p.id}" />
         <td th:text="${p.name}" />
+        <td><a th:href="@{/panel/poll/} + ${p.id}">Summary</a></td>
     </tr>
     </tbody>
 </table>

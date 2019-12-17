@@ -156,6 +156,14 @@ public class Poll {
         this.pollType = pollType;
     }
     
+    public Boolean getActive(){
+        return LocalDateTime.now().isBefore(getOpenUntil()) && LocalDateTime.now().isAfter(getOpenFrom());
+    }
+    
+    public Integer getVotesCastedCount(){
+        return voters.size();
+    }
+    
     /**
      * Check if user of username has already voted on this poll
      * @param username voter to be checked

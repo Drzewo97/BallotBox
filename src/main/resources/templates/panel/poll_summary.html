@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Poll summary</title>
+</head>
+<body>
+<table>
+    <caption><h3>Poll:</h3></caption>
+    <thead>
+    <tr>
+        <td>Id</td>
+        <td>Poll Name</td>
+        <td>Active</td>
+        <td>Votes casted</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${poll.id}" />
+        <td th:text="${poll.name}" />
+        <td th:text="${poll.active}" />
+        <td th:text="${poll.votesCastedCount}" />
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
