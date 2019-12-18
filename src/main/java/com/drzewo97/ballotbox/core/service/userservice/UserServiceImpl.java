@@ -60,7 +60,8 @@ public class UserServiceImpl implements UserService {
     
     @Override
     public Boolean isRegisterable(User user) {
-        //TODO: implement logic
-        return true;
+        return !(userRepository.existsByUsername(user.getUsername()) ||
+                userRepository.existsByCitizenId(user.getCitizenId()) ||
+                userRepository.existsByEmail(user.getEmail()));
     }
 }
