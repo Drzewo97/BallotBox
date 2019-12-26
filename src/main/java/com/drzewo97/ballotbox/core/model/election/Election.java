@@ -14,7 +14,7 @@ public class Election {
 	
 	private String name;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "election")
 	private Set<Poll> polls;
 	
 	public Long getId() {

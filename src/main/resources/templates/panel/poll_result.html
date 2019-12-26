@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Poll Result</title>
+</head>
+<body>
+<table>
+    <caption><h3>Poll:</h3></caption>
+    <thead>
+    <tr>
+        <td>Id</td>
+        <td>Poll Name</td>
+        <td>Votes casted</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${poll.id}" />
+        <td th:text="${poll.name}" />
+        <td th:text="${result.votesCasted}" />
+    </tr>
+    </tbody>
+</table>
+
+<div>
+    <p>Resolved: </p>
+    <p th:text="${result.resolved}"></p>
+</div>
+
+<table>
+    <caption><h3>Results:</h3></caption>
+    <thead>
+    <tr>
+        <td>Name</td>
+        <td>Votes casted</td>
+        <td>Percentage</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="r : ${result.candidateResults}">
+        <td th:text="${r.candidate.name}" />
+        <td th:text="${r.votesPlaced}" />
+        <td th:text="${#numbers.formatDecimal((1.0 * r.votesPlaced / result.votesCasted)*100, 1, 'POINT', 2, 'COMMA')}" />
+    </tr>
+    </tbody>
+</table>
+
+
+<table th:if="${result.resolved}">
+    <caption><h3>Winners:</h3></caption>
+    <thead>
+    <tr>
+        <td>Name</td>
+        <td>Votes casted</td>
+        <td>Percentage</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="w : ${result.winners}">
+        <td th:text="${w.candidate.name}" />
+        <td th:text="${w.votesPlaced}" />
+        <td th:text="${#numbers.formatDecimal((1.0 * w.votesPlaced / result.votesCasted)*100, 1, 'POINT', 2, 'COMMA')}" />
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

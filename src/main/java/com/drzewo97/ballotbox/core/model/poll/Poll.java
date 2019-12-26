@@ -1,6 +1,7 @@
 package com.drzewo97.ballotbox.core.model.poll;
 
 import com.drzewo97.ballotbox.core.model.candidate.Candidate;
+import com.drzewo97.ballotbox.core.model.election.Election;
 import com.drzewo97.ballotbox.core.model.user.User;
 import com.drzewo97.ballotbox.core.model.vote.Vote;
 
@@ -31,7 +32,7 @@ public class Poll {
     /**
      * Set of all casted votes
      */
-    @OneToMany
+    @OneToMany(mappedBy = "poll")
     private Set<Vote> votes;
 
     /**
@@ -52,6 +53,9 @@ public class Poll {
 
     @ManyToMany(mappedBy = "pollsVoted")
     private Set<User> voters;
+    
+    @ManyToOne
+    private Election election;
 
     public Poll() {
     }
@@ -158,6 +162,14 @@ public class Poll {
     
     public Boolean getActive(){
         return LocalDateTime.now().isBefore(getOpenUntil()) && LocalDateTime.now().isAfter(getOpenFrom());
+    }
+    
+    public Election getElection() {
+        return election;
+    }
+    
+    public void setElection(Election election) {
+        this.election = election;
     }
     
     public Integer getVotesCastedCount(){
