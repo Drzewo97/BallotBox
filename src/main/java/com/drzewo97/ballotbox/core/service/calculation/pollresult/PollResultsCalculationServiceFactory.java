@@ -15,6 +15,7 @@ public class PollResultsCalculationServiceFactory {
 		
 		switch (poll.getPollType()){
 			case WINNER_TAKES_ALL:
+				returner = applicationContext.getBean(WinnerTakesAllResultCalculationService.class);
 				break;
 			case TWO_ROUND:
 				returner = applicationContext.getBean(TwoRoundResultCalculationService.class);

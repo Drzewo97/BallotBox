@@ -22,6 +22,10 @@ public class CandidateResult implements Comparable<CandidateResult> {
 		this.candidate = candidate;
 	}
 	
+	public CandidateResult(){
+		
+	}
+	
 	public Long getId() {
 		return id;
 	}
