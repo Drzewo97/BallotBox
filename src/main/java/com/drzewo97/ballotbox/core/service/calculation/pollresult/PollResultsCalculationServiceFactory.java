@@ -14,13 +14,12 @@ public class PollResultsCalculationServiceFactory {
 		PollResultCalculationService returner = null;
 		
 		switch (poll.getPollType()){
+			case INSTANT_RUNOFF_VOTING:
 			case WINNER_TAKES_ALL:
 				returner = applicationContext.getBean(WinnerTakesAllResultCalculationService.class);
 				break;
 			case TWO_ROUND:
 				returner = applicationContext.getBean(TwoRoundResultCalculationService.class);
-				break;
-			case INSTANT_RUNOFF_VOTING:
 				break;
 		}
 		

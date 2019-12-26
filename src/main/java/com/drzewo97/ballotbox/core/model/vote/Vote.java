@@ -1,12 +1,15 @@
 package com.drzewo97.ballotbox.core.model.vote;
 
+import com.drzewo97.ballotbox.core.model.candidate.Candidate;
 import com.drzewo97.ballotbox.core.model.poll.Poll;
 
 import javax.persistence.*;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Set;
 
 @Entity
-public class Vote {
+public class Vote implements IVote {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,5 +46,10 @@ public class Vote {
     
     public void setChoices(Set<VoteInfo> choices) {
         this.choices = choices;
+    }
+    
+    @Override
+    public Candidate getMostPreferredCandidate() {
+        return Collections.min(choices, Comparator.comparing(VoteInfo::getPreferenceNumber)).getCandidate();
     }
 }

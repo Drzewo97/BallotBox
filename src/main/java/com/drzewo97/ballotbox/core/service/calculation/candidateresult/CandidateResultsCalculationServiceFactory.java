@@ -20,6 +20,7 @@ public class CandidateResultsCalculationServiceFactory {
 				returner = applicationContext.getBean(VotesNumberResultsCalculationService.class);
 				break;
 			case INSTANT_RUNOFF_VOTING:
+				returner = new InstantRunoffCandidateResultsCalculationService(poll.getCandidatesCount(), poll.getVotingMode(), applicationContext.getBean(VotesNumberResultsCalculationService.class));
 				break;
 		}
 		
