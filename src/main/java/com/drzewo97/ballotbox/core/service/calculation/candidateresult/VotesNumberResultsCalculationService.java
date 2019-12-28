@@ -3,17 +3,18 @@ package com.drzewo97.ballotbox.core.service.calculation.candidateresult;
 import com.drzewo97.ballotbox.core.model.candidate.Candidate;
 import com.drzewo97.ballotbox.core.model.candidateresult.CandidateResult;
 import com.drzewo97.ballotbox.core.model.vote.IVote;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-@Service
-@Primary
 public class VotesNumberResultsCalculationService implements CandidateResultsCalculationService {
 	
 	@Override
 	public Set<CandidateResult> calculateResults(Set<? extends IVote> votes) {
+		return votesNumberCandidateResults(votes);
+	}
+	
+	// protected method for improved extensibility
+	protected Set<CandidateResult> votesNumberCandidateResults(Set<? extends IVote> votes){
 		// Collect all votes for each candidate
 		Map<Candidate, Integer> votesCount = new HashMap<>();
 		for(IVote vote : votes){

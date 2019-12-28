@@ -7,10 +7,10 @@ import com.drzewo97.ballotbox.core.model.poll.PollRepository;
 import com.drzewo97.ballotbox.core.model.pollresult.PollResult;
 import com.drzewo97.ballotbox.core.model.pollresult.PollResultRepository;
 import com.drzewo97.ballotbox.core.service.calculation.candidateresult.CandidateResultsCalculationService;
-import com.drzewo97.ballotbox.core.service.calculation.candidateresult.CandidateResultsCalculationServiceFactory;
 import com.drzewo97.ballotbox.core.service.calculation.pollresult.PollResultCalculationService;
 import com.drzewo97.ballotbox.core.service.calculation.pollresult.PollResultsCalculationServiceFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +25,9 @@ import java.util.Set;
 public class PollResultController {
 	
 	@Autowired
+	private ApplicationContext applicationContext;
+	
+	@Autowired
 	private PollRepository pollRepository;
 	
 	@Autowired
@@ -32,12 +35,6 @@ public class PollResultController {
 	
 	@Autowired
 	private CandidateResultRepository candidateResultRepository;
-	
-	@Autowired
-	private PollResultCalculationService pollResultCalculationService;
-	
-	@Autowired
-	CandidateResultsCalculationServiceFactory candidateResultsCalculationServiceFactory;
 	
 	@Autowired
 	PollResultsCalculationServiceFactory pollResultsCalculationServiceFactory;
@@ -59,7 +56,7 @@ public class PollResultController {
 			model.addAttribute("result", result.get());
 		}
 		else{
-			CandidateResultsCalculationService resultsCalculationService = candidateResultsCalculationServiceFactory.getCandidateResultsCalculationService(poll.get());
+			CandidateResultsCalculationService resultsCalculationService = applicationContext.getBean(CandidateResultsCalculationService.class, poll.get());
 			Set<CandidateResult> candidateResults = resultsCalculationService.calculateResults(poll.get().getVotes());
 			
 			PollResultCalculationService pollResultCalculationService = pollResultsCalculationServiceFactory.getPollResultCalculationService(poll.get());

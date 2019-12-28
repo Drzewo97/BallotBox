@@ -6,31 +6,33 @@ import com.drzewo97.ballotbox.core.model.poll.VotingMode;
 import com.drzewo97.ballotbox.core.model.vote.IVote;
 import com.drzewo97.ballotbox.core.model.vote.Vote;
 import com.drzewo97.ballotbox.core.model.vote.VoteInfo;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class InstantRunoffCandidateResultsCalculationService implements CandidateResultsCalculationService {
-	
-	private CandidateResultsCalculationService candidateResultsCalculationService;
+public class InstantRunoffCandidateResultsCalculationService extends VotesNumberResultsCalculationService {
 	
 	private Integer candidatesCount;
 	
 	private VotingMode votingMode;
 	
-	public InstantRunoffCandidateResultsCalculationService(Integer candidatesCount, VotingMode votingMode, CandidateResultsCalculationService candidateResultsCalculationService) {
+	public InstantRunoffCandidateResultsCalculationService(Integer candidatesCount, VotingMode votingMode) {
 		this.candidatesCount = candidatesCount;
 		this.votingMode = votingMode;
-		this.candidateResultsCalculationService = candidateResultsCalculationService;
 	}
 	
 	@Override
 	public Set<CandidateResult> calculateResults(Set<? extends IVote> votes) {
+		return instantRunoffCandidateResults(votes);
+	}
+	
+	protected Set<CandidateResult> instantRunoffCandidateResults(Set<? extends IVote> votes){
 		// map votes to Instant Runoff votes
 		Set<IRVoteReplacement> irVotes = votes.stream().map(v ->  new IRVoteReplacement((Vote)v)).collect(Collectors.toSet());
 		
 		// calculate results for first preference of voters
-		Set<CandidateResult> candidateResults = candidateResultsCalculationService.calculateResults(irVotes);
+		Set<CandidateResult> candidateResults = votesNumberCandidateResults(irVotes);
 		
 		// while winner didn't get majority
 		while(Collections.max(candidateResults).getVotesPlaced() <= (candidateResults.stream().mapToInt(CandidateResult::getVotesPlaced).sum()*0.5)){
@@ -41,7 +43,7 @@ public class InstantRunoffCandidateResultsCalculationService implements Candidat
 			irVotes.forEach(v -> v.eliminatePreferredCandidateIf(looser));
 			
 			// recalculate
-			candidateResults = candidateResultsCalculationService.calculateResults(irVotes);
+			candidateResults = votesNumberCandidateResults(irVotes);
 		}
 		
 		return candidateResults;
@@ -60,10 +62,6 @@ class IRVoteReplacement implements IVote {
 		while (preferenceVotes.peek() != null){
 			preferenceCandidates.add(preferenceVotes.poll().getCandidate());
 		}
-	}
-	
-	public void eliminatePreferredCandidate(){
-		preferenceCandidates.poll();
 	}
 	
 	public void eliminatePreferredCandidateIf(Candidate candidate){
