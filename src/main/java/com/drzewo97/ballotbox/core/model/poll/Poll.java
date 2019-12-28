@@ -1,9 +1,12 @@
 package com.drzewo97.ballotbox.core.model.poll;
 
 import com.drzewo97.ballotbox.core.model.candidate.Candidate;
+import com.drzewo97.ballotbox.core.model.country.Country;
+import com.drzewo97.ballotbox.core.model.district.District;
 import com.drzewo97.ballotbox.core.model.election.Election;
 import com.drzewo97.ballotbox.core.model.user.User;
 import com.drzewo97.ballotbox.core.model.vote.Vote;
+import com.drzewo97.ballotbox.core.model.ward.Ward;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -43,9 +46,11 @@ public class Poll {
     @Enumerated(EnumType.STRING)
     private PollType pollType;
 
-    // is included in voting method?
     @Enumerated(EnumType.STRING)
     private VotingMode votingMode;
+    
+    @Enumerated(EnumType.STRING)
+    private PollScope pollScope;
 
     private LocalDateTime openFrom;
 
@@ -56,6 +61,15 @@ public class Poll {
     
     @ManyToOne
     private Election election;
+    
+    @ManyToOne
+    private Country country;
+    
+    @ManyToOne
+    private District district;
+    
+    @ManyToOne
+    private Ward ward;
 
     public Poll() {
     }
@@ -170,6 +184,38 @@ public class Poll {
     
     public void setElection(Election election) {
         this.election = election;
+    }
+    
+    public PollScope getPollScope() {
+        return pollScope;
+    }
+    
+    public void setPollScope(PollScope pollScope) {
+        this.pollScope = pollScope;
+    }
+    
+    public Country getCountry() {
+        return country;
+    }
+    
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+    
+    public District getDistrict() {
+        return district;
+    }
+    
+    public void setDistrict(District district) {
+        this.district = district;
+    }
+    
+    public Ward getWard() {
+        return ward;
+    }
+    
+    public void setWard(Ward ward) {
+        this.ward = ward;
     }
     
     public Integer getVotesCastedCount(){

@@ -32,18 +32,6 @@
                th:field="*{description}"/>
     </div>
     <div>
-        <label for="candidatesCount">Candidates count</label>
-        <input id="candidatesCount"
-               type="number"
-               th:field="*{candidatesCount}"/>
-    </div>
-    <div>
-        <label for="exactly">Exact number of candidates necessary</label>
-        <input id="exactly"
-               type="checkbox"
-               th:field="*{exactly}"/>
-    </div>
-    <div>
         <label for="openFrom">Open from</label>
         <input id="openFrom"
                type="datetime-local"
@@ -55,30 +43,49 @@
                type="datetime-local"
                th:field="*{openUntil}"/>
     </div>
+
     <div>
-        <label for="countries">Select countries</label>
-        <select id="countries" th:field="*{countries}" multiple="multiple">
-            <option th:each="c : ${countries}"
-                    th:value="${{c.id}}"
-                    th:text="${c.name}"></option>
+        <label for="scope">Select poll scope</label>
+        <select id="scope" th:field="*{pollScope}">
+            <option th:each="s : ${T(com.drzewo97.ballotbox.core.model.poll.PollScope).values()}"
+                    th:value="${{s}}"
+                    th:text="${s}"></option>
         </select>
     </div>
-    <div>
-        <label for="districts">Select districts</label>
-        <select id="districts" th:field="*{districts}" multiple="multiple">
-            <option th:each="d : ${districts}"
-                    th:value="${{d.id}}"
-                    th:text="${d.name} + ': ' + ${d.country.name}"></option>
-        </select>
-    </div>
-    <div>
-        <label for="wards">Select wards</label>
-        <select id="wards" th:field="*{wards}" multiple="multiple">
-            <option th:each="w : ${wards}"
-                    th:value="${{w.id}}"
-                    th:text="${w.name} + ': ' + ${w.district.name} + ': ' + ${w.district.country.name}"></option>
-        </select>
-    </div>
+
+    <ul>
+        <label for="countries">Select country</label>
+        <li id="countries" th:each="c : ${countries}">
+            <input id="country" type="radio" th:field="*{country}" th:value="${c.id}" />
+            <label th:for="country" th:text="${c.name}"></label>
+        </li>
+        <li>
+            <input type="radio"/>
+            <label >None</label>
+        </li>
+    </ul>
+    <ul>
+        <label for="districts">Select district</label>
+        <li id="districts" th:each="d : ${districts}">
+            <input id="district" type="radio" th:field="*{district}" th:value="${d.id}" />
+            <label th:for="district" th:text="${d.name} + ': ' + ${d.country.name}"></label>
+        </li>
+        <li>
+            <input type="radio"/>
+            <label >None</label>
+        </li>
+    </ul>
+    <ul>
+        <label for="wards">Select ward</label>
+        <li id="wards" th:each="w : ${wards}">
+            <input id="ward" type="radio" th:field="*{ward}" th:value="${w.id}" />
+            <label th:for="ward" th:text="${w.name} + ': ' + ${w.district.name} + ': ' + ${w.district.country.name}"></label>
+        </li>
+        <li>
+            <input type="radio"/>
+            <label >None</label>
+        </li>
+    </ul>
     <div>
         <label for="pollType">Select voting method</label>
         <select id="pollType" th:field="*{pollType}">
@@ -86,6 +93,20 @@
                     th:value="${v}"
                     th:text="${v}"></option>
         </select>
+    </div>
+    <!--TODO: only for some poll types-->
+    <div>
+        <label for="candidatesCount">Candidates count</label>
+        <input id="candidatesCount"
+               type="number"
+               th:field="*{candidatesCount}"/>
+    </div>
+    <!--TODO: only for some poll types-->
+    <div>
+        <label for="exactly">Exact number of candidates necessary</label>
+        <input id="exactly"
+               type="checkbox"
+               th:field="*{exactly}"/>
     </div>
     <div>
         <button type="submit">Create</button>

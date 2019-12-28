@@ -3,6 +3,7 @@ package com.drzewo97.ballotbox.core.dto.polldto;
 import com.drzewo97.ballotbox.core.constraint.datesorder.DatesOrder;
 import com.drzewo97.ballotbox.core.model.country.Country;
 import com.drzewo97.ballotbox.core.model.district.District;
+import com.drzewo97.ballotbox.core.model.poll.PollScope;
 import com.drzewo97.ballotbox.core.model.poll.PollType;
 import com.drzewo97.ballotbox.core.model.ward.Ward;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,7 +13,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 /**
  * @see com.drzewo97.ballotbox.core.model.poll.Poll
@@ -25,11 +25,11 @@ public class PollDto {
 
     private String description;
     
-    private Set<Country> countries;
+    private Country country;
     
-    private Set<District> districts;
+    private District district;
     
-    private Set<Ward> wards;
+    private Ward ward;
 
     @NotNull
     @Positive
@@ -44,6 +44,8 @@ public class PollDto {
     private Boolean exactly;
     
     private PollType pollType;
+    
+    private PollScope pollScope;
 
     @NotNull
     @Future
@@ -105,28 +107,28 @@ public class PollDto {
         this.openUntil = openUntil;
     }
     
-    public Set<Country> getCountries() {
-        return countries;
+    public Country getCountry() {
+        return country;
     }
     
-    public void setCountries(Set<Country> countries) {
-        this.countries = countries;
+    public void setCountry(Country country) {
+        this.country = country;
     }
     
-    public Set<District> getDistricts() {
-        return districts;
+    public District getDistrict() {
+        return district;
     }
     
-    public void setDistricts(Set<District> districts) {
-        this.districts = districts;
+    public void setDistrict(District district) {
+        this.district = district;
     }
     
-    public Set<Ward> getWards() {
-        return wards;
+    public Ward getWard() {
+        return ward;
     }
     
-    public void setWards(Set<Ward> wards) {
-        this.wards = wards;
+    public void setWard(Ward ward) {
+        this.ward = ward;
     }
     
     public PollType getPollType() {
@@ -135,5 +137,13 @@ public class PollDto {
     
     public void setPollType(PollType pollType) {
         this.pollType = pollType;
+    }
+    
+    public PollScope getPollScope() {
+        return pollScope;
+    }
+    
+    public void setPollScope(PollScope pollScope) {
+        this.pollScope = pollScope;
     }
 }

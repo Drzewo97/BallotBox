@@ -59,6 +59,19 @@ public class PollServiceImpl implements PollService {
         else{
             poll.setVotingMode(VotingMode.AT_MOST);
         }
+        poll.setPollType(pollDto.getPollType());
+        poll.setPollScope(pollDto.getPollScope());
+        switch (poll.getPollScope()){
+            case COUNTRY:
+                poll.setCountry(pollDto.getCountry());
+                break;
+            case DISTRICT:
+                poll.setDistrict(pollDto.getDistrict());
+                break;
+            case WARD:
+                poll.setWard(pollDto.getWard());
+                break;
+        }
 
         // username from security context - caller (PollCreateController) requires USER role, so it has to be authenticated previously
         // unless something happens between caller receiving request and program reaches this point
