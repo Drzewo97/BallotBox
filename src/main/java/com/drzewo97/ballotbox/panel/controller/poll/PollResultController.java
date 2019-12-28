@@ -8,7 +8,6 @@ import com.drzewo97.ballotbox.core.model.pollresult.PollResult;
 import com.drzewo97.ballotbox.core.model.pollresult.PollResultRepository;
 import com.drzewo97.ballotbox.core.service.calculation.candidateresult.CandidateResultsCalculationService;
 import com.drzewo97.ballotbox.core.service.calculation.pollresult.PollResultCalculationService;
-import com.drzewo97.ballotbox.core.service.calculation.pollresult.PollResultsCalculationServiceFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -36,9 +35,6 @@ public class PollResultController {
 	@Autowired
 	private CandidateResultRepository candidateResultRepository;
 	
-	@Autowired
-	PollResultsCalculationServiceFactory pollResultsCalculationServiceFactory;
-	
 	@GetMapping
 	public String pollResult(Model model, @PathVariable("id") Long id){
 		Optional<Poll> poll = pollRepository.findById(id);
@@ -59,7 +55,7 @@ public class PollResultController {
 			CandidateResultsCalculationService resultsCalculationService = applicationContext.getBean(CandidateResultsCalculationService.class, poll.get());
 			Set<CandidateResult> candidateResults = resultsCalculationService.calculateResults(poll.get().getVotes());
 			
-			PollResultCalculationService pollResultCalculationService = pollResultsCalculationServiceFactory.getPollResultCalculationService(poll.get());
+			PollResultCalculationService pollResultCalculationService = applicationContext.getBean(PollResultCalculationService.class, poll.get());
 			PollResult pollResult = pollResultCalculationService.calculateResult(candidateResults);
 			
 			pollResult.setPoll(poll.get());

@@ -2,15 +2,11 @@ package com.drzewo97.ballotbox.core.service.calculation.pollresult;
 
 import com.drzewo97.ballotbox.core.model.candidateresult.CandidateResult;
 import com.drzewo97.ballotbox.core.model.pollresult.PollResult;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-@Service
-@Primary
 public class WinnerTakesAllResultCalculationService implements PollResultCalculationService {
 	
 	@Override
