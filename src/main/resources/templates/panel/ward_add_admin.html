@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add ward administrator</title>
+</head>
+<body>
+<form th:action="@{/panel/ward/admin/add}" th:object="${admin}" method="post">
+    <ul>
+        <label for="wards">Select ward</label>
+        <li id="wards" th:each="w : ${wards}">
+            <input id="ward" type="radio" th:field="*{ward}" th:value="${w.id}"/>
+            <label th:for="ward"
+                   th:text="${w.name} + ': ' + ${w.district.name} + ': ' + ${w.district.country.name}"></label>
+        </li>
+    </ul>
+    <ul>
+        <label for="users">Select User</label>
+        <li id="users" th:each="u : ${users}">
+            <input id="user" type="radio" th:field="*{user}" th:value="${u.id}"/>
+            <label th:for="user" th:text="${u.username}"></label>
+        </li>
+    </ul>
+    <div>
+        <button type="submit">Grant privileges</button>
+    </div>
+</form>
+</body>
+</html>
