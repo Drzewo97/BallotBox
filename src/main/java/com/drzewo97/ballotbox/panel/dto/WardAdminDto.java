@@ -1,30 +1,13 @@
-package com.drzewo97.ballotbox.core.model.wardadmin;
+package com.drzewo97.ballotbox.panel.dto;
 
 import com.drzewo97.ballotbox.core.model.user.User;
 import com.drzewo97.ballotbox.core.model.ward.Ward;
 
-import javax.persistence.*;
-
-@Entity
-public class WardAdmin {
+public class WardAdminDto {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	@OneToOne
 	private Ward ward;
 	
-	@ManyToOne
 	private User user;
-	
-	public Long getId() {
-		return id;
-	}
-	
-	public void setId(Long id) {
-		this.id = id;
-	}
 	
 	public Ward getWard() {
 		return ward;

@@ -2,7 +2,7 @@ package com.drzewo97.ballotbox.core.model.ward;
 
 import com.drzewo97.ballotbox.core.model.candidate.Candidate;
 import com.drzewo97.ballotbox.core.model.district.District;
-import com.drzewo97.ballotbox.core.model.wardadmin.WardAdmin;
+import com.drzewo97.ballotbox.core.model.user.User;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -23,7 +23,7 @@ public class Ward {
 	private Set<Candidate> candidates;
 	
 	@OneToOne
-	private WardAdmin wardAdmin;
+	private User wardAdmin;
 	
 	public Long getId() {
 		return id;
@@ -57,11 +57,11 @@ public class Ward {
 		this.candidates = candidates;
 	}
 	
-	public WardAdmin getWardAdmin() {
+	public User getWardAdmin() {
 		return wardAdmin;
 	}
 	
-	public void setWardAdmin(WardAdmin wardAdmin) {
+	public void setWardAdmin(User wardAdmin) {
 		this.wardAdmin = wardAdmin;
 	}
 }
