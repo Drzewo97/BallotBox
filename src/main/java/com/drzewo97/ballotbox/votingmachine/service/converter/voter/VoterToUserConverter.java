@@ -11,7 +11,7 @@ public class VoterToUserConverter implements Converter<VoterDto, User> {
 	public User convert(VoterDto voterDto) {
 		User user = new User();
 		
-		user.setUsername(voterDto.getPassword());
+		user.setUsername(voterDto.getUsername());
 		user.setFirstName(voterDto.getFirstName());
 		user.setSurname(voterDto.getSurname());
 		user.setPassword(voterDto.getPassword());
