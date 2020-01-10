@@ -63,6 +63,8 @@ public class CandidateRegitrationController {
 			return "panel/candidate_register";
 		}
 		
+		candidate.setPlace(0);
+		candidate.setVotesPlaced(0);
 		candidateRepository.save(candidate);
 		
 		return "redirect:register?success";

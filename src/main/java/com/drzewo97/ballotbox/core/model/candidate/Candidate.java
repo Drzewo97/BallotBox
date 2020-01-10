@@ -10,7 +10,7 @@ import org.springframework.lang.Nullable;
 import javax.persistence.*;
 
 @Entity
-public class Candidate {
+public class Candidate implements Comparable<Candidate> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -43,6 +43,10 @@ public class Candidate {
     @ManyToOne
     @Nullable
     private Ward ward;
+    
+    private Integer place;
+    
+    private Integer votesPlaced;
 
     public Candidate() {
     }
@@ -104,5 +108,26 @@ public class Candidate {
     
     public void setWard(@Nullable Ward ward) {
         this.ward = ward;
+    }
+    
+    public Integer getPlace() {
+        return place;
+    }
+    
+    public void setPlace(Integer place) {
+        this.place = place;
+    }
+    
+    public Integer getVotesPlaced() {
+        return votesPlaced;
+    }
+    
+    public void setVotesPlaced(Integer votesPlaced) {
+        this.votesPlaced = votesPlaced;
+    }
+    
+    @Override
+    public int compareTo(Candidate o) {
+        return this.getVotesPlaced().compareTo(o.getVotesPlaced());
     }
 }

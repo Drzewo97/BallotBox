@@ -1,12 +1,10 @@
 package com.drzewo97.ballotbox.core.service.calculation.candidateresult;
 
 import com.drzewo97.ballotbox.core.model.candidate.Candidate;
-import com.drzewo97.ballotbox.core.model.candidateresult.CandidateResult;
 import com.drzewo97.ballotbox.core.model.poll.VotingMode;
 import com.drzewo97.ballotbox.core.model.vote.IVote;
 import com.drzewo97.ballotbox.core.model.vote.Vote;
 import com.drzewo97.ballotbox.core.model.vote.VoteInfo;
-import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -23,30 +21,39 @@ public class InstantRunoffCandidateResultsCalculationService extends VotesNumber
 	}
 	
 	@Override
-	public Set<CandidateResult> calculateResults(Set<? extends IVote> votes) {
+	public Set<Candidate> calculateResults(Set<? extends IVote> votes) {
 		return instantRunoffCandidateResults(votes);
 	}
 	
-	protected Set<CandidateResult> instantRunoffCandidateResults(Set<? extends IVote> votes){
+	protected Set<Candidate> instantRunoffCandidateResults(Set<? extends IVote> votes){
 		// map votes to Instant Runoff votes
 		Set<IRVoteReplacement> irVotes = votes.stream().map(v ->  new IRVoteReplacement((Vote)v)).collect(Collectors.toSet());
 		
 		// calculate results for first preference of voters
-		Set<CandidateResult> candidateResults = votesNumberCandidateResults(irVotes);
+		Set<Candidate> candidateResults = votesNumberCandidateResults(irVotes);
 		
 		// while winner didn't get majority
-		while(Collections.max(candidateResults).getVotesPlaced() <= (candidateResults.stream().mapToInt(CandidateResult::getVotesPlaced).sum()*0.5)){
+		while(Collections.max(candidateResults).getVotesPlaced() <= (candidateResults.stream().mapToInt(Candidate::getVotesPlaced).sum()*0.5)){
 			// find looser
-			Candidate looser = Collections.min(candidateResults).getCandidate();
+			Candidate looser = Collections.min(candidateResults);
 			
 			// eliminate looser from votes
 			irVotes.forEach(v -> v.eliminatePreferredCandidateIf(looser));
+			
+			resetCandidatesVotes(candidateResults);
 			
 			// recalculate
 			candidateResults = votesNumberCandidateResults(irVotes);
 		}
 		
 		return candidateResults;
+	}
+	
+	private void resetCandidatesVotes(Set<Candidate> candidates){
+		for(Candidate candidate: candidates){
+			candidate.setVotesPlaced(0);
+			candidate.setPlace(0);
+		}
 	}
 }
 

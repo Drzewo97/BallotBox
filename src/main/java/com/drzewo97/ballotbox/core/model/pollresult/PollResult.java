@@ -1,6 +1,6 @@
 package com.drzewo97.ballotbox.core.model.pollresult;
 
-import com.drzewo97.ballotbox.core.model.candidateresult.CandidateResult;
+import com.drzewo97.ballotbox.core.model.candidate.Candidate;
 import com.drzewo97.ballotbox.core.model.poll.Poll;
 
 import javax.persistence.*;
@@ -17,13 +17,10 @@ public class PollResult {
 	
 	private Integer votesCasted;
 	
-	@OneToMany
-	private Set<CandidateResult> candidateResults;
-	
 	private Boolean resolved;
 	
 	@OneToMany
-	private Set<CandidateResult> winners;
+	private Set<Candidate> winners;
 	
 	public Long getId() {
 		return id;
@@ -41,14 +38,6 @@ public class PollResult {
 		this.poll = poll;
 	}
 	
-	public Set<CandidateResult> getCandidateResults() {
-		return candidateResults;
-	}
-	
-	public void setCandidateResults(Set<CandidateResult> candidateResults) {
-		this.candidateResults = candidateResults;
-	}
-	
 	public Boolean getResolved() {
 		return resolved;
 	}
@@ -57,11 +46,11 @@ public class PollResult {
 		this.resolved = resolved;
 	}
 	
-	public Set<CandidateResult> getWinners() {
+	public Set<Candidate> getWinners() {
 		return winners;
 	}
 	
-	public void setWinners(Set<CandidateResult> winners) {
+	public void setWinners(Set<Candidate> winners) {
 		this.winners = winners;
 	}
 	

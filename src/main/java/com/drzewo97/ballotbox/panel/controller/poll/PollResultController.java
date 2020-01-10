@@ -1,7 +1,7 @@
 package com.drzewo97.ballotbox.panel.controller.poll;
 
-import com.drzewo97.ballotbox.core.model.candidateresult.CandidateResult;
-import com.drzewo97.ballotbox.core.model.candidateresult.CandidateResultRepository;
+import com.drzewo97.ballotbox.core.model.candidate.Candidate;
+import com.drzewo97.ballotbox.core.model.candidate.CandidateRepository;
 import com.drzewo97.ballotbox.core.model.poll.Poll;
 import com.drzewo97.ballotbox.core.model.poll.PollRepository;
 import com.drzewo97.ballotbox.core.model.pollresult.PollResult;
@@ -33,7 +33,7 @@ public class PollResultController {
 	private PollResultRepository pollResultRepository;
 	
 	@Autowired
-	private CandidateResultRepository candidateResultRepository;
+	private CandidateRepository candidateRepository;
 	
 	@GetMapping
 	public String pollResult(Model model, @PathVariable("id") Long id){
@@ -53,15 +53,17 @@ public class PollResultController {
 		}
 		else{
 			CandidateResultsCalculationService resultsCalculationService = applicationContext.getBean(CandidateResultsCalculationService.class, poll.get());
-			Set<CandidateResult> candidateResults = resultsCalculationService.calculateResults(poll.get().getVotes());
+			Set<Candidate> candidateResults = resultsCalculationService.calculateResults(poll.get().getVotes());
 			
 			PollResultCalculationService pollResultCalculationService = applicationContext.getBean(PollResultCalculationService.class, poll.get());
 			PollResult pollResult = pollResultCalculationService.calculateResult(candidateResults);
 			
+			// we loose losers
+			poll.get().setCandidates(candidateResults);
 			pollResult.setPoll(poll.get());
 			
-			candidateResultRepository.saveAll(pollResult.getCandidateResults());
 			pollResultRepository.save(pollResult);
+			candidateRepository.saveAll(candidateResults);
 			
 			model.addAttribute("result", pollResult);
 		}

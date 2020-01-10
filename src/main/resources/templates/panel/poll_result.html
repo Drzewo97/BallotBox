@@ -38,8 +38,8 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="r : ${result.candidateResults}">
-        <td th:text="${r.candidate.name}" />
+    <tr th:each="r : ${poll.candidates}">
+        <td th:text="${r.name}" />
         <td th:text="${r.votesPlaced}" />
         <td th:text="${#numbers.formatDecimal((1.0 * r.votesPlaced / result.votesCasted)*100, 1, 'POINT', 2, 'COMMA')}" />
     </tr>
@@ -58,7 +58,7 @@
     </thead>
     <tbody>
     <tr th:each="w : ${result.winners}">
-        <td th:text="${w.candidate.name}" />
+        <td th:text="${w.name}" />
         <td th:text="${w.votesPlaced}" />
         <td th:text="${#numbers.formatDecimal((1.0 * w.votesPlaced / result.votesCasted)*100, 1, 'POINT', 2, 'COMMA')}" />
     </tr>
