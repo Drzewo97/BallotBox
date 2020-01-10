@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+
+    <title>Create ward protocol</title>
+</head>
+<body>
+<div th:if="${param.success}">
+    <div class="alert alert-info">
+        You've successfully created a protocol!
+    </div>
+</div>
+
+<h1>Create poll protocol</h1>
+<form th:action="@{/wardpanel/{wardId}/poll/{pollId}/protocol/add/withVotes(wardId=${wardId}, pollId=${pollId})}" th:object="${wardProtocol}" method="post">
+
+    <!-- Doesn't show percise errors -->
+    <ul th:if="${#fields.hasAnyErrors()}">
+        <li th:each="err : ${#fields.allErrors()}" th:text="${err}">Input is incorrect</li>
+    </ul>
+    <div>
+        <label for="votesAuthorized">votes Authorized count</label>
+        <input id="votesAuthorized"
+               type="number"
+               th:field="*{votersAuthorizedCount}"/>
+    </div>
+    <div>
+        <label for="ballotsReceived">Ballots Received count</label>
+        <input id="ballotsReceived"
+               type="number"
+               th:field="*{ballotsReceived}"/>
+    </div>
+    <div>
+        <label for="ballotsGiven">Ballots Given count</label>
+        <input id="ballotsGiven"
+               type="number"
+               th:field="*{ballotsGiven}"/>
+    </div>
+    <div>
+        <label for="ballotsRemained">ballots Remained count</label>
+        <input id="ballotsRemained"
+               type="number"
+               th:field="*{ballotsRemained}"/>
+    </div>
+    <div>
+        <label for="ballotsSumReason">Reason for sum miscalculation</label>
+        <input id="ballotsSumReason"
+               type="text"
+               th:field="*{reasonForBallotsSumMiscalculation}"/>
+    </div>
+    <div>
+        <label for="ballotsTaken">ballots Taken from ballot box count</label>
+        <input id="ballotsTaken"
+               type="number"
+               th:field="*{ballotsTakenFromBox}"/>
+    </div>
+    <div>
+        <label for="ballotsTakenReason">reason for taken miscalculation</label>
+        <input id="ballotsTakenReason"
+               type="text"
+               th:field="*{reasonForBallotsTakenMiscalculation}"/>
+    </div>
+    <div>
+        <label for="ballotsInvalid">ballots invalid count</label>
+        <input id="ballotsInvalid"
+               type="number"
+               th:field="*{ballotsInvalid}"/>
+    </div>
+    <div>
+        <label for="ballotsValid">ballots Valid count</label>
+        <input id="ballotsValid"
+               type="number"
+               th:field="*{ballotsValid}"/>
+    </div>
+    <th:block th:each="candidateVote,i : ${wardProtocol.candidateProtocolVotesAsList}">
+        <p th:text="${candidateVote.candidate.name}" />
+        <input type="number" th:field="*{candidateProtocolVotesAsList[__${i.index}__].votesCount}" /><br />
+        <input type="number" th:field="*{candidateProtocolVotesAsList[__${i.index}__].candidate.id}" th:value="${candidateVote.candidate.id}" style="display: none" />
+    </th:block>
+    <div>
+        <button type="submit">Create</button>
+    </div>
+</form>
+</body>
+</html>

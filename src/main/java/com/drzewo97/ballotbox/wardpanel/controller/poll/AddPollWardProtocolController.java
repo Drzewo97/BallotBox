@@ -43,7 +43,7 @@ public class AddPollWardProtocolController {
 		Optional<Ward> ward = wardRepository.findById(wardId);
 		// returns null if poll is not in this ward
 		Optional<Poll> poll = pollRepository.findByIdAndCountryOrDistrictOrWard(pollId, ward.get().getDistrict().getCountry(), ward.get().getDistrict(), ward.get());
-		if(poll.isEmpty()){
+		if(poll.isEmpty() || poll.get().isProtocolVotesCountEligible()){
 			return "redirect:/";
 		}
 		Optional<WardProtocol> wardProtocolOptional = wardProtocolRepository.findByWardAndPoll(ward.get(), poll.get());
@@ -51,9 +51,7 @@ public class AddPollWardProtocolController {
 			return "redirect:/";
 		}
 		
-		//TODO: if not IRV add candidates votes count
-		WardProtocol wardProtocol = new WardProtocol();
-		model.addAttribute("wardProtocol", wardProtocol);
+		model.addAttribute("wardProtocol", new WardProtocol());
 		
 		return "wardpanel/add_poll_ward_protocol";
 	}
@@ -81,6 +79,7 @@ public class AddPollWardProtocolController {
 		//TODO: check ward protocol values
 		wardProtocol.setWard(ward.get());
 		wardProtocol.setPoll(poll.get());
+		
 		wardProtocolRepository.save(wardProtocol);
 		
 		return "redirect:/";

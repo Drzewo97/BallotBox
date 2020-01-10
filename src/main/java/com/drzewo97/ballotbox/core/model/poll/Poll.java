@@ -236,4 +236,19 @@ public class Poll {
 
         return false;
     }
+    
+    /**
+     * Is eligible for sending protocol with votes count for each candidate
+     * @return
+     */
+    public Boolean isProtocolVotesCountEligible(){
+        switch (this.pollType){
+            case WINNER_TAKES_ALL:
+            case TWO_ROUND:
+                return true;
+            case INSTANT_RUNOFF_VOTING:
+            default:
+                return false;
+        }
+    }
 }

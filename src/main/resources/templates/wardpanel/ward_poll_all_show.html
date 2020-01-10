@@ -19,7 +19,12 @@
         <td th:text="${p.id}" />
         <td th:text="${p.name}" />
         <td>
-            <a th:href="@{/wardpanel/{wardId}/poll/{pollId}/protocol/add(wardId=${wardId}, pollId=${p.id})}">Summary</a>
+            <a th:href="${p.isProtocolVotesCountEligible()}
+                        ? @{/wardpanel/{wardId}/poll/{pollId}/protocol/add/withVotes(wardId=${wardId}, pollId=${p.id})}
+                        : @{/wardpanel/{wardId}/poll/{pollId}/protocol/add(wardId=${wardId}, pollId=${p.id})}"
+            >
+                Summary
+            </a>
         </td>
     </tr>
     </tbody>
