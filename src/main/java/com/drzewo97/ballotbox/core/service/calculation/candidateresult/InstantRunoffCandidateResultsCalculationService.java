@@ -1,6 +1,7 @@
 package com.drzewo97.ballotbox.core.service.calculation.candidateresult;
 
 import com.drzewo97.ballotbox.core.model.candidate.Candidate;
+import com.drzewo97.ballotbox.core.model.candidatesvotescountwardprotocol.CandidatesVotesCountWardProtocol;
 import com.drzewo97.ballotbox.core.model.poll.VotingMode;
 import com.drzewo97.ballotbox.core.model.vote.IVote;
 import com.drzewo97.ballotbox.core.model.vote.Vote;
@@ -21,16 +22,22 @@ public class InstantRunoffCandidateResultsCalculationService extends VotesNumber
 	}
 	
 	@Override
-	public Set<Candidate> calculateResults(Set<? extends IVote> votes) {
-		return instantRunoffCandidateResults(votes);
+	public Set<Candidate> calculateResults(Set<? extends IVote> votes, Collection<CandidatesVotesCountWardProtocol> wardProtocols) {
+		return instantRunoffCandidateResults(votes, wardProtocols);
 	}
 	
-	protected Set<Candidate> instantRunoffCandidateResults(Set<? extends IVote> votes){
+	/**
+	 *
+	 * @param votes
+	 * @param wardProtocols should be empty in this case
+	 * @return
+	 */
+	protected Set<Candidate> instantRunoffCandidateResults(Set<? extends IVote> votes, Collection<CandidatesVotesCountWardProtocol> wardProtocols){
 		// map votes to Instant Runoff votes
 		Set<IRVoteReplacement> irVotes = votes.stream().map(v ->  new IRVoteReplacement((Vote)v)).collect(Collectors.toSet());
 		
 		// calculate results for first preference of voters
-		Set<Candidate> candidateResults = votesNumberCandidateResults(irVotes);
+		Set<Candidate> candidateResults = votesNumberCandidateResults(irVotes, wardProtocols);
 		
 		// while winner didn't get majority
 		while(Collections.max(candidateResults).getVotesPlaced() <= (candidateResults.stream().mapToInt(Candidate::getVotesPlaced).sum()*0.5)){
@@ -43,7 +50,7 @@ public class InstantRunoffCandidateResultsCalculationService extends VotesNumber
 			resetCandidatesVotes(candidateResults);
 			
 			// recalculate
-			candidateResults = votesNumberCandidateResults(irVotes);
+			candidateResults = votesNumberCandidateResults(irVotes, wardProtocols);
 		}
 		
 		return candidateResults;

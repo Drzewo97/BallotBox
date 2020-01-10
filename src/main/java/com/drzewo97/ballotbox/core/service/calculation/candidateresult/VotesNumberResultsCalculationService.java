@@ -1,22 +1,21 @@
 package com.drzewo97.ballotbox.core.service.calculation.candidateresult;
 
 import com.drzewo97.ballotbox.core.model.candidate.Candidate;
+import com.drzewo97.ballotbox.core.model.candidateprotocolvotes.CandidateProtocolVotes;
+import com.drzewo97.ballotbox.core.model.candidatesvotescountwardprotocol.CandidatesVotesCountWardProtocol;
 import com.drzewo97.ballotbox.core.model.vote.IVote;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.PriorityQueue;
-import java.util.Set;
+import java.util.*;
 
 public class VotesNumberResultsCalculationService implements CandidateResultsCalculationService {
 	
 	@Override
-	public Set<Candidate> calculateResults(Set<? extends IVote> votes) {
-		return votesNumberCandidateResults(votes);
+	public Set<Candidate> calculateResults(Set<? extends IVote> votes, Collection<CandidatesVotesCountWardProtocol> wardProtocols) {
+		return votesNumberCandidateResults(votes, wardProtocols);
 	}
 	
 	// protected method for improved extensibility
-	protected Set<Candidate> votesNumberCandidateResults(Set<? extends IVote> votes){
+	protected Set<Candidate> votesNumberCandidateResults(Set<? extends IVote> votes, java.util.Collection<CandidatesVotesCountWardProtocol> wardProtocols){
 		
 		// Collect all votes for each candidate
 		Set<Candidate> candidates = new HashSet<>();
@@ -28,6 +27,20 @@ public class VotesNumberResultsCalculationService implements CandidateResultsCal
 			}
 			candidate.setVotesPlaced(candidate.getVotesPlaced() + 1);
 			candidates.add(candidate);
+		}
+		
+		if(!wardProtocols.isEmpty()){
+		// if we've got some votes from wards
+			for(CandidatesVotesCountWardProtocol protocol : wardProtocols){
+				//for each ward
+				for(CandidateProtocolVotes candidateProtocolVotes : protocol.getCandidateProtocolVotes()){
+					// add number of votes for every candidate in this ward
+					Candidate candidate = candidateProtocolVotes.getCandidate();
+					//TODO: default value 0 instead of null
+					candidate.setVotesPlaced(candidate.getVotesPlaced() + candidateProtocolVotes.getVotesCount());
+					candidates.add(candidate);
+				}
+			}
 		}
 		
 		// construct priority queue of candidates

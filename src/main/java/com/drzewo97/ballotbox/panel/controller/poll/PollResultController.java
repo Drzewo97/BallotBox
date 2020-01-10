@@ -2,6 +2,8 @@ package com.drzewo97.ballotbox.panel.controller.poll;
 
 import com.drzewo97.ballotbox.core.model.candidate.Candidate;
 import com.drzewo97.ballotbox.core.model.candidate.CandidateRepository;
+import com.drzewo97.ballotbox.core.model.candidatesvotescountwardprotocol.CandidatesVotesCountWardProtocol;
+import com.drzewo97.ballotbox.core.model.candidatesvotescountwardprotocol.CandidatesVotesCountWardProtocolRepository;
 import com.drzewo97.ballotbox.core.model.poll.Poll;
 import com.drzewo97.ballotbox.core.model.poll.PollRepository;
 import com.drzewo97.ballotbox.core.model.pollresult.PollResult;
@@ -35,6 +37,9 @@ public class PollResultController {
 	@Autowired
 	private CandidateRepository candidateRepository;
 	
+	@Autowired
+	private CandidatesVotesCountWardProtocolRepository wardProtocolRepository;
+	
 	@GetMapping
 	public String pollResult(Model model, @PathVariable("id") Long id){
 		Optional<Poll> poll = pollRepository.findById(id);
@@ -53,7 +58,10 @@ public class PollResultController {
 		}
 		else{
 			CandidateResultsCalculationService resultsCalculationService = applicationContext.getBean(CandidateResultsCalculationService.class, poll.get());
-			Set<Candidate> candidateResults = resultsCalculationService.calculateResults(poll.get().getVotes());
+			
+			Set<CandidatesVotesCountWardProtocol> wardProtocols = wardProtocolRepository.findAllByPoll(poll.get());
+			// TODO: if not all eligible wards -> return, don't continue
+			Set<Candidate> candidateResults = resultsCalculationService.calculateResults(poll.get().getVotes(), wardProtocols);
 			
 			PollResultCalculationService pollResultCalculationService = applicationContext.getBean(PollResultCalculationService.class, poll.get());
 			PollResult pollResult = pollResultCalculationService.calculateResult(candidateResults);

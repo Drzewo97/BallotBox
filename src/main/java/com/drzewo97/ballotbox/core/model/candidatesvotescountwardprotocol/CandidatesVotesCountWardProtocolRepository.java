@@ -6,8 +6,10 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Repository
 public interface CandidatesVotesCountWardProtocolRepository extends CrudRepository<CandidatesVotesCountWardProtocol, Long> {
 	Optional<CandidatesVotesCountWardProtocol> findByWardAndPoll(Ward ward, Poll poll);
+	Set<CandidatesVotesCountWardProtocol> findAllByPoll(Poll poll);
 }
