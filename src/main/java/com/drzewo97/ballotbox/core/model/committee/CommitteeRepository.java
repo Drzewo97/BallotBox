@@ -7,4 +7,5 @@ import java.util.Set;
 public interface CommitteeRepository extends CrudRepository<Committee, Long> {
 	Boolean existsByName(String name);
 	Set<Committee> findAllByCommitteeAdminIsNull();
+	Set<Committee> findAllByCommitteeAdminUsername(String username);
 }
