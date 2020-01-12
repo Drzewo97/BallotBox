@@ -28,7 +28,14 @@
                     th:text="${u.username}"></option>
         </select>
     </div>
-
+    <div>
+        <label for="committee">Select committee</label>
+        <select id="committee" th:field="*{committee}">
+            <option th:each="c : ${committees}"
+                    th:value="${{c.id}}"
+                    th:text="${c.name}"></option>
+        </select>
+    </div>
     <div>
         <label for="name">Name</label>
         <input id="name"

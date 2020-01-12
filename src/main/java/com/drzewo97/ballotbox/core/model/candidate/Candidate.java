@@ -1,5 +1,6 @@
 package com.drzewo97.ballotbox.core.model.candidate;
 
+import com.drzewo97.ballotbox.core.model.committee.Committee;
 import com.drzewo97.ballotbox.core.model.country.Country;
 import com.drzewo97.ballotbox.core.model.district.District;
 import com.drzewo97.ballotbox.core.model.poll.Poll;
@@ -43,6 +44,9 @@ public class Candidate implements Comparable<Candidate> {
     @ManyToOne
     @Nullable
     private Ward ward;
+    
+    @ManyToOne
+    private Committee committee;
     
     private Integer place;
     
@@ -124,6 +128,14 @@ public class Candidate implements Comparable<Candidate> {
     
     public void setVotesPlaced(Integer votesPlaced) {
         this.votesPlaced = votesPlaced;
+    }
+    
+    public Committee getCommittee() {
+        return committee;
+    }
+    
+    public void setCommittee(Committee committee) {
+        this.committee = committee;
     }
     
     @Override

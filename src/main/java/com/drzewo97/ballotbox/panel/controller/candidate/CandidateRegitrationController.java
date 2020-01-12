@@ -2,6 +2,7 @@ package com.drzewo97.ballotbox.panel.controller.candidate;
 
 import com.drzewo97.ballotbox.core.model.candidate.Candidate;
 import com.drzewo97.ballotbox.core.model.candidate.CandidateRepository;
+import com.drzewo97.ballotbox.core.model.committee.CommitteeRepository;
 import com.drzewo97.ballotbox.core.model.country.CountryRepository;
 import com.drzewo97.ballotbox.core.model.district.DistrictRepository;
 import com.drzewo97.ballotbox.core.model.poll.PollRepository;
@@ -38,6 +39,9 @@ public class CandidateRegitrationController {
 	@Autowired
 	private CandidateRepository candidateRepository;
 	
+	@Autowired
+	private CommitteeRepository committeeRepository;
+	
 	@ModelAttribute("candidate")
 	private Candidate candidate(){
 		return new Candidate();
@@ -46,6 +50,7 @@ public class CandidateRegitrationController {
 	@GetMapping
 	private String showCandidateRegister(Model model){
 		model.addAttribute("countries", countryRepository.findAll());
+		model.addAttribute("committees", committeeRepository.findAll());
 		model.addAttribute("districts", districtRepository.findAll());
 		model.addAttribute("wards", wardRepository.findAll());
 		model.addAttribute("polls", pollRepository.findAll());
