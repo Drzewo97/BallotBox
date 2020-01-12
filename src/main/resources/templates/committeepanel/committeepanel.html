@@ -5,6 +5,6 @@
     <title>Ballotbox Committee Administration Panel</title>
 </head>
 <body th:with="currentUrl=(${#httpServletRequest.requestURI})">
-<!--    <a th:href="${currentUrl} + '/order'" sec:authorize="hasRole('ROLE_COMMITTEEADMIN')">Candidates order</a>-->
+    <a th:href="${currentUrl} + '/order'" sec:authorize="hasRole('ROLE_COMMITTEEADMIN')">Candidates order</a>
 </body>
 </html>

@@ -3,6 +3,8 @@ package com.drzewo97.ballotbox.panel.controller.candidate;
 import com.drzewo97.ballotbox.core.model.candidate.Candidate;
 import com.drzewo97.ballotbox.core.model.candidate.CandidateRepository;
 import com.drzewo97.ballotbox.core.model.committee.CommitteeRepository;
+import com.drzewo97.ballotbox.core.model.committeecandidateorder.CommitteeCandidateOrder;
+import com.drzewo97.ballotbox.core.model.committeecandidateorder.CommitteeCandidateOrderRepository;
 import com.drzewo97.ballotbox.core.model.country.CountryRepository;
 import com.drzewo97.ballotbox.core.model.district.DistrictRepository;
 import com.drzewo97.ballotbox.core.model.poll.PollRepository;
@@ -42,6 +44,9 @@ public class CandidateRegitrationController {
 	@Autowired
 	private CommitteeRepository committeeRepository;
 	
+	@Autowired
+	private CommitteeCandidateOrderRepository committeeCandidateOrderRepository;
+	
 	@ModelAttribute("candidate")
 	private Candidate candidate(){
 		return new Candidate();
@@ -71,6 +76,13 @@ public class CandidateRegitrationController {
 		candidate.setPlace(0);
 		candidate.setVotesPlaced(0);
 		candidateRepository.save(candidate);
+		
+		// add committee order placeholder
+		CommitteeCandidateOrder candidateOrder = new CommitteeCandidateOrder();
+		candidateOrder.setCandidate(candidate);
+		candidateOrder.setCommittee(candidate.getCommittee());
+		candidateOrder.setCandidateOrder(null);
+		committeeCandidateOrderRepository.save(candidateOrder);
 		
 		return "redirect:register?success";
 	}

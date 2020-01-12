@@ -42,6 +42,11 @@ insert into ward(id, name, district_id, ward_admin_id) values
 ('17', 'c_d3_w2', '6', null),
 ('18', 'c_d3_w3', '6', null);
 
+insert into committee(id, name) values
+  (1, 'com1'),
+  (2, 'com2'),
+  (3, 'com3');
+
  insert into user (id, username, password, active, address, email, first_name, surname, country_id, district_id, ward_id) values
   ('5', 'candidate_wta_1', 'test', 1, 'address', 'mail@mail.com', 'candidate', 'wta_1', 1, 3, 7),
   ('6', 'candidate_wta_2', 'test', 1, 'address', 'mail@mail.com', 'candidate', 'wta_2', 1, 3, 7),
@@ -58,17 +63,27 @@ insert into ward(id, name, district_id, ward_admin_id) values
   ('16', 'wardadmin', 'test', 1, 'address', 'mail@mail.com', 'admin', 'ward', 1, 1, 1),
   ('17', 'com1admin', 'test', 1, 'address', 'mail@mail.com', 'admin', 'com1', 1, 1, 1),
   ('18', 'com2admin', 'test', 1, 'address', 'mail@mail.com', 'admin', 'com2', 1, 1, 1),
-  ('19', 'com3admin', 'test', 1, 'address', 'mail@mail.com', 'admin', 'com3', 1, 1, 1);
+  ('19', 'com3admin', 'test', 1, 'address', 'mail@mail.com', 'admin', 'com3', 1, 1, 1),
+  ('20', 'com1cand1', 'test', 1, 'address', 'mail@mail.com', 'cand1', 'com1', 2, 2, 6),
+  ('21', 'com1cand2', 'test', 1, 'address', 'mail@mail.com', 'cand2', 'com1', 2, 2, 6),
+  ('22', 'com1cand3', 'test', 1, 'address', 'mail@mail.com', 'cand3', 'com1', 2, 2, 6),
+  ('23', 'com1cand4', 'test', 1, 'address', 'mail@mail.com', 'cand4', 'com1', 2, 2, 6),
+  ('24', 'com1cand5', 'test', 1, 'address', 'mail@mail.com', 'cand5', 'com1', 2, 2, 6),
+  ('25', 'com2cand1', 'test', 1, 'address', 'mail@mail.com', 'cand1', 'com2', 2, 2, 6),
+  ('26', 'com2cand2', 'test', 1, 'address', 'mail@mail.com', 'cand2', 'com2', 2, 2, 6),
+  ('27', 'com2cand3', 'test', 1, 'address', 'mail@mail.com', 'cand3', 'com2', 2, 2, 6),
+  ('28', 'com2cand4', 'test', 1, 'address', 'mail@mail.com', 'cand4', 'com2', 2, 2, 6),
+  ('29', 'com2cand5', 'test', 1, 'address', 'mail@mail.com', 'cand5', 'com2', 2, 2, 6),
+  ('30', 'com3cand1', 'test', 1, 'address', 'mail@mail.com', 'cand1', 'com3', 2, 2, 6),
+  ('31', 'com3cand2', 'test', 1, 'address', 'mail@mail.com', 'cand2', 'com3', 2, 2, 6),
+  ('32', 'com3cand3', 'test', 1, 'address', 'mail@mail.com', 'cand3', 'com3', 2, 2, 6),
+  ('33', 'com3cand4', 'test', 1, 'address', 'mail@mail.com', 'cand4', 'com3', 2, 2, 6),
+  ('34', 'com3cand5', 'test', 1, 'address', 'mail@mail.com', 'cand5', 'com3', 2, 2, 6);
 
   update ward set ward_admin_id='16' where id='1';
   update ward set ward_admin_id='16' where id='2';
   update ward set ward_admin_id='16' where id='3';
   update ward set ward_admin_id='16' where id='4';
-
-insert into committee(id, name) values
-  (1, 'com1'),
-  (2, 'com2'),
-  (3, 'com3');
 
   update committee set committee_admin_id='17' where id='1';
   update committee set committee_admin_id='18' where id='2';
@@ -105,29 +120,78 @@ insert into users_roles (user_id, role_id) values
   ('12', '2'),
   ('13', '2'),
   ('14', '2'),
-  ('15', '2');
+  ('15', '2'),
+-- committee candidates
+  ('20', '2'),
+  ('21', '2'),
+  ('22', '2'),
+  ('23', '2'),
+  ('24', '2'),
+  ('25', '2'),
+  ('26', '2'),
+  ('27', '2'),
+  ('28', '2'),
+  ('29', '2'),
+  ('30', '2'),
+  ('31', '2'),
+  ('32', '2'),
+  ('33', '2'),
+  ('34', '2');
 
   insert into election(id, name) values
   (1, 'election');
 
-  insert into poll(id, candidates_count, description, name, open_from, open_until, poll_type, voting_mode, creator_id, election_id, country_id, district_id, ward_id) values
-  (1, 1, 'description', 'wta', '2018-11-19 05:40:26','2018-12-28 06:22:02', 'WINNER_TAKES_ALL', 'EXACTLY', 1, 1, null, 3, null),
-  (2, 1, 'description', 'tr', '2018-11-19 05:40:26','2018-12-28 06:22:02', 'TWO_ROUND', 'EXACTLY', 1, 1, 1, null, null),
-  (3, 3, 'description', 'irv', '2018-11-19 05:40:26','2018-12-28 06:22:02', 'INSTANT_RUNOFF_VOTING', 'EXACTLY', 1, 1, null, null, 1);
+  insert into poll(id, candidates_count, description, name, open_from, open_until, poll_type, voting_mode, creator_id, election_id, country_id, district_id, ward_id, winning_candidates_count) values
+  (1, 1, 'description', 'wta', '2018-11-19 05:40:26','2018-12-28 06:22:02', 'WINNER_TAKES_ALL', 'EXACTLY', 1, 1, null, 3, null, 1),
+  (2, 1, 'description', 'tr', '2018-11-19 05:40:26','2018-12-28 06:22:02', 'TWO_ROUND', 'EXACTLY', 1, 1, 1, null, null, 1),
+  (3, 3, 'description', 'irv', '2018-11-19 05:40:26','2018-12-28 06:22:02', 'INSTANT_RUNOFF_VOTING', 'EXACTLY', 1, 1, null, null, 1, 1),
+  (4, 1, 'description', 'dh', '2018-11-19 05:40:26','2018-12-28 06:22:02', 'TWO_ROUND', 'EXACTLY', 1, 1, 1, null, null, 8);
 
-insert into candidate(id, name, country_id, district_id, ward_id, poll_id, user_id, place, votes_placed) values
-(1, 'wta_1', null, 3, null, 1, 5, 0, 0),
-(2, 'wta_2', null, 3, null, 1, 6, 0, 0),
-(3, 'wta_3', null, 3, null, 1, 7, 0, 0),
-(4, 'wta_4', null, 3, null, 1, 8, 0, 0),
-(5, 'tr_1', 1, null, null, 2, 9, 0, 0),
-(6, 'tr_2', 1, null, null, 2, 10, 0, 0),
-(7, 'tr_3', 1, null, null, 2, 11, 0, 0),
-(8, 'tr_4', 1, null, null, 2, 12, 0, 0),
-(9, 'irv_1', null, null, 1, 3, 4, 0, 0),
-(10, 'irv_2', null, null, 1, 3, 13, 0, 0),
-(11, 'irv_3', null, null, 1, 3, 14, 0, 0),
-(12, 'irv_4', null, null, 1, 3, 15, 0, 0);
+insert into candidate(id, name, country_id, district_id, ward_id, poll_id, user_id, place, votes_placed, committee_id) values
+(1, 'wta_1', null, 3, null, 1, 5, 0, 0, null),
+(2, 'wta_2', null, 3, null, 1, 6, 0, 0, null),
+(3, 'wta_3', null, 3, null, 1, 7, 0, 0, null),
+(4, 'wta_4', null, 3, null, 1, 8, 0, 0, null),
+(5, 'tr_1', 1, null, null, 2, 9, 0, 0, null),
+(6, 'tr_2', 1, null, null, 2, 10, 0, 0, null),
+(7, 'tr_3', 1, null, null, 2, 11, 0, 0, null),
+(8, 'tr_4', 1, null, null, 2, 12, 0, 0, null),
+(9, 'irv_1', null, null, 1, 3, 4, 0, 0, null),
+(10, 'irv_2', null, null, 1, 3, 13, 0, 0, null),
+(11, 'irv_3', null, null, 1, 3, 14, 0, 0, null),
+(12, 'irv_4', null, null, 1, 3, 15, 0, 0, null),
+(13, 'dh_1', 1, null, null, 4, 20, 0, 0, 1),
+(14, 'dh_2', 1, null, null, 4, 21, 0, 0, 1),
+(15, 'dh_3', 1, null, null, 4, 22, 0, 0, 1),
+(16, 'dh_4', 1, null, null, 4, 23, 0, 0, 1),
+(17, 'dh_5', 1, null, null, 4, 24, 0, 0, 1),
+(18, 'dh_6', 1, null, null, 4, 25, 0, 0, 2),
+(19, 'dh_7', 1, null, null, 4, 26, 0, 0, 2),
+(20, 'dh_8', 1, null, null, 4, 27, 0, 0, 2),
+(21, 'dh_9', 1, null, null, 4, 28, 0, 0, 2),
+(22, 'dh_10', 1, null, null, 4, 29, 0, 0, 2),
+(23, 'dh_11', 1, null, null, 4, 30, 0, 0, 3),
+(24, 'dh_12', 1, null, null, 4, 31, 0, 0, 3),
+(25, 'dh_13', 1, null, null, 4, 32, 0, 0, 3),
+(26, 'dh_14', 1, null, null, 4, 33, 0, 0, 3),
+(27, 'dh_15', 1, null, null, 4, 34, 0, 0, 3);
+
+insert into committee_candidate_order (id, candidate_id, committee_id, candidate_order) values (1, 13, 1, 1);
+insert into committee_candidate_order (id, candidate_id, committee_id, candidate_order) values (2, 14, 1, 2);
+insert into committee_candidate_order (id, candidate_id, committee_id, candidate_order) values (3, 15, 1, 3);
+insert into committee_candidate_order (id, candidate_id, committee_id, candidate_order) values (4, 16, 1, 4);
+insert into committee_candidate_order (id, candidate_id, committee_id, candidate_order) values (5, 17, 1, 5);
+insert into committee_candidate_order (id, candidate_id, committee_id, candidate_order) values (6, 18, 2, 1);
+insert into committee_candidate_order (id, candidate_id, committee_id, candidate_order) values (7, 19, 2, 2);
+insert into committee_candidate_order (id, candidate_id, committee_id, candidate_order) values (8, 20, 2, 3);
+insert into committee_candidate_order (id, candidate_id, committee_id, candidate_order) values (9, 21, 2, 4);
+insert into committee_candidate_order (id, candidate_id, committee_id, candidate_order) values (10, 22, 2, 5);
+insert into committee_candidate_order (id, candidate_id, committee_id, candidate_order) values (11, 23, 3, 1);
+insert into committee_candidate_order (id, candidate_id, committee_id, candidate_order) values (12, 24, 3, 2);
+insert into committee_candidate_order (id, candidate_id, committee_id, candidate_order) values (13, 25, 3, 3);
+insert into committee_candidate_order (id, candidate_id, committee_id, candidate_order) values (14, 26, 3, 4);
+insert into committee_candidate_order (id, candidate_id, committee_id, candidate_order) values (15, 27, 3, 5);
+
 
 insert into vote (id, poll_id) values (1, 1);
 insert into vote (id, poll_id) values (2, 1);

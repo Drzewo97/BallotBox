@@ -1,6 +1,7 @@
 package com.drzewo97.ballotbox.core.model.committee;
 
 import com.drzewo97.ballotbox.core.model.candidate.Candidate;
+import com.drzewo97.ballotbox.core.model.committeecandidateorder.CommitteeCandidateOrder;
 import com.drzewo97.ballotbox.core.model.user.User;
 
 import javax.persistence.*;
@@ -19,6 +20,9 @@ public class Committee {
 	
 	@OneToOne
 	private User committeeAdmin;
+	
+	@OneToMany(mappedBy = "committee")
+	private Set<CommitteeCandidateOrder> candidateOrders;
 	
 	public Long getId() {
 		return id;
@@ -50,5 +54,13 @@ public class Committee {
 	
 	public void setCommitteeAdmin(User committeeAdmin) {
 		this.committeeAdmin = committeeAdmin;
+	}
+	
+	public Set<CommitteeCandidateOrder> getCandidateOrders() {
+		return candidateOrders;
+	}
+	
+	public void setCandidateOrders(Set<CommitteeCandidateOrder> candidateOrders) {
+		this.candidateOrders = candidateOrders;
 	}
 }
