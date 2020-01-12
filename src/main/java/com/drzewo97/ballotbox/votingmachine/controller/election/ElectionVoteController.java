@@ -2,12 +2,14 @@ package com.drzewo97.ballotbox.votingmachine.controller.election;
 
 import com.drzewo97.ballotbox.core.dto.electionvote.ElectionVoteDto;
 import com.drzewo97.ballotbox.core.model.candidate.Candidate;
+import com.drzewo97.ballotbox.core.model.candidate.CandidateRepository;
 import com.drzewo97.ballotbox.core.model.election.Election;
 import com.drzewo97.ballotbox.core.model.election.ElectionRepository;
 import com.drzewo97.ballotbox.core.model.poll.Poll;
 import com.drzewo97.ballotbox.core.model.vote.Vote;
 import com.drzewo97.ballotbox.core.model.vote.VoteRepository;
 import com.drzewo97.ballotbox.core.service.converter.Converter;
+import com.drzewo97.ballotbox.votingmachine.dto.VoteDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/election/{id}/vote")
@@ -28,7 +31,10 @@ public class ElectionVoteController {
 	private VoteRepository voteRepository;
 	
 	@Autowired
-	private Converter<Set<Candidate>, Vote> converter;
+	private CandidateRepository candidateRepository;
+	
+	@Autowired
+	private Converter<Set<Map.Entry<Candidate, VoteDto>>, Vote> converter;
 	
 	@GetMapping
 	public String showElections(@PathVariable("id") Long id, WebRequest request, Model model) {
@@ -51,9 +57,9 @@ public class ElectionVoteController {
 		}
 		
 		// divide candidate list into polls
-		Map<Poll, Set<Candidate>> pollCandidates = constructPollCandidates(electionVoteDto.getChoices());
+		Map<Poll, Set<Map.Entry<Candidate, VoteDto>>> pollCandidates = groupCandidatesToPolls(electionVoteDto.getCandidateIdPreferenceMap());
 		
-		for(Set<Candidate> candidates : pollCandidates.values()){
+		for(Set<Map.Entry<Candidate, VoteDto>> candidates : pollCandidates.values()){
 			voteRepository.save(converter.convert(candidates));
 		}
 		
@@ -61,31 +67,43 @@ public class ElectionVoteController {
 	}
 	
 	
-	private Map<Poll, Set<Candidate>> constructPollCandidates(Set<Candidate> candidates){
-		//https://stackoverflow.com/questions/3836621/split-a-java-collection-into-sub-collections-based-on-a-object-property
-		// create the thing to store the sub lists
-		Map<Poll, Set<Candidate>> pollCandidates = new HashMap<>();
+	private Map<Poll, Set<Map.Entry<Candidate, VoteDto>>> groupCandidatesToPolls(Map<Long, VoteDto> candidates){
+		// fetch candidate by id in map key
+		Map<Candidate, VoteDto> candidateVoteDtoMap = candidates.entrySet().stream()
+				.collect(Collectors.toMap(e -> candidateRepository.findById(e.getKey()).get(), Map.Entry::getValue));
 		
-		// iterate through your objects
-		for(Candidate c : candidates){
-			
-			// fetch the list for this object's id
-			Set<Candidate> temp = pollCandidates.get(c.getPoll());
-			
-			if(temp == null){
-				// if the list is null we haven't seen an
-				// object with this id before, so create
-				// a new list
-				temp = new HashSet<>();
-				
-				// and add it to the map
-				pollCandidates.put(c.getPoll(), temp);
+		// sieve not marked candidates
+		Map<Candidate, VoteDto> sievedCandidateVoteMap = new HashMap<>();
+		for(Map.Entry<Candidate, VoteDto> entry : candidateVoteDtoMap.entrySet()){
+			if(entry.getValue().getChecked() != null && entry.getValue().getPreferenceNumber() != null){
+				//TODO: different browsers may set default values? Shouldn't
+				throw new RuntimeException("Someone was playing with form attributes -> ban and discard vote.");
 			}
 			
-			// whether we got the list from the map
-			// or made a new one we need to add our
-			// object.
-			temp.add(c);
+			if(entry.getKey().getPoll().isPreferenceVoting()){
+				if(entry.getValue().getPreferenceNumber() != 0){
+					sievedCandidateVoteMap.put(entry.getKey(), entry.getValue());
+				}
+			}
+			else{
+				// checkbox voting
+				if(entry.getValue().getChecked()){
+					sievedCandidateVoteMap.put(entry.getKey(), entry.getValue());
+				}
+			}
+		}
+		
+		// create map of poll and every vote that counts
+		Map<Poll, Set<Map.Entry<Candidate, VoteDto>>> pollCandidates = new HashMap<>();
+		for(Map.Entry<Candidate, VoteDto> e : sievedCandidateVoteMap.entrySet()){
+			Set<Map.Entry<Candidate, VoteDto>> temp = pollCandidates.get(e.getKey().getPoll());
+
+			if(temp == null){
+				temp = new HashSet<>();
+				pollCandidates.put(e.getKey().getPoll(), temp);
+			}
+
+			temp.add(e);
 		}
 		
 		return pollCandidates;

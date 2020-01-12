@@ -1,37 +1,18 @@
 package com.drzewo97.ballotbox.core.dto.electionvote;
 
-import com.drzewo97.ballotbox.core.dto.candidatedto.CandidateDto;
-import com.drzewo97.ballotbox.core.model.candidate.Candidate;
+import com.drzewo97.ballotbox.votingmachine.dto.VoteDto;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 public class ElectionVoteDto {
 
-	private Set<Candidate> choices;
+	Map<Long, VoteDto> candidateIdPreferenceMap;
 	
-	private List<CandidateDto> preferences;
-	
-	public ElectionVoteDto() {
-		choices = new HashSet<>();
-		preferences = new ArrayList<>();
+	public Map<Long, VoteDto> getCandidateIdPreferenceMap() {
+		return candidateIdPreferenceMap;
 	}
 	
-	public Set<Candidate> getChoices() {
-		return choices;
-	}
-	
-	public void setChoices(Set<Candidate> choices) {
-		this.choices = choices;
-	}
-	
-	public List<CandidateDto> getPreferences() {
-		return preferences;
-	}
-	
-	public void setPreferences(List<CandidateDto> preferences) {
-		this.preferences = preferences;
+	public void setCandidateIdPreferenceMap(Map<Long, VoteDto> candidateIdPreferenceMap) {
+		this.candidateIdPreferenceMap = candidateIdPreferenceMap;
 	}
 }

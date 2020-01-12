@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -7,9 +7,9 @@
 <body>
 <div th:fragment="pollVote">
     <div th:text="${poll.name}" />
-    <!--  TODO: Poll instruction  -->
+<!--  TODO: Poll instruction  -->
     <div th:each="c: ${poll.candidates}">
-        <input type="checkbox" th:text="${c.name}" th:field="*{candidateIdPreferenceMap[__${c.id}__].checked}"/>
+        <input type="number" th:text="${c.name}" th:field="*{candidateIdPreferenceMap[__${c.id}__].preferenceNumber}" value="0"/>
     </div>
 </div>
 </body>

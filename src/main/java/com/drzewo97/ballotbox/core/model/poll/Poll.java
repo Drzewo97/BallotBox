@@ -251,4 +251,15 @@ public class Poll {
                 return false;
         }
     }
+    
+    public Boolean isPreferenceVoting(){
+        switch (this.pollType){
+            case WINNER_TAKES_ALL:
+            case TWO_ROUND:
+                return false;
+            case INSTANT_RUNOFF_VOTING:
+            default:
+                return true;
+        }
+    }
 }
