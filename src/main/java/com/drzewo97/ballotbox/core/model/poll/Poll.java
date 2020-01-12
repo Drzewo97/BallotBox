@@ -43,6 +43,11 @@ public class Poll {
      */
     private Integer candidatesCount;
     
+    /**
+     * Number of places to fill
+     */
+    private Integer winningCandidatesCount;
+    
     @Enumerated(EnumType.STRING)
     private PollType pollType;
 
@@ -216,6 +221,14 @@ public class Poll {
     
     public void setWard(Ward ward) {
         this.ward = ward;
+    }
+    
+    public Integer getWinningCandidatesCount() {
+        return winningCandidatesCount;
+    }
+    
+    public void setWinningCandidatesCount(Integer winningCandidatesCount) {
+        this.winningCandidatesCount = winningCandidatesCount;
     }
     
     public Integer getVotesCastedCount(){

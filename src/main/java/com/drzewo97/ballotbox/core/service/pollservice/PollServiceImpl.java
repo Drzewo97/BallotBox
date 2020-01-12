@@ -52,6 +52,7 @@ public class PollServiceImpl implements PollService {
         poll.setOpenFrom(pollDto.getOpenFrom());
         poll.setOpenUntil(pollDto.getOpenUntil());
         poll.setCandidatesCount(pollDto.getCandidatesCount());
+        poll.setWinningCandidatesCount(pollDto.getWinningCandidatesCount());
         // Just to simplify, and not deal with enum in template form
         if(pollDto.getExactly()){
             poll.setVotingMode(VotingMode.EXACTLY);

@@ -34,6 +34,8 @@ public class PollDto {
     @NotNull
     @Positive
     private Integer candidatesCount;
+    
+    private Integer winningCandidatesCount;
 
     /**
      * Just to simplify, and not deal with enum in template form
@@ -145,5 +147,13 @@ public class PollDto {
     
     public void setPollScope(PollScope pollScope) {
         this.pollScope = pollScope;
+    }
+    
+    public Integer getWinningCandidatesCount() {
+        return winningCandidatesCount;
+    }
+    
+    public void setWinningCandidatesCount(Integer winningCandidatesCount) {
+        this.winningCandidatesCount = winningCandidatesCount;
     }
 }

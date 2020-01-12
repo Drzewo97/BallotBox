@@ -96,7 +96,7 @@
     </div>
     <!--TODO: only for some poll types-->
     <div>
-        <label for="candidatesCount">Candidates count</label>
+        <label for="candidatesCount">Candidates count for user to mark</label>
         <input id="candidatesCount"
                type="number"
                th:field="*{candidatesCount}"/>
@@ -107,6 +107,12 @@
         <input id="exactly"
                type="checkbox"
                th:field="*{exactly}"/>
+    </div>
+    <div>
+        <label for="winningCandidatesCount">Number of seats to fill</label>
+        <input id="winningCandidatesCount"
+               type="number"
+               th:field="*{winningCandidatesCount}"/>
     </div>
     <div>
         <button type="submit">Create</button>
