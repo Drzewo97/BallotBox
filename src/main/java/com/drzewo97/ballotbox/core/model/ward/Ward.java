@@ -22,7 +22,7 @@ public class Ward {
 	@OneToMany(mappedBy = "ward")
 	private Set<Candidate> candidates;
 	
-	@OneToOne
+	@ManyToOne
 	private User wardAdmin;
 	
 	public Long getId() {

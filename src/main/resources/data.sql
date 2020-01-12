@@ -2,7 +2,8 @@ insert into role (id, name) values
   ('1', 'ROLE_ADMIN'),
   ('2', 'ROLE_USER'),
   ('3', 'ROLE_MODERATOR'),
-  ('4', 'ROLE_WARDADMIN');
+  ('4', 'ROLE_WARDADMIN'),
+  ('5', 'ROLE_COMMITTEEADMIN');
 
 insert into user (id, username, password, active) values
   ('1', 'admin', 'test', 1),
@@ -54,12 +55,25 @@ insert into ward(id, name, district_id, ward_admin_id) values
   ('13', 'candidate_irv_2', 'test', 1, 'address', 'mail@mail.com', 'candidate', 'irv_2', 1, 1, 1),
   ('14', 'candidate_irv_3', 'test', 1, 'address', 'mail@mail.com', 'candidate', 'irv_3', 1, 1, 1),
   ('15', 'candidate_irv_4', 'test', 1, 'address', 'mail@mail.com', 'candidate', 'irv_4', 1, 1, 1),
-  ('16', 'wardadmin', 'test', 1, 'address', 'mail@mail.com', 'admin', 'ward', 1, 1, 1);
+  ('16', 'wardadmin', 'test', 1, 'address', 'mail@mail.com', 'admin', 'ward', 1, 1, 1),
+  ('17', 'com1admin', 'test', 1, 'address', 'mail@mail.com', 'admin', 'com1', 1, 1, 1),
+  ('18', 'com2admin', 'test', 1, 'address', 'mail@mail.com', 'admin', 'com2', 1, 1, 1),
+  ('19', 'com3admin', 'test', 1, 'address', 'mail@mail.com', 'admin', 'com3', 1, 1, 1);
 
   update ward set ward_admin_id='16' where id='1';
   update ward set ward_admin_id='16' where id='2';
   update ward set ward_admin_id='16' where id='3';
   update ward set ward_admin_id='16' where id='4';
+
+insert into committee(id, name) values
+  (1, 'com1'),
+  (2, 'com2'),
+  (3, 'com3');
+
+  update committee set committee_admin_id='17' where id='1';
+  update committee set committee_admin_id='18' where id='2';
+  update committee set committee_admin_id='19' where id='3';
+
 
 insert into users_roles (user_id, role_id) values
 -- admin
@@ -72,6 +86,13 @@ insert into users_roles (user_id, role_id) values
 -- ward admin
   ('16', '2'),
   ('16', '4'),
+-- committee admins
+  ('17', '2'),
+  ('18', '2'),
+  ('19', '2'),
+  ('17', '5'),
+  ('18', '5'),
+  ('19', '5'),
 -- users
   ('4', '2'),
   ('5', '2'),

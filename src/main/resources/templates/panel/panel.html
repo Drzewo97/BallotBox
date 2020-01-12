@@ -14,6 +14,7 @@
     <a th:href="@{/panel/election/create}" sec:authorize="hasRole('ROLE_ADMIN')">Create election</a>
     <a th:href="@{/panel/poll/all}" sec:authorize="hasRole('ROLE_ADMIN')">Polls</a>
     <a th:href="@{/panel/ward/admin/add}" sec:authorize="hasRole('ROLE_ADMIN')">Grant ward administrator privileges</a>
+    <a th:href="@{/panel/committee/admin/add}" sec:authorize="hasRole('ROLE_ADMIN')">Grant committee administrator privileges</a>
     <!-- show all current/future (exclude past) -->
     <!-- show finished -->
 </body>

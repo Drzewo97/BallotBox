@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add committee administrator</title>
+</head>
+<body>
+<form th:action="@{/panel/committee/admin/add}" th:object="${admin}" method="post">
+    <ul>
+        <label for="committees">Select committee</label>
+        <li id="committees" th:each="w : ${committees}">
+            <input id="committee" type="radio" th:field="*{committee}" th:value="${w.id}"/>
+            <label th:for="committee"
+                   th:text="${w.name}"></label>
+        </li>
+    </ul>
+    <ul>
+        <label for="users">Select User</label>
+        <li id="users" th:each="u : ${users}">
+            <input id="user" type="radio" th:field="*{user}" th:value="${u.id}"/>
+            <label th:for="user" th:text="${u.username}"></label>
+        </li>
+    </ul>
+    <div>
+        <button type="submit">Grant privileges</button>
+    </div>
+</form>
+</body>
+</html>
