@@ -6,13 +6,13 @@ import java.util.Map;
 
 public class ElectionVoteDto {
 
-	Map<Long, VoteDto> candidateIdPreferenceMap;
+	Map<Integer, VoteDto> candidateIdPreferenceMap;
 	
-	public Map<Long, VoteDto> getCandidateIdPreferenceMap() {
+	public Map<Integer, VoteDto> getCandidateIdPreferenceMap() {
 		return candidateIdPreferenceMap;
 	}
 	
-	public void setCandidateIdPreferenceMap(Map<Long, VoteDto> candidateIdPreferenceMap) {
+	public void setCandidateIdPreferenceMap(Map<Integer, VoteDto> candidateIdPreferenceMap) {
 		this.candidateIdPreferenceMap = candidateIdPreferenceMap;
 	}
 }

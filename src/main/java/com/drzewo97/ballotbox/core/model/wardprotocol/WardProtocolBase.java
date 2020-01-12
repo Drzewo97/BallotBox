@@ -10,7 +10,7 @@ public abstract class WardProtocolBase {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 	
 	@ManyToOne
 	private Poll poll;
@@ -18,24 +18,24 @@ public abstract class WardProtocolBase {
 	@ManyToOne
 	private Ward ward;
 	
-	private Long votersAuthorizedCount;
+	private Integer votersAuthorizedCount;
 	
-	private Long ballotsReceived;
-	private Long ballotsGiven;
-	private Long ballotsRemained;
+	private Integer ballotsReceived;
+	private Integer ballotsGiven;
+	private Integer ballotsRemained;
 	private String reasonForBallotsSumMiscalculation;
 	
-	private Long ballotsTakenFromBox;
+	private Integer ballotsTakenFromBox;
 	private String reasonForBallotsTakenMiscalculation;
 	
-	private Long ballotsInvalid;
-	private Long ballotsValid;
+	private Integer ballotsInvalid;
+	private Integer ballotsValid;
 	
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 	
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	
@@ -55,35 +55,35 @@ public abstract class WardProtocolBase {
 		this.ward = ward;
 	}
 	
-	public Long getVotersAuthorizedCount() {
+	public Integer getVotersAuthorizedCount() {
 		return votersAuthorizedCount;
 	}
 	
-	public void setVotersAuthorizedCount(Long votersAuthorizedCount) {
+	public void setVotersAuthorizedCount(Integer votersAuthorizedCount) {
 		this.votersAuthorizedCount = votersAuthorizedCount;
 	}
 	
-	public Long getBallotsReceived() {
+	public Integer getBallotsReceived() {
 		return ballotsReceived;
 	}
 	
-	public void setBallotsReceived(Long ballotsReceived) {
+	public void setBallotsReceived(Integer ballotsReceived) {
 		this.ballotsReceived = ballotsReceived;
 	}
 	
-	public Long getBallotsGiven() {
+	public Integer getBallotsGiven() {
 		return ballotsGiven;
 	}
 	
-	public void setBallotsGiven(Long ballotsGiven) {
+	public void setBallotsGiven(Integer ballotsGiven) {
 		this.ballotsGiven = ballotsGiven;
 	}
 	
-	public Long getBallotsRemained() {
+	public Integer getBallotsRemained() {
 		return ballotsRemained;
 	}
 	
-	public void setBallotsRemained(Long ballotsRemained) {
+	public void setBallotsRemained(Integer ballotsRemained) {
 		this.ballotsRemained = ballotsRemained;
 	}
 	
@@ -95,11 +95,11 @@ public abstract class WardProtocolBase {
 		this.reasonForBallotsSumMiscalculation = reasonForBallotsSumMiscalculation;
 	}
 	
-	public Long getBallotsTakenFromBox() {
+	public Integer getBallotsTakenFromBox() {
 		return ballotsTakenFromBox;
 	}
 	
-	public void setBallotsTakenFromBox(Long ballotsTakenFromBox) {
+	public void setBallotsTakenFromBox(Integer ballotsTakenFromBox) {
 		this.ballotsTakenFromBox = ballotsTakenFromBox;
 	}
 	
@@ -111,19 +111,19 @@ public abstract class WardProtocolBase {
 		this.reasonForBallotsTakenMiscalculation = reasonForBallotsTakenMiscalculation;
 	}
 	
-	public Long getBallotsInvalid() {
+	public Integer getBallotsInvalid() {
 		return ballotsInvalid;
 	}
 	
-	public void setBallotsInvalid(Long ballotsInvalid) {
+	public void setBallotsInvalid(Integer ballotsInvalid) {
 		this.ballotsInvalid = ballotsInvalid;
 	}
 	
-	public Long getBallotsValid() {
+	public Integer getBallotsValid() {
 		return ballotsValid;
 	}
 	
-	public void setBallotsValid(Long ballotsValid) {
+	public void setBallotsValid(Integer ballotsValid) {
 		this.ballotsValid = ballotsValid;
 	}
 }

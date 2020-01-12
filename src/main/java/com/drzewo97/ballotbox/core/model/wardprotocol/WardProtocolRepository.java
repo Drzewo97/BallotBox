@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface WardProtocolRepository extends CrudRepository<WardProtocol, Long> {
+public interface WardProtocolRepository extends CrudRepository<WardProtocol, Integer> {
 	Optional<WardProtocol> findByWardAndPoll(Ward ward, Poll poll);
 }

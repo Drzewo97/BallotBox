@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface PollResultRepository extends CrudRepository<PollResult, Long> {
+public interface PollResultRepository extends CrudRepository<PollResult, Integer> {
 	Optional<PollResult> findByPoll(Poll poll);
 }

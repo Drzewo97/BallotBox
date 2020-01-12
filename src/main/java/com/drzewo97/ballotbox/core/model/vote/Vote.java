@@ -13,7 +13,7 @@ public class Vote implements IVote {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @ManyToOne
     private Poll poll;
@@ -24,11 +24,11 @@ public class Vote implements IVote {
     public Vote() {
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

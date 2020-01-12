@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface CountryRepository extends CrudRepository<Country, Long> {
+public interface CountryRepository extends CrudRepository<Country, Integer> {
 	Boolean existsByName(String name);
 	Optional<Country> findByName(String name);
 }

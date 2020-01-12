@@ -16,7 +16,7 @@ public class WardManageController {
 	private WardService wardService;
 	
 	@GetMapping
-	private String showWardManage(@PathVariable("wardId") Long wardId){
+	private String showWardManage(@PathVariable("wardId") Integer wardId){
 		//Get username
 		String currentPrincipalName = SecurityContextHolder.getContext().getAuthentication().getName();
 		if(!wardService.isWardAdmin(currentPrincipalName, wardId)){

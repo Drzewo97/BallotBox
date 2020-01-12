@@ -4,7 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.Set;
 
-public interface CommitteeRepository extends CrudRepository<Committee, Long> {
+public interface CommitteeRepository extends CrudRepository<Committee, Integer> {
 	Boolean existsByName(String name);
 	Set<Committee> findAllByCommitteeAdminIsNull();
 	Set<Committee> findAllByCommitteeAdminUsername(String username);

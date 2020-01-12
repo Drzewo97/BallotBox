@@ -19,7 +19,7 @@ public class PollSummaryController {
 	private PollRepository pollRepository;
 	
 	@GetMapping
-	public String pollSummary(Model model, @PathVariable("id") Long id){
+	public String pollSummary(Model model, @PathVariable("id") Integer id){
 		Optional<Poll> poll = pollRepository.findById(id);
 		if(poll.isEmpty()){
 			return "redirect:/poll/all?empty";

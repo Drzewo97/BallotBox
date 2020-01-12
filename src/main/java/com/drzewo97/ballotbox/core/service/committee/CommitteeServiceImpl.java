@@ -14,7 +14,7 @@ public class CommitteeServiceImpl implements CommitteeService {
 	private CommitteeRepository committeeRepository;
 	
 	@Override
-	public Boolean isCommitteeAdmin(String username, Long committeeId) {
+	public Boolean isCommitteeAdmin(String username, Integer committeeId) {
 		Set<Committee> adminsCommittees = committeeRepository.findAllByCommitteeAdminUsername(username);
 		return adminsCommittees.stream().filter(committee -> committee.getId().equals(committeeId)).count() > 0;
 	}

@@ -14,7 +14,7 @@ public interface PollService {
      * @see Poll
      */
     @Deprecated
-    Boolean hasVoted(String username, Long pollId);
+    Boolean hasVoted(String username, Integer pollId);
 
     /**
      * Save pollDto as poll

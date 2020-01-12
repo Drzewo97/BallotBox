@@ -4,5 +4,5 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CandidateProtocolVotesRepository extends CrudRepository<CandidateProtocolVotes, Long> {
+public interface CandidateProtocolVotesRepository extends CrudRepository<CandidateProtocolVotes, Integer> {
 }

@@ -14,7 +14,7 @@ public class WardServiceImpl implements WardService {
 	private WardRepository wardRepository;
 	
 	@Override
-	public Boolean isWardAdmin(String username, Long wardId) {
+	public Boolean isWardAdmin(String username, Integer wardId) {
 		Set<Ward> adminsWards = wardRepository.findAllByWardAdminUsername(username);
 		return adminsWards.stream().filter(ward -> ward.getId().equals(wardId)).count() > 0;
 	}

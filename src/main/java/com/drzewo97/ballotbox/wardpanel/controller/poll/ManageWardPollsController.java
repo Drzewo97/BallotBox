@@ -30,7 +30,7 @@ public class ManageWardPollsController {
 	private WardService wardService;
 
 	@GetMapping
-	public String showWardPolls(Model model, @PathVariable("wardId") Long wardId){
+	public String showWardPolls(Model model, @PathVariable("wardId") Integer wardId){
 		//Get username
 		String currentPrincipalName = SecurityContextHolder.getContext().getAuthentication().getName();
 		if(!wardService.isWardAdmin(currentPrincipalName, wardId)){

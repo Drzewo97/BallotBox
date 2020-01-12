@@ -4,7 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.Set;
 
-public interface WardRepository extends CrudRepository<Ward, Long> {
+public interface WardRepository extends CrudRepository<Ward, Integer> {
 	Boolean existsByNameAndDistrict_Name(String name, String districtName);
 	Set<Ward> findAllByWardAdminIsNull();
 	Set<Ward> findAllByWardAdminUsername(String username);

@@ -16,7 +16,7 @@ public class CommitteeManageController {
 	private CommitteeService committeeService;
 	
 	@GetMapping
-	private String showCommitteeManage(@PathVariable("committeeId") Long committeeId){
+	private String showCommitteeManage(@PathVariable("committeeId") Integer committeeId){
 		//Get username
 		String currentPrincipalName = SecurityContextHolder.getContext().getAuthentication().getName();
 		if(!committeeService.isCommitteeAdmin(currentPrincipalName, committeeId)){

@@ -32,7 +32,7 @@ public class AddPollWardProtocolController {
 	private WardProtocolRepository wardProtocolRepository;
 	
 	@GetMapping
-	public String showAddPollWardProtocol(Model model, @PathVariable("wardId") Long wardId, @PathVariable("pollId") Long pollId){
+	public String showAddPollWardProtocol(Model model, @PathVariable("wardId") Integer wardId, @PathVariable("pollId") Integer pollId){
 		//Get username
 		String currentPrincipalName = SecurityContextHolder.getContext().getAuthentication().getName();
 		if(!wardService.isWardAdmin(currentPrincipalName, wardId)){
@@ -57,7 +57,7 @@ public class AddPollWardProtocolController {
 	}
 	
 	@PostMapping
-	public String addPollWardProtocol(Model model, @PathVariable("wardId") Long wardId, @PathVariable("pollId") Long pollId, @ModelAttribute("wardProtocol") WardProtocol wardProtocol){
+	public String addPollWardProtocol(Model model, @PathVariable("wardId") Integer wardId, @PathVariable("pollId") Integer pollId, @ModelAttribute("wardProtocol") WardProtocol wardProtocol){
 		//Get username
 		String currentPrincipalName = SecurityContextHolder.getContext().getAuthentication().getName();
 		if(!wardService.isWardAdmin(currentPrincipalName, wardId)){

@@ -37,7 +37,7 @@ public class ElectionVoteController {
 	private Converter<Set<Map.Entry<Candidate, VoteDto>>, Vote> converter;
 	
 	@GetMapping
-	public String showElections(@PathVariable("id") Long id, WebRequest request, Model model) {
+	public String showElections(@PathVariable("id") Integer id, WebRequest request, Model model) {
 		Optional<Election> election = electionRepository.findById(id);
 		if(election.isEmpty()){
 			return "redirect:/election/all?empty";
@@ -67,7 +67,7 @@ public class ElectionVoteController {
 	}
 	
 	
-	private Map<Poll, Set<Map.Entry<Candidate, VoteDto>>> groupCandidatesToPolls(Map<Long, VoteDto> candidates){
+	private Map<Poll, Set<Map.Entry<Candidate, VoteDto>>> groupCandidatesToPolls(Map<Integer, VoteDto> candidates){
 		// fetch candidate by id in map key
 		Map<Candidate, VoteDto> candidateVoteDtoMap = candidates.entrySet().stream()
 				.collect(Collectors.toMap(e -> candidateRepository.findById(e.getKey()).get(), Map.Entry::getValue));

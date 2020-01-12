@@ -25,7 +25,7 @@ public class PollServiceImpl implements PollService {
     private VoteRepository voteRepository;
 
     @Override
-    public Boolean hasVoted(String username, Long pollId) {
+    public Boolean hasVoted(String username, Integer pollId) {
         // find user
         Optional<User> user = userService.findByUsername(username);
 

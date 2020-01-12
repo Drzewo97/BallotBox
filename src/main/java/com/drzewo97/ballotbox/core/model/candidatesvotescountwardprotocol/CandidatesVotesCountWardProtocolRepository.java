@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Repository
-public interface CandidatesVotesCountWardProtocolRepository extends CrudRepository<CandidatesVotesCountWardProtocol, Long> {
+public interface CandidatesVotesCountWardProtocolRepository extends CrudRepository<CandidatesVotesCountWardProtocol, Integer> {
 	Optional<CandidatesVotesCountWardProtocol> findByWardAndPoll(Ward ward, Poll poll);
 	Set<CandidatesVotesCountWardProtocol> findAllByPoll(Poll poll);
 }

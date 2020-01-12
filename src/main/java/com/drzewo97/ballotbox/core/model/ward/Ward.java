@@ -12,7 +12,7 @@ public class Ward {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 	
 	private String name;
 	
@@ -25,11 +25,11 @@ public class Ward {
 	@ManyToOne
 	private User wardAdmin;
 	
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 	
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	

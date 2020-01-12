@@ -9,10 +9,10 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 import java.util.Set;
 
-public interface PollRepository extends CrudRepository<Poll, Long> {
+public interface PollRepository extends CrudRepository<Poll, Integer> {
     Boolean existsByName(String name);
     Set<Poll> findByCountryOrDistrictOrWard(Country country, District district, Ward ward);
     
     @Query("select p from Poll p where p.id=?1 and (p.country=?2 or p.district=?3 or p.ward=?4)")
-    Optional<Poll> findByIdAndCountryOrDistrictOrWard(Long Id, Country country, District district, Ward ward);
+    Optional<Poll> findByIdAndCountryOrDistrictOrWard(Integer Id, Country country, District district, Ward ward);
 }

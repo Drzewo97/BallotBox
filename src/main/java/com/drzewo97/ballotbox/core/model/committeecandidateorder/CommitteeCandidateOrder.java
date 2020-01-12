@@ -10,7 +10,7 @@ public class CommitteeCandidateOrder {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 	
 	@OneToOne
 	private Candidate candidate;
@@ -20,11 +20,11 @@ public class CommitteeCandidateOrder {
 	
 	private Integer candidateOrder;
 	
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 	
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	

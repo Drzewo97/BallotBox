@@ -10,7 +10,7 @@ import java.util.Set;
 public class PollResult {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 	
 	@OneToOne
 	private Poll poll;
@@ -22,11 +22,11 @@ public class PollResult {
 	@OneToMany
 	private Set<Candidate> winners;
 	
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 	
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	

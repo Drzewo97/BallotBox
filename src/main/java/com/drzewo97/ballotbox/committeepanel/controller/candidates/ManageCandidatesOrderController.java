@@ -27,7 +27,7 @@ public class ManageCandidatesOrderController {
 	private CommitteeCandidateOrderRepository committeeCandidateOrderRepository;
 	
 	@GetMapping
-	public String showManageCandidatesOrder(Model model, @PathVariable("committeeId") Long committeeId){
+	public String showManageCandidatesOrder(Model model, @PathVariable("committeeId") Integer committeeId){
 		//Get username
 		String currentPrincipalName = SecurityContextHolder.getContext().getAuthentication().getName();
 		if(!committeeService.isCommitteeAdmin(currentPrincipalName, committeeId)){
@@ -46,7 +46,7 @@ public class ManageCandidatesOrderController {
 	}
 	
 	@PostMapping
-	public String manageCandidatesOrder(@ModelAttribute("candidatesOrderDto") CandidatesOrderDto candidateOrders, @PathVariable("committeeId") Long committeeId){
+	public String manageCandidatesOrder(@ModelAttribute("candidatesOrderDto") CandidatesOrderDto candidateOrders, @PathVariable("committeeId") Integer committeeId){
 		//Get username
 		String currentPrincipalName = SecurityContextHolder.getContext().getAuthentication().getName();
 		if(!committeeService.isCommitteeAdmin(currentPrincipalName, committeeId)){

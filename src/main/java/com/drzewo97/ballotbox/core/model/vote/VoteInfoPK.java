@@ -8,24 +8,24 @@ import java.io.Serializable;
 public class VoteInfoPK implements Serializable {
 	
 	@Column(name = "vote_id")
-	private Long voteId;
+	private Integer voteId;
 	
 	@Column(name = "candidate_id")
-	private Long candidateId;
+	private Integer candidateId;
 	
-	public Long getVoteId() {
+	public Integer getVoteId() {
 		return voteId;
 	}
 	
-	public void setVoteId(Long voteId) {
+	public void setVoteId(Integer voteId) {
 		this.voteId = voteId;
 	}
 	
-	public Long getCandidateId() {
+	public Integer getCandidateId() {
 		return candidateId;
 	}
 	
-	public void setCandidateId(Long candidateId) {
+	public void setCandidateId(Integer candidateId) {
 		this.candidateId = candidateId;
 	}
 }
