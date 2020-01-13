@@ -141,11 +141,11 @@ insert into users_roles (user_id, role_id) values
   insert into election(id, name) values
   (1, 'election');
 
-  insert into poll(id, candidates_count, description, name, open_from, open_until, poll_type, voting_mode, creator_id, election_id, country_id, district_id, ward_id, winning_candidates_count) values
-  (1, 1, 'description', 'wta', '2018-11-19 05:40:26','2018-12-28 06:22:02', 'WINNER_TAKES_ALL', 'EXACTLY', 1, 1, null, 3, null, 1),
-  (2, 1, 'description', 'tr', '2018-11-19 05:40:26','2018-12-28 06:22:02', 'TWO_ROUND', 'EXACTLY', 1, 1, 1, null, null, 1),
-  (3, 3, 'description', 'irv', '2018-11-19 05:40:26','2018-12-28 06:22:02', 'INSTANT_RUNOFF_VOTING', 'EXACTLY', 1, 1, null, null, 1, 1),
-  (4, 1, 'description', 'dh', '2018-11-19 05:40:26','2018-12-28 06:22:02', 'DHONDT', 'EXACTLY', 1, 1, 1, null, null, 8);
+  insert into poll(id, candidates_count, description, name, open_from, open_until, poll_type, voting_mode, creator_id, election_id, country_id, district_id, ward_id, winning_candidates_count, poll_scope) values
+  (1, 1, 'description', 'wta', '2018-11-19 05:40:26','2018-12-28 06:22:02', 'WINNER_TAKES_ALL', 'EXACTLY', 1, 1, null, 3, null, 1, 'DISTRICT'),
+  (2, 1, 'description', 'tr', '2018-11-19 05:40:26','2018-12-28 06:22:02', 'TWO_ROUND', 'EXACTLY', 1, 1, 1, null, null, 1, 'COUNTRY'),
+  (3, 3, 'description', 'irv', '2018-11-19 05:40:26','2018-12-28 06:22:02', 'INSTANT_RUNOFF_VOTING', 'EXACTLY', 1, 1, null, null, 1, 1, 'WARD'),
+  (4, 1, 'description', 'dh', '2018-11-19 05:40:26','2018-12-28 06:22:02', 'DHONDT', 'EXACTLY', 1, 1, 1, null, null, 8, 'COUNTRY');
 
 insert into candidate(id, name, country_id, district_id, ward_id, poll_id, user_id, place, votes_placed, committee_id) values
 (1, 'wta_1', null, 3, null, 1, 5, 0, 0, null),

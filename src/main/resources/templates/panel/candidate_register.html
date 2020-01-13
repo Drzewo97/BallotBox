@@ -51,32 +51,6 @@
                     th:text="${p.name}"></option>
         </select>
     </div>
-    <!-- TODO: Only from poll-->
-    <div>
-        <label for="country">Select country</label>
-        <select id="country" th:field="*{country}">
-            <option th:each="c : ${countries}"
-                    th:value="${{c.id}}"
-                    th:text="${c.name}"></option>
-        </select>
-    </div>
-    <div>
-        <label for="district">Select district</label>
-        <select id="district" th:field="*{district}">
-            <option th:each="d : ${districts}"
-                    th:value="${{d}}"
-                    th:text="${d.name}"></option>
-        </select>
-    </div>
-    <div>
-        <label for="ward">Select ward</label>
-        <select id="ward" th:field="*{ward}">
-            <option th:each="w : ${wards}"
-                    th:value="${{w}}"
-                    th:text="${w.name}"></option>
-        </select>
-    </div>
-
     <div>
         <button type="submit">Create</button>
     </div>

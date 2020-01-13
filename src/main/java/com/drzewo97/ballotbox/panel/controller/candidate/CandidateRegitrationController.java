@@ -54,10 +54,7 @@ public class CandidateRegitrationController {
 	
 	@GetMapping
 	private String showCandidateRegister(Model model){
-		model.addAttribute("countries", countryRepository.findAll());
 		model.addAttribute("committees", committeeRepository.findAll());
-		model.addAttribute("districts", districtRepository.findAll());
-		model.addAttribute("wards", wardRepository.findAll());
 		model.addAttribute("polls", pollRepository.findAll());
 		model.addAttribute("users", userRepository.findAll());
 		
@@ -75,6 +72,17 @@ public class CandidateRegitrationController {
 		
 		candidate.setPlace(0);
 		candidate.setVotesPlaced(0);
+		switch (candidate.getPoll().getPollScope()){
+			case COUNTRY:
+				candidate.setCountry(candidate.getPoll().getCountry());
+				break;
+			case DISTRICT:
+				candidate.setDistrict(candidate.getPoll().getDistrict());
+				break;
+			case WARD:
+				candidate.setWard(candidate.getPoll().getWard());
+				break;
+		}
 		candidateRepository.save(candidate);
 		
 		// add committee order placeholder
