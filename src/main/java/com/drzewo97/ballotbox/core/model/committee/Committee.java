@@ -16,7 +16,7 @@ public class Committee implements Aspirant {
 	
 	private String name;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "committee")
 	private Set<Candidate> members;
 	
 	@OneToOne
