@@ -40,6 +40,8 @@ public class CommitteeCreationController {
 			return "panel/committee_create";
 		}
 		
+		committee.setVotesPlaced(0);
+		committee.setSeatsGranted(0);
 		committeeRepository.save(committee);
 		
 		return "redirect:create?success";
