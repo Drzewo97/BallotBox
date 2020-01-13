@@ -42,10 +42,10 @@ insert into ward(id, name, district_id, ward_admin_id) values
 ('17', 'c_d3_w2', '6', null),
 ('18', 'c_d3_w3', '6', null);
 
-insert into committee(id, name) values
-  (1, 'com1'),
-  (2, 'com2'),
-  (3, 'com3');
+insert into committee(id, name, votes_placed, seats_granted) values
+  (1, 'com1', 0, 0),
+  (2, 'com2', 0, 0),
+  (3, 'com3', 0, 0);
 
  insert into user (id, username, password, active, address, email, first_name, surname, country_id, district_id, ward_id) values
   ('5', 'candidate_wta_1', 'test', 1, 'address', 'mail@mail.com', 'candidate', 'wta_1', 1, 3, 7),
@@ -145,7 +145,7 @@ insert into users_roles (user_id, role_id) values
   (1, 1, 'description', 'wta', '2018-11-19 05:40:26','2018-12-28 06:22:02', 'WINNER_TAKES_ALL', 'EXACTLY', 1, 1, null, 3, null, 1),
   (2, 1, 'description', 'tr', '2018-11-19 05:40:26','2018-12-28 06:22:02', 'TWO_ROUND', 'EXACTLY', 1, 1, 1, null, null, 1),
   (3, 3, 'description', 'irv', '2018-11-19 05:40:26','2018-12-28 06:22:02', 'INSTANT_RUNOFF_VOTING', 'EXACTLY', 1, 1, null, null, 1, 1),
-  (4, 1, 'description', 'dh', '2018-11-19 05:40:26','2018-12-28 06:22:02', 'TWO_ROUND', 'EXACTLY', 1, 1, 1, null, null, 8);
+  (4, 1, 'description', 'dh', '2018-11-19 05:40:26','2018-12-28 06:22:02', 'DHONDT', 'EXACTLY', 1, 1, 1, null, null, 8);
 
 insert into candidate(id, name, country_id, district_id, ward_id, poll_id, user_id, place, votes_placed, committee_id) values
 (1, 'wta_1', null, 3, null, 1, 5, 0, 0, null),
@@ -493,6 +493,107 @@ insert into vote (id, poll_id) values (297, 3);
 insert into vote (id, poll_id) values (298, 3);
 insert into vote (id, poll_id) values (299, 3);
 insert into vote (id, poll_id) values (300, 3);
+insert into vote (id, poll_id) values (301, 4);
+insert into vote (id, poll_id) values (302, 4);
+insert into vote (id, poll_id) values (303, 4);
+insert into vote (id, poll_id) values (304, 4);
+insert into vote (id, poll_id) values (305, 4);
+insert into vote (id, poll_id) values (306, 4);
+insert into vote (id, poll_id) values (307, 4);
+insert into vote (id, poll_id) values (308, 4);
+insert into vote (id, poll_id) values (309, 4);
+insert into vote (id, poll_id) values (310, 4);
+insert into vote (id, poll_id) values (311, 4);
+insert into vote (id, poll_id) values (312, 4);
+insert into vote (id, poll_id) values (313, 4);
+insert into vote (id, poll_id) values (314, 4);
+insert into vote (id, poll_id) values (315, 4);
+insert into vote (id, poll_id) values (316, 4);
+insert into vote (id, poll_id) values (317, 4);
+insert into vote (id, poll_id) values (318, 4);
+insert into vote (id, poll_id) values (319, 4);
+insert into vote (id, poll_id) values (320, 4);
+insert into vote (id, poll_id) values (321, 4);
+insert into vote (id, poll_id) values (322, 4);
+insert into vote (id, poll_id) values (323, 4);
+insert into vote (id, poll_id) values (324, 4);
+insert into vote (id, poll_id) values (325, 4);
+insert into vote (id, poll_id) values (326, 4);
+insert into vote (id, poll_id) values (327, 4);
+insert into vote (id, poll_id) values (328, 4);
+insert into vote (id, poll_id) values (329, 4);
+insert into vote (id, poll_id) values (330, 4);
+insert into vote (id, poll_id) values (331, 4);
+insert into vote (id, poll_id) values (332, 4);
+insert into vote (id, poll_id) values (333, 4);
+insert into vote (id, poll_id) values (334, 4);
+insert into vote (id, poll_id) values (335, 4);
+insert into vote (id, poll_id) values (336, 4);
+insert into vote (id, poll_id) values (337, 4);
+insert into vote (id, poll_id) values (338, 4);
+insert into vote (id, poll_id) values (339, 4);
+insert into vote (id, poll_id) values (340, 4);
+insert into vote (id, poll_id) values (341, 4);
+insert into vote (id, poll_id) values (342, 4);
+insert into vote (id, poll_id) values (343, 4);
+insert into vote (id, poll_id) values (344, 4);
+insert into vote (id, poll_id) values (345, 4);
+insert into vote (id, poll_id) values (346, 4);
+insert into vote (id, poll_id) values (347, 4);
+insert into vote (id, poll_id) values (348, 4);
+insert into vote (id, poll_id) values (349, 4);
+insert into vote (id, poll_id) values (350, 4);
+insert into vote (id, poll_id) values (351, 4);
+insert into vote (id, poll_id) values (352, 4);
+insert into vote (id, poll_id) values (353, 4);
+insert into vote (id, poll_id) values (354, 4);
+insert into vote (id, poll_id) values (355, 4);
+insert into vote (id, poll_id) values (356, 4);
+insert into vote (id, poll_id) values (357, 4);
+insert into vote (id, poll_id) values (358, 4);
+insert into vote (id, poll_id) values (359, 4);
+insert into vote (id, poll_id) values (360, 4);
+insert into vote (id, poll_id) values (361, 4);
+insert into vote (id, poll_id) values (362, 4);
+insert into vote (id, poll_id) values (363, 4);
+insert into vote (id, poll_id) values (364, 4);
+insert into vote (id, poll_id) values (365, 4);
+insert into vote (id, poll_id) values (366, 4);
+insert into vote (id, poll_id) values (367, 4);
+insert into vote (id, poll_id) values (368, 4);
+insert into vote (id, poll_id) values (369, 4);
+insert into vote (id, poll_id) values (370, 4);
+insert into vote (id, poll_id) values (371, 4);
+insert into vote (id, poll_id) values (372, 4);
+insert into vote (id, poll_id) values (373, 4);
+insert into vote (id, poll_id) values (374, 4);
+insert into vote (id, poll_id) values (375, 4);
+insert into vote (id, poll_id) values (376, 4);
+insert into vote (id, poll_id) values (377, 4);
+insert into vote (id, poll_id) values (378, 4);
+insert into vote (id, poll_id) values (379, 4);
+insert into vote (id, poll_id) values (380, 4);
+insert into vote (id, poll_id) values (381, 4);
+insert into vote (id, poll_id) values (382, 4);
+insert into vote (id, poll_id) values (383, 4);
+insert into vote (id, poll_id) values (384, 4);
+insert into vote (id, poll_id) values (385, 4);
+insert into vote (id, poll_id) values (386, 4);
+insert into vote (id, poll_id) values (387, 4);
+insert into vote (id, poll_id) values (388, 4);
+insert into vote (id, poll_id) values (389, 4);
+insert into vote (id, poll_id) values (390, 4);
+insert into vote (id, poll_id) values (391, 4);
+insert into vote (id, poll_id) values (392, 4);
+insert into vote (id, poll_id) values (393, 4);
+insert into vote (id, poll_id) values (394, 4);
+insert into vote (id, poll_id) values (395, 4);
+insert into vote (id, poll_id) values (396, 4);
+insert into vote (id, poll_id) values (397, 4);
+insert into vote (id, poll_id) values (398, 4);
+insert into vote (id, poll_id) values (399, 4);
+insert into vote (id, poll_id) values (400, 4);
+
 
 insert into vote_info (vote_id, candidate_id, preference_number) values (1, 4, 1);
 insert into vote_info (vote_id, candidate_id, preference_number) values (2, 4, 1);
@@ -994,6 +1095,106 @@ insert into vote_info (vote_id, candidate_id, preference_number) values (299, 10
 insert into vote_info (vote_id, candidate_id, preference_number) values (300, 10, 1);
 insert into vote_info (vote_id, candidate_id, preference_number) values (300, 9, 2);
 insert into vote_info (vote_id, candidate_id, preference_number) values (300, 11, 3);
+insert into vote_info (vote_id, candidate_id, preference_number) values (301, 15, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (302, 19, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (303, 23, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (304, 15, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (305, 15, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (306, 24, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (307, 23, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (308, 13, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (309, 25, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (310, 14, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (311, 18, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (312, 23, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (313, 26, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (314, 17, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (315, 13, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (316, 20, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (317, 18, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (318, 23, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (319, 27, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (320, 18, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (321, 13, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (322, 17, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (323, 18, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (324, 24, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (325, 25, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (326, 27, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (327, 27, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (328, 13, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (329, 27, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (330, 20, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (331, 13, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (332, 25, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (333, 23, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (334, 15, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (335, 14, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (336, 13, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (337, 13, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (338, 16, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (339, 27, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (340, 13, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (341, 14, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (342, 26, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (343, 16, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (344, 24, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (345, 16, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (346, 25, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (347, 15, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (348, 17, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (349, 27, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (350, 26, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (351, 19, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (352, 22, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (353, 25, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (354, 26, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (355, 25, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (356, 15, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (357, 18, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (358, 26, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (359, 20, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (360, 13, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (361, 17, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (362, 20, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (363, 19, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (364, 15, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (365, 23, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (366, 22, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (367, 19, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (368, 18, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (369, 22, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (370, 25, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (371, 18, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (372, 13, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (373, 25, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (374, 22, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (375, 18, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (376, 17, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (377, 16, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (378, 23, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (379, 16, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (380, 27, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (381, 20, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (382, 15, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (383, 22, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (384, 25, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (385, 23, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (386, 19, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (387, 15, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (388, 14, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (389, 19, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (390, 16, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (391, 21, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (392, 18, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (393, 15, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (394, 14, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (395, 24, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (396, 26, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (397, 14, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (398, 16, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (399, 20, 1);
+insert into vote_info (vote_id, candidate_id, preference_number) values (400, 13, 1);
 
 
 

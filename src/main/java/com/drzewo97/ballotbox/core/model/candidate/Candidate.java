@@ -1,5 +1,6 @@
 package com.drzewo97.ballotbox.core.model.candidate;
 
+import com.drzewo97.ballotbox.core.model.aspirant.Aspirant;
 import com.drzewo97.ballotbox.core.model.committee.Committee;
 import com.drzewo97.ballotbox.core.model.country.Country;
 import com.drzewo97.ballotbox.core.model.district.District;
@@ -11,7 +12,7 @@ import org.springframework.lang.Nullable;
 import javax.persistence.*;
 
 @Entity
-public class Candidate implements Comparable<Candidate> {
+public class Candidate implements Aspirant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -139,7 +140,7 @@ public class Candidate implements Comparable<Candidate> {
     }
     
     @Override
-    public int compareTo(Candidate o) {
+    public int compareTo(Aspirant o) {
         return this.getVotesPlaced().compareTo(o.getVotesPlaced());
     }
 }

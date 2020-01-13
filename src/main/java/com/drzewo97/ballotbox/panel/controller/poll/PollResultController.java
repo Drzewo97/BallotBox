@@ -61,13 +61,11 @@ public class PollResultController {
 			
 			Set<CandidatesVotesCountWardProtocol> wardProtocols = wardProtocolRepository.findAllByPoll(poll.get());
 			// TODO: if not all eligible wards -> return, don't continue
-			Set<Candidate> candidateResults = resultsCalculationService.calculateResults(poll.get().getVotes(), wardProtocols);
+			Set<Candidate> candidateResults = (Set<Candidate>) resultsCalculationService.calculateResults(poll.get().getVotes(), wardProtocols);
 			
 			PollResultCalculationService pollResultCalculationService = applicationContext.getBean(PollResultCalculationService.class, poll.get());
 			PollResult pollResult = pollResultCalculationService.calculateResult(candidateResults);
 			
-			// we loose losers
-			poll.get().setCandidates(candidateResults);
 			pollResult.setPoll(poll.get());
 			
 			pollResultRepository.save(pollResult);

@@ -1,5 +1,6 @@
 package com.drzewo97.ballotbox.core.model.committee;
 
+import com.drzewo97.ballotbox.core.model.aspirant.Aspirant;
 import com.drzewo97.ballotbox.core.model.candidate.Candidate;
 import com.drzewo97.ballotbox.core.model.committeecandidateorder.CommitteeCandidateOrder;
 import com.drzewo97.ballotbox.core.model.user.User;
@@ -8,7 +9,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-public class Committee {
+public class Committee implements Aspirant {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -23,6 +24,10 @@ public class Committee {
 	
 	@OneToMany(mappedBy = "committee")
 	private Set<CommitteeCandidateOrder> candidateOrders;
+	
+	private Integer votesPlaced;
+	
+	private Integer seatsGranted;
 	
 	public Integer getId() {
 		return id;
@@ -62,5 +67,27 @@ public class Committee {
 	
 	public void setCandidateOrders(Set<CommitteeCandidateOrder> candidateOrders) {
 		this.candidateOrders = candidateOrders;
+	}
+	
+	public void setVotesPlaced(Integer votesPlaced) {
+		this.votesPlaced = votesPlaced;
+	}
+	
+	public Integer getSeatsGranted() {
+		return seatsGranted;
+	}
+	
+	public void setSeatsGranted(Integer seatsGranted) {
+		this.seatsGranted = seatsGranted;
+	}
+	
+	@Override
+	public Integer getVotesPlaced() {
+		return votesPlaced;
+	}
+	
+	@Override
+	public int compareTo(Aspirant o) {
+		return this.getVotesPlaced().compareTo(o.getVotesPlaced());
 	}
 }

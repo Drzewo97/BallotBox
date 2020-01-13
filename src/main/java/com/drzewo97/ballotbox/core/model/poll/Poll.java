@@ -258,6 +258,7 @@ public class Poll {
         switch (this.pollType){
             case WINNER_TAKES_ALL:
             case TWO_ROUND:
+            case DHONDT:
                 return true;
             case INSTANT_RUNOFF_VOTING:
             default:
@@ -269,6 +270,7 @@ public class Poll {
         switch (this.pollType){
             case WINNER_TAKES_ALL:
             case TWO_ROUND:
+            case DHONDT:
                 return false;
             case INSTANT_RUNOFF_VOTING:
             default:
