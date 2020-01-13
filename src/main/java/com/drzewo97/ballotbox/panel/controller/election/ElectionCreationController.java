@@ -2,6 +2,7 @@ package com.drzewo97.ballotbox.panel.controller.election;
 
 import com.drzewo97.ballotbox.core.model.election.Election;
 import com.drzewo97.ballotbox.core.model.election.ElectionRepository;
+import com.drzewo97.ballotbox.core.model.poll.Poll;
 import com.drzewo97.ballotbox.core.model.poll.PollRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,7 @@ public class ElectionCreationController {
 	
 	@GetMapping
 	private String showElectionCreate(Model model){
+		// TODO: only null election polls
 		model.addAttribute("polls", pollRepository.findAll());
 		return "panel/election_create";
 	}
@@ -44,7 +46,12 @@ public class ElectionCreationController {
 			return "panel/election_create";
 		}
 		
+		for(Poll poll : election.getPolls()){
+			poll.setElection(election);
+		}
+		
 		electionRepository.save(election);
+		pollRepository.saveAll(election.getPolls());
 		
 		return "redirect:create?success";
 	}
