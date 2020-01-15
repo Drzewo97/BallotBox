@@ -6,7 +6,7 @@
 </head>
 <body>
     <form th:action="@{/election/} + ${election.id} + @{/vote}" th:object="${electionVote}" method="post">
-        <th:block th:each="poll, stat : ${election.polls}">
+        <th:block th:each="poll, stat : ${polls}">
             <div th:if="${poll.isPreferenceVoting()}">
                 <div th:insert="votingmachine/poll_vote_with_preference :: pollVote"/>
             </div>

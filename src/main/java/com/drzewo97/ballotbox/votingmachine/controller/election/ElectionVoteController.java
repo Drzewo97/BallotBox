@@ -6,6 +6,7 @@ import com.drzewo97.ballotbox.core.model.candidate.CandidateRepository;
 import com.drzewo97.ballotbox.core.model.election.Election;
 import com.drzewo97.ballotbox.core.model.election.ElectionRepository;
 import com.drzewo97.ballotbox.core.model.poll.Poll;
+import com.drzewo97.ballotbox.core.model.poll.PollRepository;
 import com.drzewo97.ballotbox.core.model.poll.VotingMode;
 import com.drzewo97.ballotbox.core.model.user.User;
 import com.drzewo97.ballotbox.core.model.user.UserRepository;
@@ -42,6 +43,11 @@ public class ElectionVoteController {
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Autowired
+	private PollRepository pollRepository;
+	
+	private final String POST_VOTE_LANDING_PAGE = "redirect:/election/all";
+	
 	@GetMapping
 	public String showElection(@PathVariable("id") Integer id,
 	                           Model model,
@@ -53,17 +59,24 @@ public class ElectionVoteController {
 		Optional<Election> election = electionRepository.findById(id);
 		if(election.isEmpty()){
 			outputMessages.add("No such election!");
-			return "redirect:/election/all";
+			return POST_VOTE_LANDING_PAGE;
 		}
 		String currentPrincipalName = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userRepository.findByUsername(currentPrincipalName).get();
+		
+		// check if there are any polls here for user
+		if(election.get().getPolls().stream().anyMatch(p -> !user.getCountry().equals(p.getCountry()) && !user.getDistrict().equals(p.getDistrict()) && !user.getWard().equals(p.getWard()))){
+			outputMessages.add("There are no polls for You to vote on this election!");
+			return POST_VOTE_LANDING_PAGE;
+		}
+		
 		if(election.get().getPolls().stream().anyMatch(p -> user.getPollsVoted().contains(p))){
 			outputMessages.add("You have already voted on this election!");
-			return "redirect:/election/all";
+			return POST_VOTE_LANDING_PAGE;
 		}
-		// TODO: choose polls eligible for user
 		
 		model.addAttribute("election", election.get());
+		model.addAttribute("polls", pollRepository.findByCountryOrDistrictOrWard(user.getCountry(), user.getDistrict(), user.getWard()));
 		model.addAttribute("electionVote", new ElectionVoteDto());
 		
 		// Return view
@@ -81,19 +94,41 @@ public class ElectionVoteController {
 		Optional<Election> election = electionRepository.findById(id);
 		if(election.isEmpty()){
 			outputMessages.add("No such election!");
-			return "redirect:/election/all";
+			return POST_VOTE_LANDING_PAGE;
 		}
 		String currentPrincipalName = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userRepository.findByUsername(currentPrincipalName).get();
+		
 		if(election.get().getPolls().stream().anyMatch(p -> user.getPollsVoted().contains(p))){
 			outputMessages.add("You have already voted on this election!");
-			return "redirect:/election/all";
+			return POST_VOTE_LANDING_PAGE;
 		}
-		// TODO: can user vote in those polls? country, district, ward
+		
+		// mark that user voted in this election
+		for(Poll poll : election.get().getPolls()){
+			user.getPollsVoted().add(poll);
+		}
+		userRepository.save(user);
 		
 		// divide candidate list into polls
 		// keep only marked candidates
 		Map<Poll, Set<Map.Entry<Candidate, VoteDto>>> voterPollsChoices = groupCandidatesToPolls(electionVoteDto.getCandidateIdPreferenceMap());
+		
+		// check all polls that user left unmarked
+		Set<Poll> pollsVoted = voterPollsChoices.entrySet().stream().map(e -> e.getKey()).collect(Collectors.toSet());
+		for(Poll poll : election.get().getPolls()){
+			// Security check
+			if(!user.getCountry().equals(poll.getCountry()) && !user.getDistrict().equals(poll.getDistrict()) && !user.getWard().equals(poll.getWard())) {
+				outputMessages.add("You cannot vote on poll " + poll.getName() + "!");
+				outputMessages.add("All of Your other votes have been cancelled - you were trying to find security hole.");
+				return POST_VOTE_LANDING_PAGE;
+			}
+			
+			// for voter info
+			if(!pollsVoted.contains(poll)){
+				outputMessages.add("No vote casted for poll " + poll.getName() + ".");
+			}
+		}
 		
 		for(Map.Entry<Poll, Set<Map.Entry<Candidate, VoteDto>>> voterPollChoices : voterPollsChoices.entrySet()){
 			Poll poll = voterPollChoices.getKey();
@@ -118,18 +153,7 @@ public class ElectionVoteController {
 			voteRepository.save(converter.convert(votes));
 		}
 		
-		// check all polls that user left unmarked
-		Set<Poll> pollsVoted = voterPollsChoices.entrySet().stream().map(e -> e.getKey()).collect(Collectors.toSet());
-		
-		for(Poll poll : election.get().getPolls()){
-			user.getPollsVoted().add(poll);
-			if(!pollsVoted.contains(poll)){
-				outputMessages.add("No vote casted for poll " + poll.getName() + ".");
-			}
-		}
-		userRepository.save(user);
-		
-		return "redirect:/election/all";
+		return POST_VOTE_LANDING_PAGE;
 	}
 	
 	/**

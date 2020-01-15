@@ -64,21 +64,22 @@ insert into committee(id, name, votes_placed, seats_granted) values
   ('17', 'com1admin', 'test', 1, 'address', 'mail@mail.com', 'admin', 'com1', 1, 1, 1),
   ('18', 'com2admin', 'test', 1, 'address', 'mail@mail.com', 'admin', 'com2', 1, 1, 1),
   ('19', 'com3admin', 'test', 1, 'address', 'mail@mail.com', 'admin', 'com3', 1, 1, 1),
-  ('20', 'com1cand1', 'test', 1, 'address', 'mail@mail.com', 'cand1', 'com1', 2, 2, 6),
-  ('21', 'com1cand2', 'test', 1, 'address', 'mail@mail.com', 'cand2', 'com1', 2, 2, 6),
-  ('22', 'com1cand3', 'test', 1, 'address', 'mail@mail.com', 'cand3', 'com1', 2, 2, 6),
-  ('23', 'com1cand4', 'test', 1, 'address', 'mail@mail.com', 'cand4', 'com1', 2, 2, 6),
-  ('24', 'com1cand5', 'test', 1, 'address', 'mail@mail.com', 'cand5', 'com1', 2, 2, 6),
-  ('25', 'com2cand1', 'test', 1, 'address', 'mail@mail.com', 'cand1', 'com2', 2, 2, 6),
-  ('26', 'com2cand2', 'test', 1, 'address', 'mail@mail.com', 'cand2', 'com2', 2, 2, 6),
-  ('27', 'com2cand3', 'test', 1, 'address', 'mail@mail.com', 'cand3', 'com2', 2, 2, 6),
-  ('28', 'com2cand4', 'test', 1, 'address', 'mail@mail.com', 'cand4', 'com2', 2, 2, 6),
-  ('29', 'com2cand5', 'test', 1, 'address', 'mail@mail.com', 'cand5', 'com2', 2, 2, 6),
-  ('30', 'com3cand1', 'test', 1, 'address', 'mail@mail.com', 'cand1', 'com3', 2, 2, 6),
-  ('31', 'com3cand2', 'test', 1, 'address', 'mail@mail.com', 'cand2', 'com3', 2, 2, 6),
-  ('32', 'com3cand3', 'test', 1, 'address', 'mail@mail.com', 'cand3', 'com3', 2, 2, 6),
-  ('33', 'com3cand4', 'test', 1, 'address', 'mail@mail.com', 'cand4', 'com3', 2, 2, 6),
-  ('34', 'com3cand5', 'test', 1, 'address', 'mail@mail.com', 'cand5', 'com3', 2, 2, 6);
+  ('20', 'com1cand1', 'test', 1, 'address', 'mail@mail.com', 'cand1', 'com1', 1, 2, 6),
+  ('21', 'com1cand2', 'test', 1, 'address', 'mail@mail.com', 'cand2', 'com1', 1, 2, 6),
+  ('22', 'com1cand3', 'test', 1, 'address', 'mail@mail.com', 'cand3', 'com1', 1, 2, 6),
+  ('23', 'com1cand4', 'test', 1, 'address', 'mail@mail.com', 'cand4', 'com1', 1, 2, 6),
+  ('24', 'com1cand5', 'test', 1, 'address', 'mail@mail.com', 'cand5', 'com1', 1, 2, 6),
+  ('25', 'com2cand1', 'test', 1, 'address', 'mail@mail.com', 'cand1', 'com2', 1, 2, 6),
+  ('26', 'com2cand2', 'test', 1, 'address', 'mail@mail.com', 'cand2', 'com2', 1, 2, 6),
+  ('27', 'com2cand3', 'test', 1, 'address', 'mail@mail.com', 'cand3', 'com2', 1, 2, 6),
+  ('28', 'com2cand4', 'test', 1, 'address', 'mail@mail.com', 'cand4', 'com2', 1, 2, 6),
+  ('29', 'com2cand5', 'test', 1, 'address', 'mail@mail.com', 'cand5', 'com2', 1, 2, 6),
+  ('30', 'com3cand1', 'test', 1, 'address', 'mail@mail.com', 'cand1', 'com3', 1, 2, 6),
+  ('31', 'com3cand2', 'test', 1, 'address', 'mail@mail.com', 'cand2', 'com3', 1, 2, 6),
+  ('32', 'com3cand3', 'test', 1, 'address', 'mail@mail.com', 'cand3', 'com3', 1, 2, 6),
+  ('33', 'com3cand4', 'test', 1, 'address', 'mail@mail.com', 'cand4', 'com3', 1, 2, 6),
+  ('34', 'com3cand5', 'test', 1, 'address', 'mail@mail.com', 'cand5', 'com3', 1, 2, 6),
+  ('35', 'cebula', 'test', 1, 'address', 'mail@mail.com', 'cand5', 'com3', 2, 4, 11);
 
   update ward set ward_admin_id='16' where id='1';
   update ward set ward_admin_id='16' where id='2';
@@ -136,7 +137,8 @@ insert into users_roles (user_id, role_id) values
   ('31', '2'),
   ('32', '2'),
   ('33', '2'),
-  ('34', '2');
+  ('34', '2'),
+  ('35', '2');
 
   insert into election(id, name) values
   (1, 'election');
