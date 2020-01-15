@@ -9,7 +9,7 @@
     <div th:text="${poll.name}" />
 <!--  TODO: Poll instruction  -->
     <div th:each="c: ${poll.candidates}">
-        <input type="number" th:text="${c.name}" th:field="*{candidateIdPreferenceMap[__${c.id}__].preferenceNumber}" value="0"/>
+        <input type="number" th:text="${c.name}" th:field="*{candidateIdPreferenceMap[__${c.id}__].preferenceNumber}" value="0" min="0" th:max="${poll.candidatesCount}"/>
     </div>
 </div>
 </body>

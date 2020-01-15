@@ -5,16 +5,8 @@
     <title>Show all elections</title>
 </head>
 <body>
-<div th:if="${param.voted}">
-    You've already voted in this poll!
-</div>
-
-<div th:if="${param.success}">
-    You've casted your vote!
-</div>
-
-<div th:if="${param.empty}">
-    No such election!
+<div th:each="message : ${messages}">
+    <p th:text="${message}"></p>
 </div>
 
 <table>

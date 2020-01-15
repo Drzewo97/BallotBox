@@ -231,6 +231,21 @@ public class Poll {
         this.winningCandidatesCount = winningCandidatesCount;
     }
     
+    /**
+     * Can this number of votes be placed on this poll
+     * @param choicesCount
+     * @return
+     */
+    public Boolean isChoicesCountSuitable(Integer choicesCount){
+        switch (this.votingMode){
+            case AT_MOST:
+                return choicesCount <= candidatesCount;
+            case EXACTLY:
+                return choicesCount == candidatesCount;
+        }
+        throw new RuntimeException("Not implemented for poll's votingMode");
+    }
+    
     public Integer getVotesCastedCount(){
         return voters.size();
     }
