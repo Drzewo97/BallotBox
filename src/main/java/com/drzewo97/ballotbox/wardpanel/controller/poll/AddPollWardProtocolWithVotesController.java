@@ -98,17 +98,17 @@ public class AddPollWardProtocolWithVotesController {
 		//TODO: check ward protocol values
 		wardProtocol.setWard(ward.get());
 		wardProtocol.setPoll(poll.get());
+		wardProtocolRepository.save(wardProtocol);
 		
 		// workaround for lack of index access on set
 		Set<CandidateProtocolVotes> candidateProtocolVotesSet = new HashSet<>();
 		for(CandidateProtocolVotes c : wardProtocol.getCandidateProtocolVotesAsList()){
 			c.setCandidate(candidateRepository.findById(c.getCandidate().getId()).get());
+			c.setCandidatesVotesCountWardProtocol(wardProtocol);
 			candidateProtocolVotesSet.add(c);
 		}
 		candidateProtocolVotesRepository.saveAll(candidateProtocolVotesSet);
-		wardProtocol.setCandidateProtocolVotes(candidateProtocolVotesSet);
 		
-		wardProtocolRepository.save(wardProtocol);
 		
 		return "redirect:/";
 	}
