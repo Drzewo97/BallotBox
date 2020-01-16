@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("wardpanel/{wardId}/poll/all")
@@ -43,6 +44,7 @@ public class ManageWardPollsController {
 		}
 		
 		Set<Poll> polls = pollRepository.findByCountryOrDistrictOrWard(ward.get().getDistrict().getCountry(), ward.get().getDistrict(), ward.get());
+		polls = polls.stream().filter(p -> !p.getActive()).collect(Collectors.toSet());
 		model.addAttribute("polls", polls);
 		model.addAttribute("wardId", wardId);
 		

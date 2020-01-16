@@ -64,19 +64,29 @@ public class ElectionVoteController {
 		String currentPrincipalName = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userRepository.findByUsername(currentPrincipalName).get();
 		
+		Set<Poll> polls = pollRepository.findByCountryOrDistrictOrWard(user.getCountry(), user.getDistrict(), user.getWard());
+		
 		// check if there are any polls here for user
-		if(election.get().getPolls().stream().anyMatch(p -> !user.getCountry().equals(p.getCountry()) && !user.getDistrict().equals(p.getDistrict()) && !user.getWard().equals(p.getWard()))){
+		if(polls.stream().anyMatch(p -> !user.getCountry().equals(p.getCountry()) && !user.getDistrict().equals(p.getDistrict()) && !user.getWard().equals(p.getWard()))){
 			outputMessages.add("There are no polls for You to vote on this election!");
 			return POST_VOTE_LANDING_PAGE;
 		}
 		
-		if(election.get().getPolls().stream().anyMatch(p -> user.getPollsVoted().contains(p))){
+		if(polls.stream().anyMatch(p -> user.getPollsVoted().contains(p))){
 			outputMessages.add("You have already voted on this election!");
 			return POST_VOTE_LANDING_PAGE;
 		}
 		
+		// show only active polls to user
+		polls = polls.stream().filter(Poll::getActive).collect(Collectors.toSet());
+		
+		if(polls.size() < 1){
+			outputMessages.add("There are currently no active polls.");
+			return POST_VOTE_LANDING_PAGE;
+		}
+		
+		model.addAttribute("polls", polls);
 		model.addAttribute("election", election.get());
-		model.addAttribute("polls", pollRepository.findByCountryOrDistrictOrWard(user.getCountry(), user.getDistrict(), user.getWard()));
 		model.addAttribute("electionVote", new ElectionVoteDto());
 		
 		// Return view
@@ -99,13 +109,28 @@ public class ElectionVoteController {
 		String currentPrincipalName = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userRepository.findByUsername(currentPrincipalName).get();
 		
-		if(election.get().getPolls().stream().anyMatch(p -> user.getPollsVoted().contains(p))){
+		Set<Poll> userPolls = pollRepository.findByCountryOrDistrictOrWard(user.getCountry(), user.getDistrict(), user.getWard());
+		
+		// check if there are any polls here for user
+		if(userPolls.stream().anyMatch(p -> !user.getCountry().equals(p.getCountry()) && !user.getDistrict().equals(p.getDistrict()) && !user.getWard().equals(p.getWard()))){
+			outputMessages.add("There are no polls for You to vote on this election!");
+			return POST_VOTE_LANDING_PAGE;
+		}
+		
+		if(userPolls.stream().anyMatch(p -> user.getPollsVoted().contains(p))){
 			outputMessages.add("You have already voted on this election!");
 			return POST_VOTE_LANDING_PAGE;
 		}
 		
+		Set<Poll> activePolls = userPolls.stream().filter(Poll::getActive).collect(Collectors.toSet());
+		
+		if(activePolls.size() < 1){
+			outputMessages.add("There are currently no active polls. You were too late.");
+			return POST_VOTE_LANDING_PAGE;
+		}
+		
 		// mark that user voted in this election
-		for(Poll poll : election.get().getPolls()){
+		for(Poll poll : userPolls){
 			user.getPollsVoted().add(poll);
 		}
 		userRepository.save(user);
@@ -118,14 +143,14 @@ public class ElectionVoteController {
 		Set<Poll> pollsVoted = voterPollsChoices.entrySet().stream().map(e -> e.getKey()).collect(Collectors.toSet());
 		for(Poll poll : election.get().getPolls()){
 			// Security check
-			if(!user.getCountry().equals(poll.getCountry()) && !user.getDistrict().equals(poll.getDistrict()) && !user.getWard().equals(poll.getWard())) {
+			if(pollsVoted.contains(poll) && (!user.getCountry().equals(poll.getCountry()) && !user.getDistrict().equals(poll.getDistrict()) && !user.getWard().equals(poll.getWard()))) {
 				outputMessages.add("You cannot vote on poll " + poll.getName() + "!");
 				outputMessages.add("All of Your other votes have been cancelled - you were trying to find security hole.");
 				return POST_VOTE_LANDING_PAGE;
 			}
 			
 			// for voter info
-			if(!pollsVoted.contains(poll)){
+			if(!pollsVoted.contains(poll) && activePolls.contains(poll)){
 				outputMessages.add("No vote casted for poll " + poll.getName() + ".");
 			}
 		}
