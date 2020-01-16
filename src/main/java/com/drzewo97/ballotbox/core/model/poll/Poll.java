@@ -247,7 +247,7 @@ public class Poll {
     }
     
     public Integer getVotesCastedCount(){
-        return voters.size();
+        return votes.size();
     }
     
     /**
