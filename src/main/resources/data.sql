@@ -194,6 +194,24 @@ insert into committee_candidate_order (id, candidate_id, committee_id, candidate
 insert into committee_candidate_order (id, candidate_id, committee_id, candidate_order) values (14, 26, 3, 4);
 insert into committee_candidate_order (id, candidate_id, committee_id, candidate_order) values (15, 27, 3, 5);
 
+insert into CANDIDATES_VOTES_COUNT_WARD_PROTOCOL (id, ballots_given, ballots_invalid, ballots_received, ballots_remained, ballots_taken_from_box, ballots_valid, reason_for_ballots_sum_miscalculation, reason_for_ballots_taken_miscalculation, voters_authorized_count, poll_id, ward_id) values
+(1, 1, 1, 1, 1, 1, 1, 'test', 'test', 1, 1, 7),
+(2, 1, 1, 1, 1, 1, 1, 'test', 'test', 1, 1, 8),
+(3, 1, 1, 1, 1, 1, 1, 'test', 'test', 1, 1, 9);
+
+insert into candidate_protocol_votes (id, votes_count, candidate_id, candidates_votes_count_ward_protocol_id) values
+(1, 10, 1, 1),
+(2, 1, 2, 1),
+(3, 99, 3, 1),
+(4, 30, 4, 1),
+(5, 100, 1, 2),
+(6, 20, 2, 2),
+(7, 9, 3, 2),
+(8, 3, 4, 2),
+(9, 40, 1, 3),
+(10, 80, 2, 3),
+(11, 50, 3, 3),
+(12, 100, 4, 3);
 
 insert into vote (id, poll_id) values (1, 1);
 insert into vote (id, poll_id) values (2, 1);

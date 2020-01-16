@@ -14,7 +14,7 @@ import java.util.Set;
 @Entity
 public class CandidatesVotesCountWardProtocol extends WardProtocolBase {
 
-	@OneToMany
+	@OneToMany(mappedBy = "candidatesVotesCountWardProtocol")
 	Set<CandidateProtocolVotes> candidateProtocolVotes;
 	
 	@Transient

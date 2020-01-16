@@ -1,6 +1,7 @@
 package com.drzewo97.ballotbox.core.model.candidateprotocolvotes;
 
 import com.drzewo97.ballotbox.core.model.candidate.Candidate;
+import com.drzewo97.ballotbox.core.model.candidatesvotescountwardprotocol.CandidatesVotesCountWardProtocol;
 
 import javax.persistence.*;
 
@@ -15,6 +16,9 @@ public class CandidateProtocolVotes {
 	private Candidate candidate;
 	
 	private Integer votesCount;
+	
+	@ManyToOne
+	private CandidatesVotesCountWardProtocol candidatesVotesCountWardProtocol;
 	
 	public CandidateProtocolVotes(Candidate candidate) {
 		this.candidate = candidate;
@@ -45,5 +49,13 @@ public class CandidateProtocolVotes {
 	
 	public void setVotesCount(Integer votesCount) {
 		this.votesCount = votesCount;
+	}
+	
+	public CandidatesVotesCountWardProtocol getCandidatesVotesCountWardProtocol() {
+		return candidatesVotesCountWardProtocol;
+	}
+	
+	public void setCandidatesVotesCountWardProtocol(CandidatesVotesCountWardProtocol candidatesVotesCountWardProtocol) {
+		this.candidatesVotesCountWardProtocol = candidatesVotesCountWardProtocol;
 	}
 }
