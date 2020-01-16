@@ -7,7 +7,7 @@
 <body>
     <form th:action="@{/committeepanel/} + ${committeeId} + @{/order}" th:object="${candidatesOrderDto}" method="post">
         <div th:each="c, stat: ${candidatesOrderDto.candidatesOrder}">
-            <input type="number" th:text="${c.candidate.name}" th:field="*{candidatesOrder[__${stat.index}__].candidateOrder}"/>
+            <input type="number" th:text="${c.candidate.name}" th:field="*{candidatesOrder[__${stat.index}__].candidateOrder}" min="0" th:max="${#lists.size(candidatesOrderDto.candidatesOrder)}"/>
             <input type="hidden" th:field="*{candidatesOrder[__${stat.index}__].candidate}" th:value="c.candidate.id"/>
             <input type="hidden" th:field="*{candidatesOrder[__${stat.index}__].committee}" th:value="c.committee.id"/>
             <input type="hidden" th:field="*{candidatesOrder[__${stat.index}__].id}" th:value="c.id"/>
