@@ -1,0 +1,416 @@
+% !TeX spellcheck = en_GB
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                        %
+%    Engineer thesis LaTeX template      % 
+%                                        %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\documentclass[a4paper,twoside,12pt]{book}
+\usepackage[utf8]{inputenc}                                      
+\usepackage[T1]{fontenc}  
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage[polish,british]{babel} 
+\usepackage{indentfirst}
+\usepackage{lmodern}
+\usepackage{graphicx} 
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{mathtools}
+\usepackage{geometry}
+\usepackage[page]{appendix} 
+
+\usepackage{setspace}
+\onehalfspacing
+
+
+\frenchspacing
+
+\usepackage{listings}
+\lstset{
+	language={},
+	basicstyle=\ttfamily,
+	keywordstyle=\lst@ifdisplaystyle\color{blue}\fi,
+	commentstyle=\color{gray}
+}
+
+%%%%%%%%%
+
+ 
+
+%%%%%%%%%%%% FANCY HEADERS %%%%%%%%%%%%%%%
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LO]{\nouppercase{\it\rightmark}}
+\fancyhead[RE]{\nouppercase{\it\leftmark}}
+\fancyhead[LE,RO]{\it\thepage}
+
+
+\fancypagestyle{onlyPageNumbers}{%
+   \fancyhf{} 
+   \fancyhead[LE,RO]{\it\thepage}
+}
+
+\fancypagestyle{PageNumbersChapterTitles}{%
+   \fancyhf{} 
+   \fancyhead[LO]{\nouppercase{\it\rightmark}}
+   \fancyhead[RE]{\nouppercase{\it\leftmark}}
+   \fancyhead[LE,RO]{\it\thepage}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% listings 
+\usepackage{listings}
+\lstset{%
+language=C++,%
+commentstyle=\textit,%
+identifierstyle=\textsf,%
+keywordstyle=\sffamily\bfseries, %\texttt, %
+%captionpos=b,%
+tabsize=3,%
+frame=lines,%
+numbers=left,%
+numberstyle=\tiny,%
+numbersep=5pt,%
+breaklines=true,%
+morekeywords={descriptor_gaussian,descriptor,partition,fcm_possibilistic,dataset,my_exception,exception,std,vector},%
+escapeinside={@*}{*@},%
+%texcl=true, % wylacza tryb verbatim w komentarzach jednolinijkowych
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%% TODO LIST GENERATOR %%%%%%%%%
+
+\usepackage{color}
+\definecolor{brickred}      {cmyk}{0   , 0.89, 0.94, 0.28}
+
+\makeatletter \newcommand \kslistofremarks{\section*{Remarks} \@starttoc{rks}}
+  \newcommand\l@uwagas[2]
+    {\par\noindent \textbf{#2:} %\parbox{10cm}
+{#1}\par} \makeatother
+
+
+\newcommand{\remark}[1]{%
+{%\marginpar{\textdbend}
+{\color{brickred}{[#1]}}}%
+\addcontentsline{rks}{uwagas}{\protect{#1}}%
+}
+
+%%%%%%%%%%%%%% END OF TODO LIST GENERATOR %%%%%%%%%%% 
+
+% some issues...
+
+\newcounter{PagesWithoutNumbers}
+
+\newcommand{\hcancel}[1]{%
+    \tikz[baseline=(tocancel.base)]{
+        \node[inner sep=0pt,outer sep=0pt] (tocancel) {#1};
+        \draw[red] (tocancel.south west) -- (tocancel.north east);
+    }%
+}%
+
+\newcommand{\MonthName}{%
+  \ifcase\the\month
+  \or January% 1
+  \or February% 2
+  \or March% 3
+  \or April% 4
+  \or May% 5
+  \or June% 6
+  \or July% 7
+  \or August% 8
+  \or September% 9
+  \or October% 10
+  \or November% 11
+  \or December% 12
+  \fi}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Helvetica font macros for the title page:
+\newcommand{\headerfont}{\fontfamily{phv}\fontsize{18}{18}\bfseries\scshape\selectfont}
+\newcommand{\titlefont}{\fontfamily{phv}\fontsize{18}{18}\selectfont}
+\newcommand{\otherfont}{\fontfamily{phv}\fontsize{14}{14}\selectfont}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newcommand{\Author}{Wojciech Drzewiecki}
+\newcommand{\Supervisor}{Krzysztof Simiński, PhD Dsc}
+\newcommand{\Consultant}{Name Surname, PhD}
+\newcommand{\Title}{Central online voting system}
+\newcommand{\Polsl}{Silesian University of Technology}
+\newcommand{\Faculty}{Faculty of Automatic Control, Electronics and Computer Science}
+
+
+\begin{document} 
+	
+%%%%%%%%%%%%%%%%%%  Title page %%%%%%%%%%%%%%%%%%% 
+\pagestyle{empty}
+{
+	\newgeometry{top=2.5cm,%
+	             bottom=2.5cm,%
+	             left=3cm,
+	             right=2.5cm}
+	\sffamily
+	\rule{0cm}{0cm}
+	
+	\begin{center}
+	\includegraphics[width=29mm]{polsl}
+	\end{center} 
+	\vspace{1cm}
+	\begin{center}
+	\headerfont \Polsl
+	\end{center}
+	\begin{center}
+	\headerfont \Faculty
+	\end{center}
+	\vfill
+	\begin{center}
+	\titlefont Engineer thesis
+	\end{center}
+	\vfill
+	
+	\begin{center}
+	\otherfont \Title\par
+	\end{center}
+	
+	\vfill
+	
+	\vfill
+	 
+	\noindent\vbox
+	{
+		\hbox{\otherfont author: \Author}
+		\vspace{12pt}
+		\hbox{\otherfont supervisor: \Supervisor}
+		% \vspace{12pt}
+		% \hbox{\otherfont consultant: \Consultant}
+	}
+	\vfill 
+ 
+   \begin{center}
+   \otherfont Gliwice,  \MonthName\ \the\year
+   \end{center}	
+	\restoregeometry
+}
+  
+
+\cleardoublepage
+ 
+
+\rmfamily
+\normalfont
+
+
+%%%%%%%%%%%% statements required by law and Dean's office %%%%%%%%%%
+\cleardoublepage
+
+\begin{flushright}
+załącznik nr 2 do zarz. nr 97/08/09 
+\end{flushright}
+
+\vfill  
+
+\begin{center}
+\Large\bfseries Oświadczenie
+\end{center}
+
+\vfill
+
+Wyrażam  zgodę / Nie wyrażam zgody*  na  udostępnienie  mojej  pracy  dyplomowej / rozprawy doktorskiej*.
+
+\vfill
+
+Gliwice, dnia {\selectlanguage{polish}\today}
+
+\vfill
+
+\rule{0.5\textwidth}{0cm}\dotfill 
+
+\rule{0.5\textwidth}{0cm}
+\begin{minipage}{0.45\textwidth}
+{\begin{center}(podpis)\end{center}}
+\end{minipage} 
+
+\vfill
+
+\rule{0.5\textwidth}{0cm}\dotfill 
+
+\rule{0.5\textwidth}{0cm}
+\begin{minipage}{0.45\textwidth}
+{\begin{center}\rule{0mm}{5mm}(poświadczenie wiarygodności podpisu przez Dziekanat)\end{center}}
+\end{minipage}
+
+
+\vfill
+
+* podkreślić właściwe
+
+ 
+
+
+%%%%%%%%%%%%%%%%%%%%%  
+\cleardoublepage
+
+\rule{1cm}{0cm}
+
+\vfill  
+
+\begin{center}
+\Large\bfseries Oświadczenie promotora
+\end{center}
+
+\vfill
+
+Oświadczam, że praca „\Title” spełnia wymagania formalne pracy dyplomowej inżynierskiej.
+
+\vfill
+
+
+
+\vfill
+
+Gliwice, dnia {\selectlanguage{polish}\today}
+
+\rule{0.5\textwidth}{0cm}\dotfill 
+
+\rule{0.5\textwidth}{0cm}
+\begin{minipage}{0.45\textwidth}
+{\begin{center}(podpis promotora)\end{center}}
+\end{minipage} 
+
+\vfill
+ 
+ 
+
+\cleardoublepage
+
+
+%%%%%%%%%%%%%%%%%% Table of contents %%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{Roman}
+\pagestyle{onlyPageNumbers}
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setcounter{PagesWithoutNumbers}{\value{page}}
+\mainmatter
+\pagestyle{PageNumbersChapterTitles}
+
+%%%%%%%%%%%%%% body of the thesis %%%%%%%%%%%%%%%%%
+
+
+\chapter{Introduction}
+
+\begin{itemize}
+
+\end{itemize}
+
+
+
+\chapter{[Problem analysis]}
+
+\begin{itemize}
+
+\end{itemize}
+
+
+
+\chapter{Requirements and tools}
+
+\begin{itemize}
+
+\end{itemize} 
+
+
+
+\chapter{External specification}
+
+\begin{itemize}
+
+\end{itemize}
+
+
+
+\chapter{Internal specification}
+
+\begin{itemize}
+
+\end{itemize}
+
+
+
+\chapter{Verification and validation}
+
+\begin{itemize}
+
+\end{itemize}
+
+ 
+ 
+\chapter{Conclusions}
+
+\begin{itemize}
+
+\end{itemize}
+
+ 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\backmatter
+\pagenumbering{Roman}
+\stepcounter{PagesWithoutNumbers}
+\setcounter{page}{\value{PagesWithoutNumbers}}
+
+\pagestyle{onlyPageNumbers}
+
+%%%%%%%%%%% bibliography %%%%%%%%%%%%
+\bibliographystyle{plain}
+\bibliography{bibliography}
+
+%%%%%%%%%  appendices %%%%%%%%%%%%%%%%%%% 
+
+\begin{appendices} 
+
+\chapter*{List of abbreviations and symbols}
+
+\begin{itemize}
+
+\end{itemize}
+
+
+\chapter*{Listings}
+
+\chapter*{Contents of attached CD}
+
+The thesis is accompanied by a CD containing:
+\begin{itemize}
+\item thesis (\LaTeX\ source files and final \texttt{pdf} file),
+\item source code of the application,
+\item test data.
+\end{itemize}
+ 
+
+\listoffigures
+\listoftables
+	
+\end{appendices}
+
+
+\end{document}
+
+
+%% Finis coronat opus.
