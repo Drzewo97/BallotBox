@@ -429,6 +429,170 @@ Gliwice, dnia {\selectlanguage{polish}\today}
 
 \chapter{Requirements and tools}
 
+  \section{Functional requirements}
+    \begin{itemize}
+      \item Citizen of a country that holds an online election in the application should be able to register.
+      \item Application should allow registered citizens to vote on candidates of their preference.
+      \item Vote of a citizen should be taken into account when calculating results of an election.
+      \item Citizen should be able to cast only one vote per election.
+      \item Vote of a citizen should not be trackable---no person should be able to tell which citizen voted on which candidate.
+      \item Person designated as a ward administrator---and only that person---should be able to send ward protocol to the system.
+      \item Protocols sent from wards should be taken into account when calculating results of an election.
+      \item Person designated as a commission administrator---and only that person---should be able to enter commission's closed list candidates order to the system.
+      \item Administrator of the application should be able to perform steps that lead to creating an election identical to one provided to him.
+      \item Administrator should be able to trigger calculation of the results of an election.
+      \item Election results should not be calculated with some of wards' protocols missing.
+      \item Administrator should be able to grant privileges of ward and commission administrators to designated people separately.
+      \item Administrator should not be able to perform actions in replacement of ward or committee administrator.
+    \end{itemize}
+
+  \section{Nonfunctional requirements}
+    \begin{itemize}
+      \item User interface should be understandable to English speaking individual.
+      \item Application should be implemented in Java, with help of Spring Boot and related frameworks for backend, 
+      and Thymeleaf template engine for frontend.
+      \item Application should store all necessary data in MySQL database.
+      \item Application should hash all sensitive data stored in database.
+      \item Application should offer all available functionalities on Google Chrome version 79.
+    \end{itemize}
+  \pagebreak
+
+  \section{Use cases}
+    \subsection{Citizen use case UML}
+    \begin{figure}[h]
+      \includegraphics[width=\linewidth]{citizen_uml.png}
+      \caption{Citizen use case UML for \Title}
+      \label{fig:citizen_uml}
+    \end{figure}
+
+    Figure \ref{fig:citizen_uml} shows available use cases for citizen. He can register and in that case he will receive an email, 
+    or he can see some error regarding registration. Citizen can try to login, which will trigger checks if he is registered and that password matches.
+    In case of any errors, he will see a message. 
+    Citizen can vote, and after that he will see status of his vote regarding every poll in the election, no matter if vote is valid or not.
+    \pagebreak
+
+    \subsection{Ward administrator use case UML}
+    \begin{figure}[h]
+      \centering
+      \includegraphics[width=0.65\linewidth]{ward_admin_uml.png}
+      \caption{Ward administrator use case UML for \Title}
+      \label{fig:ward_admin_uml}
+    \end{figure}
+
+    Figure \ref{fig:ward_admin_uml} shows available use cases for ward administrator. Ward administrator can try to send ward protocol.
+    If anything is not correct in protocol he tried to send, he will see a validation error, and protocol will not be send.
+
+    \subsection{Committee administrator use case UML}
+    \begin{figure}[h]
+      \centering
+      \includegraphics[width=0.65\linewidth]{committee_admin_uml.png}
+      \caption{Committee administrator use case UML for \Title}
+      \label{fig:committee_admin_uml}
+    \end{figure}
+
+    Figure \ref{fig:committee_admin_uml} shows available use cases for committee administrator. Committee administrator can try to send closed list candidates' order.
+    If anything is not correct in the order of candidates, he will see a validation error, and candidates order will not be saved.
+    \pagebreak
+
+    \subsection{Administrator use case UML}
+    \begin{figure}[h]
+      \centering
+      \includegraphics[width=0.8\linewidth]{admin_uml.png}
+      \caption{Administrator use case UML for \Title}
+      \label{fig:admin_uml}
+    \end{figure}
+
+    Figure \ref{fig:admin_uml} shows available use cases for administrator. We assume that administrator knows what he is doing, so there is no need to validate his choices.
+    However, he has no power over how many protocols are sent from wards when he wants to calculate poll results. 
+    Thus he will get appropriate message when he tries to calculate results of poll that is not ready to be calculated.
+
+  \section{Description of tools}
+    Application is developed in Java programming language, with use of Spring Framework and Thymeleaf as template engine. 
+    Data is stored in MySQL database, and whole application is build with help of Apache Maven build automation tool.
+
+    \subsection{Java}
+      It's object--oriented programming language that requires Java Virtual Machine to run a program. 
+      This allows Java applications to run on almost every device, regardless of it's operational system\cite{bib:horstmann2008core}.
+      Java offers huge open--source ecosystem.
+
+      \subsubsection{Alternative}
+        C\# - It's also object--oriented programming language, but it's used to develop software for Microsoft platforms\cite{bib:thai2003net}.
+
+      Although there is no much difference in beginner level development between Java and C\#, I find C\# less convenient than Java,
+      because I use machine with macOS operating system as my everyday work tool, and Java has huge support on Unix based system, compared to almost none support for C\#.
+
+    \subsection{Maven}
+      Apache Maven is a tool that is capable of building and managing any Java-based project. 
+      It helps developers with dependency management, as it's able to download all necessary dependencies with almost no participation of developer.
+      It's easy for beginners, as it's build lifecycles and syntax is easy to understand---all You need is artifact info of dependency that You want to include in Your project, 
+      and it will download and include dependency in project during install build lifecycle\cite{bib:maven}.
+
+      \subsubsection{Alternatives}
+        \paragraph{Gradle}
+          It's also application build tool for Java-based projects. It's better than Maven for larger projects, thanks to better automation methods and better performance.
+          Gradle is built with more experienced and demanding developer in mind\cite{bib:gradle}.
+        
+        \paragraph{Ant}
+          Ant is a powerful tool that allows developer to automate very complicated task, but this functionality is not cheap.
+          It's complicated to configure and it's being ousted by Gradle\cite{bib:ant}.
+
+      \paragraph{} %I know it's probably not the way to achieve this result, but it works
+      I chose Maven because I wanted to learn modern build technology that is common in the industry, but is suitable for beginners.
+
+    \subsection{Spring}
+      It's an open--source framework for Java platform. It focuses on delivering out--of--the--box core features for any kind of application, 
+      so developers can focus on business logic of the application. 
+      Aside from Spring Core, which provides easy dependency injection, Spring provides extensions in form of more or less independent modules, each available as it's own maven artifact.\cite{bib:spring}
+      Spring Boot is an extension of Spring framework, which provides out--of--the--box configuration, and requires user to provide only application specific configuration.
+      
+      \subsubsection{Alternative}
+        Because Spring is open--source framework, considered a standard in the industry for over 10 years, there is no other framework that is as feature--packed as Spring.
+        One could make a case for .Net framework for C\# language, but it's developed and directed by Microsoft\cite{bib:thai2003net}, 
+        whereas Spring is powered by community, and contains features required by that same community. 
+
+      \subsubsection{Spring Security}
+        Authentication and Authorization framework for Spring based applications. Provides quick protection of API exposed by application and
+        integration with users in database. Allows for assigning users' roles, and managing accesses based on these roles\cite{bib:spring_security}.
+
+      \subsubsection{Spring Web MVC}
+        It's designed around front controller pattern, and helps developers follow the Model--View--Controller design pattern.
+        It coordinates flow of request processing performed by configurable delegate components\cite{bib:spring_web_mvc}.
+      
+      \subsubsection{Spring Data JPA}
+        Spring implementation of JPA contract, powered by Hibernate. Reduces hugely boilerplate code that's associated with querying database,
+        especially with Repository interface custom finder methods\cite{bib:spring_data_jpa}.
+
+    \subsection{Thymeleaf}
+      Modern server-side Java template engine resolver. 
+      It converts HTML files with Thymeleaf--specific dynamic attributes based on model attributes provided by developer through Spring MVC framework\cite{bib:thymeleaf}.
+      
+      \subsubsection{Alternative}
+        There are not many pure alternatives when it comes to template resolvers. 
+        Java Enterprise Edition comes with JSP, which is not pleasant to use, and is considered obsolete.
+        It definitely does not provide level of integration with Spring MVC framework as much as Thymeleaf does.
+
+  \section{Methodology of design and implementation}
+    Base of every application is a well designed database schema. 
+    Once schema is considered with required functionalities of application in mind, and with space for extensibility predicted,
+    it makes development not only go faster and more efficient, but also more pleasant for developer.
+
+    With proper database schema, we have to consider what is the best way for user to use our application---through web browser or application?
+    Because application is meant to be nation--wide, 
+    and there is a web browser on perhaps every computer with internet connection---which is necessary for application to work---web application is the way to go.
+    
+    When designing web application, we have to decide how we want to achieve end result---presenting view to application user.
+    There are two most common approaches when it comes to Spring application:
+    \begin{itemize}
+      \item Exposing REST API from Spring application, that contains all of business logic and create another application, that consumes that API and interacts with the user in any way desired.
+      \item Keep view rendering on server side, and expose pure html to the user.
+    \end{itemize}
+    I chose the second option, because it is not the most important thing for \Title to be pretty and responsive, I wanted to focus on backend side of the application.
+
+    Once view presenting is established, we want to consider how we want to design architecture of the application.
+    I can see two approaches in choosing the architecture: basing on application requirements or basing on technology used in application.
+    Because Spring provides whole framework dedicated to MVC design pattern, and also it's widely used in the industry, I chose to develop application in that manner,
+    rather than choosing architecture basing on application requirements. 
+    My application is not large enough to be hugely impacted by bad architecture. I could only harm my project by using some fancy architecture.
 
 \chapter{External specification}
 
@@ -482,7 +646,13 @@ Gliwice, dnia {\selectlanguage{polish}\today}
 \chapter*{List of abbreviations and symbols}
 
 \begin{itemize}
-\item 
+  \item[API] Application Programming Interface
+  \item[HTML] HyperText Markup Language
+  \item[MVC] Model--View--Controller 
+  \item[REST] Representational State Transfer
+  \item[UML] Unified Modeling Language
+  \item[JPA] Java Persistence API
+  \item[JSP] JavaServer Pages
 \end{itemize}
 
 
