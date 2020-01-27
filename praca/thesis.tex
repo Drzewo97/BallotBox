@@ -562,36 +562,35 @@ Gliwice, dnia {\selectlanguage{polish}\today}
     My application is not large enough to be hugely impacted by bad architecture. I could only harm my project by using some fancy architecture.
 
 \chapter{External specification}
-  \section{Types of users}
+  \section{Types of users and cockpits}
     \subsection{Overview}
-    Let's put above functionalities into more technical perspective.
-    In order to secure application from unauthorized access, it is best if we divide application into four main cockpits:
+    In order to secure application from unauthorized access, I divided application into four main cockpits:
     \begin{itemize}
       \item Voter cockpit
       \item Administrator cockpit
       \item Ward administrator cockpit
       \item Committee administrator cockpit
     \end{itemize}
-    Each cockpit will have certain role that is necessary to even display available actions. 
+    Each cockpit has certain role that is necessary to even display available actions. 
     In order to have access to anything, we have to be authenticated (active, successfully registered) user, with assigned role that gives us permission for certain cockpits.
     A guest---not registered user---is only available to register or login.
 
     \subsection{Voter cockpit}
-    User with role of a voter should be able to vote for election, and see election results, after it's closed.
-    In case of voting, user must be able to vote on a poll only once, without any exception.
+    User with role of a voter is able to vote for election, and see election results, after it's closed.
+    In case of voting, user is be able to vote on a poll only once, without any exception.
 
     \subsection{Administrator cockpit}
-    User with role of an administrator should be able to create essential data---wards, polls, committees etc. as well as granting certain roles to certain users.
-    Administrator should not be able to interfere in ward or committee administration, other than choosing its administrator.
-    Moreover, administrator should be the one to trigger polls results calculation.
+    User with role of an administrator is able to create essential data---wards, polls, committees etc. as well as granting certain roles to certain users.
+    Administrator is not be able to interfere in ward or committee administration, other than choosing its administrator.
+    Moreover, administrator is the one that triggers polls results calculation.
 
     \subsection{Ward administrator cockpit}
-    User with role of ward administrator should be able to manage only his assigned ward. Under no circumstances should he be able to manage other wards.
-    In ward administrator cockpit he should be able to enter protocol from ward for each poll during an election.
+    User with role of ward administrator is able to manage only his assigned ward. Under no circumstances he is able to manage other wards.
+    In ward administrator cockpit he is able to enter protocol from ward for each poll during an election.
 
     \subsection{Committee administrator cockpit}
-    User with role of committee administrator should be able to manage only his assigned committee. Under no circumstances should he be able to manage other committees.
-    In committee administrator cockpit he should be able to choose order of committee candidates in closed list. 
+    User with role of committee administrator is able to manage only his assigned committee. Under no circumstances he is able to manage other committees.
+    In committee administrator cockpit he is able to choose order of committee candidates in closed list. 
 
 
 \chapter{Internal specification}
