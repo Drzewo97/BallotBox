@@ -378,39 +378,6 @@ Gliwice, dnia {\selectlanguage{polish}\today}
   After closing the election and collecting protocols from all wards, results of the election can be calculated.
   This information can be public and delivered to public on the same site that they voted on, as well as on official government electoral commission website.
 
-\section{Problem statement}
-
-\ksremark{Poniższy tekst jest do przeniesienia do któregoś z następnych rozdziałów.}
-  \subsection{Overview}
-    Let's put above functionalities into more technical perspective.
-    In order to secure application from unauthorized access, it is best if we divide application into four main cockpits:
-    \begin{itemize}
-      \item Voter cockpit
-      \item Administrator cockpit
-      \item Ward administrator cockpit
-      \item Committee administrator cockpit
-    \end{itemize}
-    Each cockpit will have certain role that is necessary to even display available actions. 
-    In order to have access to anything, we have to be authenticated (active, successfully registered) user, with assigned role that gives us permission for certain cockpits.
-    A guest---not registered user---is only available to register or login.
-
-  \subsection{Voter cockpit}
-    User with role of a voter should be able to vote for election, and see election results, after it's closed.
-    In case of voting, user must be able to vote on a poll only once, without any exception.
-
-  \subsection{Administrator cockpit}
-    User with role of an administrator should be able to create essential data---wards, polls, committees etc. as well as granting certain roles to certain users.
-    Administrator should not be able to interfere in ward or committee administration, other than choosing its administrator.
-    Moreover, administrator should be the one to trigger polls results calculation.
-
-  \subsection{Ward administrator cockpit}
-    User with role of ward administrator should be able to manage only his assigned ward. Under no circumstances should he be able to manage other wards.
-    In ward administrator cockpit he should be able to enter protocol from ward for each poll during an election.
-
-  \subsection{Committee administrator cockpit}
-    User with role of committee administrator should be able to manage only his assigned committee. Under no circumstances should he be able to manage other committees.
-    In committee administrator cockpit he should be able to choose order of committee candidates in closed list. 
-
 \section{Overview of similar solutions}
 
   \subsection{Electronic voting in Estonia}
@@ -596,7 +563,35 @@ Gliwice, dnia {\selectlanguage{polish}\today}
 
 \chapter{External specification}
   \section{Types of users}
+    \subsection{Overview}
+    Let's put above functionalities into more technical perspective.
+    In order to secure application from unauthorized access, it is best if we divide application into four main cockpits:
+    \begin{itemize}
+      \item Voter cockpit
+      \item Administrator cockpit
+      \item Ward administrator cockpit
+      \item Committee administrator cockpit
+    \end{itemize}
+    Each cockpit will have certain role that is necessary to even display available actions. 
+    In order to have access to anything, we have to be authenticated (active, successfully registered) user, with assigned role that gives us permission for certain cockpits.
+    A guest---not registered user---is only available to register or login.
 
+    \subsection{Voter cockpit}
+    User with role of a voter should be able to vote for election, and see election results, after it's closed.
+    In case of voting, user must be able to vote on a poll only once, without any exception.
+
+    \subsection{Administrator cockpit}
+    User with role of an administrator should be able to create essential data---wards, polls, committees etc. as well as granting certain roles to certain users.
+    Administrator should not be able to interfere in ward or committee administration, other than choosing its administrator.
+    Moreover, administrator should be the one to trigger polls results calculation.
+
+    \subsection{Ward administrator cockpit}
+    User with role of ward administrator should be able to manage only his assigned ward. Under no circumstances should he be able to manage other wards.
+    In ward administrator cockpit he should be able to enter protocol from ward for each poll during an election.
+
+    \subsection{Committee administrator cockpit}
+    User with role of committee administrator should be able to manage only his assigned committee. Under no circumstances should he be able to manage other committees.
+    In committee administrator cockpit he should be able to choose order of committee candidates in closed list. 
 
 
 \chapter{Internal specification}
