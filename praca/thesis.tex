@@ -436,6 +436,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
     or he can see some error regarding registration. Citizen can try to login, which will trigger checks if he is registered and that password matches.
     In case of any errors, he will see a message. 
     Citizen can vote, and after that he will see status of his vote regarding every poll in the election, no matter if vote is valid or not.
+    \ksremark{Czy użytkownik, który się jeszcze nie zalogował «citizen» może głosować?}
     \pagebreak
 
     \subsection{Ward administrator use case UML}
@@ -446,8 +447,8 @@ Gliwice, dnia {\selectlanguage{polish}\today}
       \label{fig:ward_admin_uml}
     \end{figure}
 
-    Figure \ref{fig:ward_admin_uml} shows available use cases for ward administrator. Ward administrator can try to send ward protocol.
-    If anything is not correct in protocol he tried to send, he will see a validation error, and protocol will not be send.
+    Figure \ref{fig:ward_admin_uml} shows available use cases for a ward administrator. A ward administrator can try to send a ward protocol.
+    If anything is not correct in a protocol he tried to send, he will see a validation error, and the protocol will not be sent.
 
     \subsection{Committee administrator use case UML}
     \begin{figure}[h]
@@ -457,8 +458,8 @@ Gliwice, dnia {\selectlanguage{polish}\today}
       \label{fig:committee_admin_uml}
     \end{figure}
 
-    Figure \ref{fig:committee_admin_uml} shows available use cases for committee administrator. Committee administrator can try to send closed list candidates' order.
-    If anything is not correct in the order of candidates, he will see a validation error, and candidates order will not be saved.
+    Figure \ref{fig:committee_admin_uml} shows available use cases for a committee administrator. A committee administrator can send closed list candidates' order.
+    If anything is not correct in an order of candidates, he will see a validation error, and the candidates order will not be saved.
     \pagebreak
 
     \subsection{Administrator use case UML}
@@ -469,21 +470,21 @@ Gliwice, dnia {\selectlanguage{polish}\today}
       \label{fig:admin_uml}
     \end{figure}
 
-    Figure \ref{fig:admin_uml} shows available use cases for administrator. We assume that administrator knows what he is doing, so there is no need to validate his choices.
+    Figure \ref{fig:admin_uml} shows available use cases for an administrator. We assume that an administrator knows what he is doing, so there is no need to validate his choices.
     However, he has no power over how many protocols are sent from wards when he wants to calculate poll results. 
     Thus he will get appropriate message when he tries to calculate results of poll that is not ready to be calculated.
 
   \section{Description of tools}
-    Application is developed in Java programming language, with use of Spring Framework and Thymeleaf as template engine. 
-    Data is stored in MySQL database, and whole application is build with help of Apache Maven build automation tool.
+    The application is developed in Java programming language with Spring Framework and Thymeleaf as template engine. 
+    Data is stored in a MySQL database, and whole application is built with  Apache Maven build automation tool.
 
     \subsection{Java}
-      It's object--oriented programming language that requires Java Virtual Machine to run a program. 
+      It's \ksremark{It is} an object--oriented programming language that requires Java Virtual Machine to run a program. 
       This allows Java applications to run on almost every device, regardless of it's operational system\cite{bib:horstmann2008core}.
       Java offers huge open--source ecosystem.
 
       \subsubsection{Alternative}
-        C\# - It's also object--oriented programming language, but it's used to develop software for Microsoft platforms\cite{bib:thai2003net}.
+        C\# is also an object--oriented programming language, but it's \ksremark{it is} used to develop software for Microsoft platforms\ksremark{spacja przed cytowaniem}\cite{bib:thai2003net}.
 
       Although there is no much difference in beginner level development between Java and C\#, I find C\# less convenient than Java,
       because I use machine with macOS operating system as my everyday work tool, and Java has huge support on Unix based system, compared to almost none support for C\#.
@@ -541,7 +542,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
   \section{Methodology of design and implementation}
     Base of every application is a well designed database schema. 
     Once schema is considered with required functionalities of application in mind, and with space for extensibility predicted,
-    it makes development not only go faster and more efficient, but also more pleasant for developer.
+    it makes development not only go faster and more efficient, but also more pleasant for a developer.
 
     With proper database schema, we have to consider what is the best way for user to use our application---through web browser or application?
     Because application is meant to be nation--wide, 
