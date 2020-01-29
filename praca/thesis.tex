@@ -592,7 +592,146 @@ Gliwice, dnia {\selectlanguage{polish}\today}
     \subsection{Committee administrator cockpit}
     User with role of committee administrator is able to manage only his assigned committee. Under no circumstances he is able to manage other committees.
     In committee administrator cockpit he is able to choose order of committee candidates in closed list. 
+  
+  \section{Software requirements}
+    %TODO: Add database installed piece
+    In order to run the application, You have to have Java 12, Maven 3.6.X installed on Your computer, 
+    make sure that \lstinline[language=bash]|java| and \lstinline[language=bash]|mvn| executables are in PATH environment variable.
 
+  \section{Installation procedure}
+    %TODO: Add database connection procedure
+    In order to build project, we have to execute Maven install lifecycle \lstinline[language=bash]|mvn install| in APP\_ROOT directory.
+    This lifecycle will generate \lstinline[language=bash]|ballotbox-0.0.1-SNAPSHOT.jar| jar file in APP\_ROOT/target directory.
+    To run application we just have to execute \lstinline[language=bash]|java -jar APP_ROOT/target/ballotbox-0.0.1-SNAPSHOT.jar|. 
+    Application server will listen on PORT 8080 by default. 
+    
+  \section{Activation procedure}
+    Users' roles definitions are loaded into database on first server startup if they don't exist in the database already.
+    Same behavior with default admin user with password 'nimda'---it's in the database on first startup.
+    To secure the application, we have to register proper user which is meant to be administrator, and execute following query in the database:
+
+    \lstinline[language=sql]|INSERT INTO users_roles(user_id, role_id) values (ADM_ID, ROLE_ID);|
+    Where ADM\_ID is id of desired administrator in table 'user', and ROLE\_ID is id of row with column name equal to "ROLE\_ADMIN" in table 'role'---1 by default.
+    That's the procedure we should follow when we want to add administrator to the system.
+    After that we should delete predefined admin user from table user, with following query:
+
+    \lstinline[language=sql]|DELETE FROM user WHERE username='admin';|
+
+  \section{User manual}
+    \subsection{Voter manual}
+      Voter can access voting page at root endpoint of the application---\lstinline|HOST:PORT|.
+      After clicking \lstinline|show all elections|, user can choose election on which he wishes to vote in.
+      After clicking on vote button, he can cast a vote in all polls available in this election.
+      There are two types of voting methods. One is a single choice vote---voter can mark a checkbox next to candidate he wishes to vote on.
+
+      /////single choice vote screenshot/////
+
+      Second one is preference voting, in which voter can mark candidates by his choice of preference.
+      1 for candidate of his first choice, 2 for his second favorite candidate and so on.
+
+      /////preference vote screenshot/////
+
+      Description provides user with specific instructions on how to vote on specific poll. If user doesn't follow the instructions, vote is invalidated, and voter cannot vote again.
+      After casting a vote, user gets information on status of his votes - if vote is validated or not, and if not, why.
+
+      /////polls statuses screenshot/////
+
+      After election is finished and results are calculated, voter can see results of poll after clicking on results button.
+      He will get information about how many valid votes were casted in a poll, and who are the winners of that poll.
+
+      /////poll results screenshot/////
+
+    \subsection{Committee administrator manual}
+      Committee administrator can access committee management page after going to \lstinline|HOST:PORT/committeepanel| endpoint of the application.
+      After that, he can choose which committee that he is an administrator of he wishes to manage.
+      Then, he can set closed list order of that committee, required for D'Hondt method.
+
+      /////closed list order screenshot/////
+
+      If he makes any error, he will be displayed appropriate message, and order will not be saved---it will be held at previous stage.
+
+      /////closed list order result screenshot/////
+
+    \subsection{Ward administrator manual}
+      Ward administrator can access ward management page after going to \lstinline|HOST:PORT/wardpanel| endpoint of the application.
+      After that, he can choose which ward thet he is an administrator of he wishes to manage.
+      Then, he can send specific poll protocol from that ward.
+
+      /////ward management page screenshot/////
+      /////poll protocol sending page screenshot/////
+
+      If administrator makes any error in protocol, he will be displayed appropriate message, and protocol will not be sent.
+
+  \section{System administration}
+    In order to access administrator cockpit, we should go under \lstinline|HOST:PORT/panel| URL in the browser, when logged in as user with administrator rights.
+
+    /////localhost:8080/panel screenshot/////
+
+    We can see all available actions for administrator.
+    \subsection{Add country}
+      Crete a country with typed in name. 
+
+    \subsection{Add district}
+      Create a district with typed in name, and select country that owns created district.
+
+    \subsection{Add ward}
+      Create instance of real ward in district - place where people come to vote. 
+      Select district that owns created ward.
+
+    \subsection{Grant ward administrator privileges}
+      Choose ward and existing user. Chosen user will be ward administrator of chosen ward. One user could be administrator of many wards.
+
+    \subsection{Add committee}
+      Create a committee with typed in name.
+
+    \subsection{Grant committee administrator privileges}
+      Choose committee and existing user. Chosen user will be committee administrator of chosen committee. One user could be administrator of many wards.
+
+    \subsection{Add poll}
+
+      /////add poll screenshot/////
+
+      Create poll. Type in unique name and short description. Choose date in which poll will be available to vote.
+      Choose poll scope---citizens from which wards can place a vote in this poll.
+      For example, if You choose country scope, citizens from all wards that belong to all districts that belong to country chosen will be able to vote in this poll.
+      Same applies to district scope---citizens from all wards that belong to chosen district will be able to vote in this poll.
+      Next, select voting method. It's method in which results will be calculated, but also it will determine how voters can cast their vote.
+      There are four available methods, each with constraints:
+      \begin{itemize}
+        \item Winner takes all---Number of seats to fill must be 1, voter can mark only 1 candidate. Candidate with higher number of votes overall wins.
+        \item Two round---Number of seats to fill must be 1, voter can mark only 1 candidate. Poll is resolved only if one candidate has over half of all votes.
+        \item Instant runoff voting---Number of seats to fill must be less than number of candidates participating (type in desired number),
+        voter can mark maximum of available candidates (type in desired number).
+        Voter will vote on candidates based on his number of preference for each candidate---1 for highest preference, 2 for slightly lower and so on.
+        \item D'Hondt method---Number of seats to fill must be less than number of candidates participating (type in desired number),
+        voter can mark only 1 candidate. Results of poll will be calculated using D'Hondt method, using closed lists from committees, provided by committee administrators.
+      \end{itemize}
+
+    \subsection{Register candidate}
+      Select an existing user and register him as a candidate in a poll, as candidate from chosen committee.
+
+    \subsection{Create election}
+      Create an election from existing polls. Voter will have only one chance to vote on polls contained in an election.
+
+    \subsection{Polls}
+
+      /////polls screenshot/////
+
+      Opens available polls menu. For each poll we have two options: Summary and Results.
+
+      \subsubsection{Summary}
+        Shows if poll is active (can be voted on), and how many votes were casted over the internet.
+
+      \subsubsection{Results}
+        Calculates and shows results of chosen election. Results will not be calculated if poll is still active, or if any ward did not send the protocol.
+        Once results are calculated they are stored in database and will not be calculated again---there is no need to.
+
+  \section{Security issues}
+    Application is protected against unauthorized access with help of Spring Security. It handles authentication and authorization following only guidelines of the developer.
+    Moreover, I handle business logic security directly in API calls which may affect data written to database. 
+    Whenever there is a call that should be protected by some business logic, before it performs anything, 
+    it checks whether user that makes that call can perform desired action. If not, it returns with message why action was not performed. 
+    For example, see trying to vote in election that You, as a voter, have already voted in.
 
 \chapter{Internal specification}
 
@@ -639,10 +778,13 @@ Gliwice, dnia {\selectlanguage{polish}\today}
 
 \begin{itemize}
   \item[API] Application Programming Interface
+  \item[APP\_ROOT] Root directory of ballotbox project (with pom.xml file)
+  \item[HOST] IP of host machine of application server  
   \item[HTML] HyperText Markup Language
   \item[JPA] Java Persistence API
   \item[JSP] JavaServer Pages
   \item[MVC] Model--View--Controller
+  \item[PORT] Port on which application server listens
   \item[REST] Representational State Transfer
   \item[UML] Unified Modeling Language
 \end{itemize}
