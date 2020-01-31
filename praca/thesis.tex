@@ -397,30 +397,32 @@ Gliwice, dnia {\selectlanguage{polish}\today}
 \chapter{Requirements and tools}
 
   \section{Functional requirements}
+  \ksremark{Zdanie wprowadzające – może być jedna linijka.}
     \begin{itemize}
-      \item Citizen of a country that holds an online election in the application should be able to register.
-      \item Application should allow registered citizens to vote on candidates of their preference.
-      \item Vote of a citizen should be taken into account when calculating results of an election.
-      \item Citizen should be able to cast only one vote per election.
-      \item Vote of a citizen should not be trackable---no person should be able to tell which citizen voted on which candidate.
-      \item Person designated as a ward administrator---and only that person---should be able to send ward protocol to the system.
+      \item A citizen of a country that holds an online election in the application should be able to register.
+      \item The application should allow registered citizens to vote on candidates of their preference.
+      \item A vote of a citizen should be taken into account when calculating results of an election.
+      \item A citizen should be able to cast only one vote per election.
+      \item A vote of a citizen should not be trackable---no person should be able to tell which citizen voted on which candidate.
+      \item A person designated as a ward administrator---and only that person---should be able to send a ward protocol to the system.
       \item Protocols sent from wards should be taken into account when calculating results of an election.
-      \item Person designated as a commission administrator---and only that person---should be able to enter commission's closed list candidates order to the system.
-      \item Administrator of the application should be able to perform steps that lead to creating an election identical to one provided to him.
-      \item Administrator should be able to trigger calculation of the results of an election.
-      \item Election results should not be calculated with some of wards' protocols missing.
-      \item Administrator should be able to grant privileges of ward and commission administrators to designated people separately.
-      \item Administrator should not be able to perform actions in replacement of ward or committee administrator.
+      \item A person designated as a commission administrator---and only that person---should be able to enter a commission's closed list candidates order to the system.
+      \item An administrator of the application should be able to perform steps that lead to creation of an election identical to one provided to him.
+      \item An administrator should be able to trigger calculation of the results of an election.
+      \item Election results should not be calculated with some of ward protocols missing.
+      \item An administrator should be able to grant privileges of ward and commission administrators to designated people separately.
+      \item An administrator should not be able to perform actions in replacement of  a ward or committee administrator.
     \end{itemize}
 
   \section{Nonfunctional requirements}
+  \ksremark{Zdanie wprowadzające – może być jedna linijka.}
     \begin{itemize}
-      \item User interface should be understandable to English speaking individual.
-      \item Application should be implemented in Java, with help of Spring Boot and related frameworks for backend, 
-      and Thymeleaf template engine for frontend.
-      \item Application should store all necessary data in MySQL database.
-      \item Application should hash all sensitive data stored in database.
-      \item Application should offer all available functionalities on Google Chrome version 79.
+      \item User interface should be understandable to English speaking individuals.
+      \item The application should be implemented in Java, with help of Spring Boot and related frameworks for an backend, 
+      and Thymeleaf template engine for an frontend.
+      \item The application should store all necessary data in a MySQL database.
+      \item The application should hash all sensitive data stored in a database.
+      \item The application should offer all available functionalities on Google Chrome version 79.
     \end{itemize}
   \pagebreak
 
@@ -432,10 +434,10 @@ Gliwice, dnia {\selectlanguage{polish}\today}
       \label{fig:citizen_uml}
     \end{figure}
 
-    Figure \ref{fig:citizen_uml} shows available use cases for citizen. He can register and in that case he will receive an email, 
-    or he can see some error regarding registration. Citizen can try to login, which will trigger checks if he is registered and that password matches.
+    Figure \ref{fig:citizen_uml} shows available use cases for a citizen. He can register and in that case he will receive an email, 
+    or he can see some error regarding registration. A citizen can try to login, which will trigger checks if he is registered and that password matches.
     In case of any errors, he will see a message. 
-    Citizen can vote, and after that he will see status of his vote regarding every poll in the election, no matter if vote is valid or not.
+    A citizen can vote, and after that he will see status of his vote regarding every poll in the election, no matter if vote is valid or not.
     \ksremark{Czy użytkownik, który się jeszcze nie zalogował «citizen» może głosować?}
     \pagebreak
 
@@ -498,7 +500,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
       \subsubsection{Alternatives}
         \paragraph{Gradle}
           It's also application build tool for Java-based projects. It's better than Maven for larger projects, thanks to better automation methods and better performance.
-          Gradle is built with more experienced and demanding developer in mind\cite{bib:gradle}.
+          Gradle is built with more experienced and demanding developer in mind\cite{bib:gradle}. \ksremark{odstęp między słowej a cytowaniem}
         
         \paragraph{Ant}
           Ant is a powerful tool that allows developer to automate very complicated task, but this functionality is not cheap.
@@ -510,12 +512,12 @@ Gliwice, dnia {\selectlanguage{polish}\today}
     \subsection{Spring}
       It's an open--source framework for Java platform. It focuses on delivering out--of--the--box core features for any kind of application, 
       so developers can focus on business logic of the application. 
-      Aside from Spring Core, which provides easy dependency injection, Spring provides extensions in form of more or less independent modules, each available as it's own maven artifact.\cite{bib:spring}
+      Aside from Spring Core, which provides easy dependency injection, Spring provides extensions in form of more or less independent modules, each available as it's own maven artifact.\cite{bib:spring} \ksremark{Cytowanie przed kropką.}
       Spring Boot is an extension of Spring framework, which provides out--of--the--box configuration, and requires user to provide only application specific configuration.
       
       \subsubsection{Alternative}
         Because Spring is open--source framework, considered a standard in the industry for over 10 years, there is no other framework that is as feature--packed as Spring.
-        One could make a case for .Net framework for C\# language, but it's developed and directed by Microsoft\cite{bib:thai2003net}, 
+        One could make a case for .Net framework for C\# language, but it's \ksremark{it is} developed and directed by Microsoft\cite{bib:thai2003net}, 
         whereas Spring is powered by community, and contains features required by that same community. 
 
       \subsubsection{Spring Security}
@@ -554,7 +556,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
       \item Exposing REST API from Spring application, that contains all of business logic and create another application, that consumes that API and interacts with the user in any way desired.
       \item Keep view rendering on server side, and expose pure html to the user.
     \end{itemize}
-    I chose the second option, because it is not the most important thing for \Title to be pretty and responsive, I wanted to focus on backend side of the application.
+    I chose the second option, because it is not the most important thing for \Title\ to be pretty and responsive, I wanted to focus on backend side of the application.
 
     Once view presenting is established, we want to consider how we want to design architecture of the application.
     I can see two approaches in choosing the architecture: basing on application requirements or basing on technology used in application.
@@ -565,50 +567,50 @@ Gliwice, dnia {\selectlanguage{polish}\today}
 \chapter{External specification}
   \section{Types of users and cockpits}
     \subsection{Overview}
-    In order to secure application from unauthorized access, I divided application into four main cockpits:
+    In order to secure application from unauthorized access  I divided application into four main cockpits:
     \begin{itemize}
       \item Voter cockpit
       \item Administrator cockpit
       \item Ward administrator cockpit
       \item Committee administrator cockpit
     \end{itemize}
-    Each cockpit has certain role that is necessary to even display available actions. 
-    In order to have access to anything, we have to be authenticated (active, successfully registered) user, with assigned role that gives us permission for certain cockpits.
+    Each cockpit has certain role that is necessary to even display available actions \ksremark{?}. 
+    In order to have access to anything we have to be authenticated (active, successfully registered) user, with assigned role that gives us permission for certain cockpits.
     A guest---not registered user---is only available to register or login.
 
     \subsection{Voter cockpit}
-    User with role of a voter is able to vote for election, and see election results, after it's closed.
-    In case of voting, user is be able to vote on a poll only once, without any exception.
+    A user with a role of a voter is able to vote for election and see election results after it's \ksremark{it is} closed.
+    In case of voting a user is be able to vote on a poll only once without any exception.
 
     \subsection{Administrator cockpit}
-    User with role of an administrator is able to create essential data---wards, polls, committees etc. as well as granting certain roles to certain users.
-    Administrator is not be able to interfere in ward or committee administration, other than choosing its administrator.
-    Moreover, administrator is the one that triggers polls results calculation.
+    A user with a role of an administrator is able to create essential data---wards, polls, committees etc. as well as granting certain roles to certain users.
+    An administrator is not be able to interfere in a ward or committee administration other than choosing its administrator.
+    Moreover administrator is the one that triggers polls results calculation.
 
     \subsection{Ward administrator cockpit}
-    User with role of ward administrator is able to manage only his assigned ward. Under no circumstances he is able to manage other wards.
-    In ward administrator cockpit he is able to enter protocol from ward for each poll during an election.
+    A user with a role of a ward administrator is able to manage only his assigned ward. Under no circumstances he is able to manage other wards.
+    In a ward administrator cockpit he is able to enter a  protocol from a ward for each poll during an election.
 
     \subsection{Committee administrator cockpit}
-    User with role of committee administrator is able to manage only his assigned committee. Under no circumstances he is able to manage other committees.
-    In committee administrator cockpit he is able to choose order of committee candidates in closed list. 
+    A user with a role of a committee administrator is able to manage only his assigned committee. Under no circumstances he is able to manage other committees.
+    In a committee administrator cockpit he is able to choose an order of committee candidates in a closed list. 
   
   \section{Software requirements}
     %TODO: Add database installed piece
-    In order to run the application, You have to have Java 12, Maven 3.6.X installed on Your computer, 
+    In order to run the application, You \ksremark{you} have to have Java 12, Maven 3.6.X installed on Your \ksremark{your} computer, 
     make sure that \lstinline[language=bash]|java| and \lstinline[language=bash]|mvn| executables are in PATH environment variable.
 
   \section{Installation procedure}
     %TODO: Add database connection procedure
-    In order to build project, we have to execute Maven install lifecycle \lstinline[language=bash]|mvn install| in APP\_ROOT directory.
+    In order to build project, we \ksremark{W poprzedniej sekcji analogiczny opis korzystał z <<you>>, ten z <<we>>.} have to execute Maven install lifecycle \lstinline[language=bash]|mvn install| in APP\_ROOT directory.
     This lifecycle will generate \lstinline[language=bash]|ballotbox-0.0.1-SNAPSHOT.jar| jar file in APP\_ROOT/target directory.
     To run application we just have to execute \lstinline[language=bash]|java -jar APP_ROOT/target/ballotbox-0.0.1-SNAPSHOT.jar|. 
     Application server will listen on PORT 8080 by default. 
     
   \section{Activation procedure}
-    Users' roles definitions are loaded into database on first server startup if they don't exist in the database already.
-    Same behavior with default admin user with password 'nimda'---it's in the database on first startup.
-    To secure the application, we have to register proper user which is meant to be administrator, and execute following query in the database:
+    Users' roles definitions are loaded into a database on first server startup if they don't \ksremark{do not} exist in the database already.
+    Same behaviour with default admin user with password 'nimda'---it's in the database on first startup.
+    To secure the application  we have to register a proper user which is meant to be an administrator, and execute  following query in the database:
 
     \lstinline[language=sql]|INSERT INTO users_roles(user_id, role_id) values (ADM_ID, ROLE_ID);|
     Where ADM\_ID is id of desired administrator in table 'user', and ROLE\_ID is id of row with column name equal to "ROLE\_ADMIN" in table 'role'---1 by default.
@@ -619,19 +621,19 @@ Gliwice, dnia {\selectlanguage{polish}\today}
 
   \section{User manual}
     \subsection{Voter manual}
-      Voter can access voting page at root endpoint of the application---\lstinline|HOST:PORT|.
+      Voter can access voting page at root endpoint of the application---\mbox{\lstinline|HOST:PORT|.}
       After clicking \lstinline|show all elections|, user can choose election on which he wishes to vote in.
       After clicking on vote button, he can cast a vote in all polls available in this election.
       There are two types of voting methods. One is a single choice vote---voter can mark a checkbox next to candidate he wishes to vote on.
 
       /////single choice vote screenshot/////
 
-      Second one is preference voting, in which voter can mark candidates by his choice of preference.
-      1 for candidate of his first choice, 2 for his second favorite candidate and so on.
+      Second one is a preference voting, in which voter can mark candidates by his choice of preference:
+      1 for a candidate of his first choice, 2 for his second favourite candidate and so on.
 
       /////preference vote screenshot/////
 
-      Description provides user with specific instructions on how to vote on specific poll. If user doesn't follow the instructions, vote is invalidated, and voter cannot vote again.
+      Description provides user with specific instructions on how to vote on a specific poll. If user doesn't \ksremark{does not} follow the instructions, vote is invalidated, and voter cannot vote again.
       After casting a vote, user gets information on status of his votes - if vote is validated or not, and if not, why.
 
       /////polls statuses screenshot/////
