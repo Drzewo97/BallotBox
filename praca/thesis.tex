@@ -494,7 +494,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
     \subsection{Maven}
       Apache Maven is a tool that is capable of building and managing any Java-based project. 
       It helps developers with dependency management, as it's able to download all necessary dependencies with almost no participation of developer.
-      It's easy for beginners, as it's build lifecycles and syntax is easy to understand---all You need is artifact info of dependency that You want to include in Your project, 
+      It's easy for beginners, as it's build lifecycles and syntax is easy to understand---all you need is artifact info of dependency that you want to include in your project, 
       and it will download and include dependency in project during install build lifecycle\cite{bib:maven}.
 
       \subsubsection{Alternatives}
@@ -597,7 +597,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
   
   \section{Software requirements}
     %TODO: Add database installed piece
-    In order to run the application, You \ksremark{you} have to have Java 12, Maven 3.6.X installed on Your \ksremark{your} computer, 
+    In order to run the application, you have to have Java 12, Maven 3.6.X installed on your computer, 
     make sure that \lstinline[language=bash]|java| and \lstinline[language=bash]|mvn| executables are in PATH environment variable.
 
   \section{Installation procedure}
@@ -695,7 +695,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
 
       Create poll. Type in unique name and short description. Choose date in which poll will be available to vote.
       Choose poll scope---citizens from which wards can place a vote in this poll.
-      For example, if You choose country scope, citizens from all wards that belong to all districts that belong to country chosen will be able to vote in this poll.
+      For example, if you choose country scope, citizens from all wards that belong to all districts that belong to country chosen will be able to vote in this poll.
       Same applies to district scope---citizens from all wards that belong to chosen district will be able to vote in this poll.
       Next, select voting method. It's method in which results will be calculated, but also it will determine how voters can cast their vote.
       There are four available methods, each with constraints:
@@ -733,7 +733,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
     Moreover, I handle business logic security directly in API calls which may affect data written to database. 
     Whenever there is a call that should be protected by some business logic, before it performs anything, 
     it checks whether user that makes that call can perform desired action. If not, it returns with message why action was not performed. 
-    For example, see trying to vote in election that You, as a voter, have already voted in.
+    For example, see trying to vote in election that you, as a voter, have already voted in.
 
 \chapter{Internal specification}
   \section{Concept of the system}
