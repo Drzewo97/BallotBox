@@ -836,13 +836,79 @@ Gliwice, dnia {\selectlanguage{polish}\today}
     \end{itemize}
 
 \chapter{Verification and validation}
+  \section{Testing paradigm}
+    We can divide development process into three parts: planning, implementation and testing. Every phase is involved in verification and validation of a solution.
+      \subsection{Planning}
+        When planning a new feature, I first thought about it from user point of view---how user could use it, given already implemented features or database schema and relations.
+        For example, when planning ward administrator cockpit, user has to be able to choose ward to manage, because he can be administrator of many wards.
+        That's why we need to add page in between, so user can choose specific ward.
+        When new feature requires some complicated logic, first I try to break it down on paper, I try to understand it better.
 
-\begin{itemize}
-\item 
-\end{itemize}
+        Then, I go into more technical stuff---can I use logic available in repository, or should I create service responsible for logic required?
+        Are there any additional data structures that could be helpful?
+        How should I divide responsibility between classes?
 
- 
- 
+        After I have some understanding of the problem, I try to think if there is a better and simpler way of achieving the same result---many times I found myself overcomplicating things.
+
+        After that I have solid overview of the problem, and I can start implementing it.
+
+      \subsection{Implementation}
+        It usually involves creating a controller for new functionality, and placing reference to it in some root template, so I can trigger this logic.
+        In preparation phase, I have to load database with exemplary data that may be necessary to debug the feature.
+        After that, I make things I prepared in previous phase come to life---I start coding.
+        Once I have skeleton of a feature, I check if all assumptions I made are correct---if everything works as I expected, although not fully implemented.
+        Step by step I come to solution that works for at least one data set.
+        
+      \subsection{Testing}
+        All of test cases were performed manually.
+        For client side part of testing, they were performed during development phase of implementation.
+        It happens naturally that during development of some part, you have to navigate through the application simultaneously testing if everything works as expected.
+
+        For business side part of testing, we can distinguish few parts of it:
+        \begin{itemize}
+          \item Database communication correctness---with every interaction with database, I checked if correct data is written to the database in correct form,
+          and also if I get fetched values as expected.
+          \item Calculation correctness---when implementing methods that calculate results of polls, I tried to think of an example that contains all edge cases of a method.
+          After populating the database with exemplary data, I calculated results of that example by hand, and compared them with application results.
+          If the results were the same, I repeated the scenario with data generated randomly. 
+          If the result was still the same as results calculated by hand, I assumed the solution is sufficient.
+        \end{itemize}
+
+  \section{Testing scope}
+    Every part of application that is exposed to typical user is tested and error protected. 
+    That means that functionalities in voter, ward administrator and committee administrator cockpits are fault tolerant.
+    Because we assume that administrator knows what he is doing, administrator cockpit is error prone. 
+    Only poll results calculation is protected, because it involves data entered by third party, and administrator cannot be sure that this data was sent.
+
+  \section{Test cases}
+    \subsection{Voting test}
+      In voter cockpit user enters data when he casts a vote. Apart from casting a proper vote, he can cast empty vote (no candidates marked) and
+      he can cast too many votes (more candidates than necessary marked). Both of these scenarios invalidate vote.
+
+      When it comes to preference voting, he also can cast empty vote and vote with too many candidates marked, but also he can repeat preference numbers and
+      preference number can exceed limit value, which also invalidates a vote.
+
+      Those scenarios are tested and application displays appropriate messages to user.
+
+    \subsection{Closed list order test}
+      As a committee administrator we can set order on closed list of a committee.
+      There should be a continuity in order (no numbers missed), and no candidate should be left without a number.
+      When committee administrator tries to save improper closed list order, he should be displayed appropriate message.
+
+      This scenario is tested and application displays appropriate messages to user.
+
+    \subsection{Sending ward protocol test}
+      As a ward administrator we can send protocol from that ward.
+      In case of any inconsistency in entered numbers, ward administrator should state reason why there is such inconsistency.
+
+      This scenario is tested %TODO (doesn't work):and application displays appropriate messages to user.
+
+    \subsection{Calculating poll results test}
+      As an administrator we can calculate polls results only when poll is finished and all wards have sent their protocols.
+      Otherwise results should not be calculated and administrator should be displayed appropriate message.
+      
+      This scenario is tested and application displays appropriate messages to user.
+
 \chapter{Conclusions}
 
 \begin{itemize}
@@ -885,6 +951,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
   \item[REST] Representational State Transfer
   \item[UML] Unified Modeling Language
   \item[URL] Uniform Resource Locator
+  \item[UX] User experience 
 \end{itemize}
 
 
