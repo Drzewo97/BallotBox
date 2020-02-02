@@ -350,8 +350,8 @@ Gliwice, dnia {\selectlanguage{polish}\today}
 
   Before election, system administrator has to enter committees and candidates data into a system, register them for polls predicted for certain date, which he has entered at the beginning.
   Although he could handle registering candidates to certain committees, he cannot handle scope of managing whole committee during election. 
-  It's best if administrator granted some chosen user privileges to manage certain committee inside the system---let's call him committee administrator.
-  It's useful for example in case of allocation seats via D'Hondt method---it's committee itself that wants to decide on order in closed list, there should be no third party involved.
+  It is best if administrator granted some chosen user privileges to manage certain committee inside the system---let's call him committee administrator.
+  It is useful for example in case of allocation seats via D'Hondt method---it is a committee itself that wants to decide on order in closed list, there should be no third party involved.
   
   First, in order to cast a vote through internet, a citizen would have to register. What online voting system wants to achieve for citizens is to be able to cast a vote without leaving home.
   It makes sense that citizens would register also through the internet---for example in case of some injury, if someone could go out of home, they could also vote in a ward. 
@@ -381,17 +381,17 @@ Gliwice, dnia {\selectlanguage{polish}\today}
 \section{Overview of similar solutions}
 
   \subsection{Electronic voting in Estonia}
-    In Estonia, voting is based on electronic citizen ID. It's mandatory and sufficient national identity document, which allows for secure remote authentication.
+    In Estonia, voting is based on electronic citizen ID. It is mandatory and sufficient national identity document, which allows for secure remote authentication.
     To cast a vote, an Estonian needs a computer connected to the internet and equipped with card reader.
     They can authenticate using digital certificate included in their citizen card, and cast a vote on the internet \cite{bib:internet_voting_estonia}. \ksremark{Trochę inaczej się cytuje – poprawiłem w pliku \texttt{thesis.bib}. Wpisy bibliograficzne w Bib\TeX u są zwykle dostępne w internecie.}
 
     This solution is problematic for several reasons:
     \begin{itemize}
-      \item It's impossible to be easily implemented in countries without electronic citizen ID. 
+      \item It is impossible to be easily implemented in countries without electronic citizen ID. 
         Providing such documents for most of society of the country is a long time process, measured in years rather than months.
       \item A card reader capable of reading such a card is not a common device---a citizen has to go somewhere with a card reader, if he wants to cast a vote.
       \item Electronic citizen ID is not an intellectual knowledge like password or token. 
-        It's a physical device that can be easily stolen---and of course blocked in some department---but it may be too late and someone may have already taken advantage from owning someone else's citizen ID.
+        It is a physical device that can be easily stolen---and of course blocked in some department---but it may be too late and someone may have already taken advantage from owning someone else's citizen ID.
     \end{itemize}
 
 \chapter{Requirements and tools}
@@ -481,43 +481,43 @@ Gliwice, dnia {\selectlanguage{polish}\today}
     Data is stored in a MySQL database, and whole application is built with  Apache Maven build automation tool.
 
     \subsection{Java}
-      It's \ksremark{It is} an object--oriented programming language that requires Java Virtual Machine to run a program. 
+      It is an object--oriented programming language that requires Java Virtual Machine to run a program. 
       This allows Java applications to run on almost every device, regardless of it's operational system\cite{bib:horstmann2008core}.
       Java offers huge open--source ecosystem.
 
       \subsubsection{Alternative}
-        C\# is also an object--oriented programming language, but it's \ksremark{it is} used to develop software for Microsoft platforms\ksremark{spacja przed cytowaniem}\cite{bib:thai2003net}.
+        C\# is also an object--oriented programming language, but it is used to develop software for Microsoft platforms\ksremark{spacja przed cytowaniem}\cite{bib:thai2003net}.
 
       Although there is no much difference in beginner level development between Java and C\#, I find C\# less convenient than Java,
       because I use machine with macOS operating system as my everyday work tool, and Java has huge support on Unix based system, compared to almost none support for C\#.
 
     \subsection{Maven}
       Apache Maven is a tool that is capable of building and managing any Java-based project. 
-      It helps developers with dependency management, as it's able to download all necessary dependencies with almost no participation of developer.
-      It's easy for beginners, as it's build lifecycles and syntax is easy to understand---all you need is artifact info of dependency that you want to include in your project, 
+      It helps developers with dependency management, as it is able to download all necessary dependencies with almost no participation of developer.
+      It is easy for beginners, as it is build lifecycles and syntax is easy to understand---all you need is artifact info of dependency that you want to include in your project, 
       and it will download and include dependency in project during install build lifecycle\cite{bib:maven}.
 
       \subsubsection{Alternatives}
         \paragraph{Gradle}
-          It's also application build tool for Java-based projects. It's better than Maven for larger projects, thanks to better automation methods and better performance.
+          It is also application build tool for Java-based projects. It is better than Maven for larger projects, thanks to better automation methods and better performance.
           Gradle is built with more experienced and demanding developer in mind\cite{bib:gradle}. \ksremark{odstęp między słowej a cytowaniem}
         
         \paragraph{Ant}
           Ant is a powerful tool that allows developer to automate very complicated task, but this functionality is not cheap.
-          It's complicated to configure and it's being ousted by Gradle\cite{bib:ant}.
+          It is a complicated to configure and it is being ousted by Gradle\cite{bib:ant}.
 
       \paragraph{} %I know it's probably not the way to achieve this result, but it works
       I chose Maven because I wanted to learn modern build technology that is common in the industry, but is suitable for beginners.
 
     \subsection{Spring}
-      It's an open--source framework for Java platform. It focuses on delivering out--of--the--box core features for any kind of application, 
+      It is an open--source framework for Java platform. It focuses on delivering out--of--the--box core features for any kind of application, 
       so developers can focus on business logic of the application. 
       Aside from Spring Core, which provides easy dependency injection, Spring provides extensions in form of more or less independent modules, each available as it's own maven artifact.\cite{bib:spring} \ksremark{Cytowanie przed kropką.}
       Spring Boot is an extension of Spring framework, which provides out--of--the--box configuration, and requires user to provide only application specific configuration.
       
       \subsubsection{Alternative}
         Because Spring is open--source framework, considered a standard in the industry for over 10 years, there is no other framework that is as feature--packed as Spring.
-        One could make a case for .Net framework for C\# language, but it's \ksremark{it is} developed and directed by Microsoft\cite{bib:thai2003net}, 
+        One could make a case for .Net framework for C\# language, but it is developed and directed by Microsoft\cite{bib:thai2003net}, 
         whereas Spring is powered by community, and contains features required by that same community. 
 
       \subsubsection{Spring Security}
@@ -525,7 +525,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
         integration with users in database. Allows for assigning users' roles, and managing accesses based on these roles\cite{bib:spring_security}.
 
       \subsubsection{Spring Web MVC}
-        It's designed around front controller pattern, and helps developers follow the Model--View--Controller design pattern.
+        It is designed around front controller pattern, and helps developers follow the Model--View--Controller design pattern.
         It coordinates flow of request processing performed by configurable delegate components\cite{bib:spring_web_mvc}.
       
       \subsubsection{Spring Data JPA}
@@ -560,7 +560,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
 
     Once view presenting is established, we want to consider how we want to design architecture of the application.
     I can see two approaches in choosing the architecture: basing on application requirements or basing on technology used in application.
-    Because Spring provides whole framework dedicated to MVC design pattern, and also it's widely used in the industry, I chose to develop application in that manner,
+    Because Spring provides whole framework dedicated to MVC design pattern, and also it is widely used in the industry, I chose to develop application in that manner,
     rather than choosing architecture basing on application requirements. 
     My application is not large enough to be hugely impacted by bad architecture. I could only harm my project by using some fancy architecture.
 
@@ -579,7 +579,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
     A guest---not registered user---is only available to register or login.
 
     \subsection{Voter cockpit}
-    A user with a role of a voter is able to vote for election and see election results after it's \ksremark{it is} closed.
+    A user with a role of a voter is able to vote for election and see election results after it is closed.
     In case of voting a user is be able to vote on a poll only once without any exception.
 
     \subsection{Administrator cockpit}
@@ -609,7 +609,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
     
   \section{Activation procedure}
     Users' roles definitions are loaded into a database on first server startup if they don't \ksremark{do not} exist in the database already.
-    Same behaviour with default admin user with password 'nimda'---it's in the database on first startup.
+    Same behaviour with default admin user with password 'nimda'---it is in the database on first startup.
     To secure the application  we have to register a proper user which is meant to be an administrator, and execute  following query in the database:
 
     \lstinline[language=sql]|INSERT INTO users_roles(user_id, role_id) values (ADM_ID, ROLE_ID);|
@@ -697,7 +697,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
       Choose poll scope---citizens from which wards can place a vote in this poll.
       For example, if you choose country scope, citizens from all wards that belong to all districts that belong to country chosen will be able to vote in this poll.
       Same applies to district scope---citizens from all wards that belong to chosen district will be able to vote in this poll.
-      Next, select voting method. It's method in which results will be calculated, but also it will determine how voters can cast their vote.
+      Next, select voting method. It is a method in which results will be calculated, but also it will determine how voters can cast their vote.
       There are four available methods, each with constraints:
       \begin{itemize}
         \item Winner takes all---Number of seats to fill must be 1, voter can mark only 1 candidate. Candidate with higher number of votes overall wins.
