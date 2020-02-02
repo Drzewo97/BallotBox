@@ -602,20 +602,20 @@ Gliwice, dnia {\selectlanguage{polish}\today}
 
   \section{Installation procedure}
     %TODO: Add database connection procedure
-    In order to build project, we \ksremark{W poprzedniej sekcji analogiczny opis korzystał z <<you>>, ten z <<we>>.} have to execute Maven install lifecycle \lstinline[language=bash]|mvn install| in APP\_ROOT directory.
+    In order to build project, you have to execute Maven install lifecycle \lstinline[language=bash]|mvn install| in APP\_ROOT directory.
     This lifecycle will generate \lstinline[language=bash]|ballotbox-0.0.1-SNAPSHOT.jar| jar file in APP\_ROOT/target directory.
-    To run application we just have to execute \lstinline[language=bash]|java -jar APP_ROOT/target/ballotbox-0.0.1-SNAPSHOT.jar|. 
+    To run application you have to execute \lstinline[language=bash]|java -jar APP_ROOT/target/ballotbox-0.0.1-SNAPSHOT.jar|. 
     Application server will listen on PORT 8080 by default. 
     
   \section{Activation procedure}
     Users' roles definitions are loaded into a database on first server startup if they do not exist in the database already.
     Same behaviour with default admin user with password 'nimda'---it is in the database on first startup.
-    To secure the application  we have to register a proper user which is meant to be an administrator, and execute  following query in the database:
+    To secure the application you have to register a proper user which is meant to be an administrator, and execute  following query in the database:
 
     \lstinline[language=sql]|INSERT INTO users_roles(user_id, role_id) values (ADM_ID, ROLE_ID);|
     Where ADM\_ID is id of desired administrator in table 'user', and ROLE\_ID is id of row with column name equal to "ROLE\_ADMIN" in table 'role'---1 by default.
-    That's the procedure we should follow when we want to add administrator to the system.
-    After that we should delete predefined admin user from table user, with following query:
+    That's the procedure you should follow when you want to add administrator to the system.
+    After that you should delete predefined admin user from table user, with following query:
 
     \lstinline[language=sql]|DELETE FROM user WHERE username='admin';|
 
