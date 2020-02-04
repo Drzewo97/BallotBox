@@ -412,7 +412,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
     \end{itemize}
 
 \chapter{Requirements and tools}
-
+\label{chap:req&tools}
   \section{Functional requirements}
     To better understand scope of the project, we define functional requirements:
     \begin{itemize}
@@ -438,7 +438,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
       \item The application should be implemented in Java, with help of Spring Boot and related frameworks for an backend, 
       and Thymeleaf template engine for an frontend.
       \item The application should store all necessary data in a MySQL database.
-      \item The application should hash all sensitive data stored in a database.
+      \item The application should hash all sensitive data stored in a database. %TODO
       \item The application should offer all available functionalities on Google Chrome version 79.
     \end{itemize}
   \pagebreak
@@ -927,13 +927,18 @@ Gliwice, dnia {\selectlanguage{polish}\today}
       This scenario is tested and application displays appropriate messages to user.
 
 \chapter{Conclusions}
+  Objective of the thesis was to achieve voting system in accordance with requirements presented in \autoref{chap:req&tools}.
+  Almost all of the functional and nonfunctional requirements are met using tools described in that chapter.%TODO: change to all after implementation of everything
 
-\begin{itemize}
-\item 
-\end{itemize}
+  As to development itself, proposed architecture passed the exam---implementing features was smooth, and it was easy to extend any functionality of the application.
+  However, not everything met my expectations. I found it annoying to work with view templates in Thymeleaf. 
+  Presenting data from backend is quite easy, but sending forms filled by user to the controller is counterintuitive and it required more learning than I expected when choosing this technology.
 
- 
-
+  Although everything works as expected, frontend navigation does not work according to UX spirit.
+  It definitely has to be more intuitive for the user. However, that was not in the scope of this project.
+  Another thing that should be considered in terms of further development is more information presented to the user.
+  For example it is possible to present to the administrator which wards have, and which wards have not sent their protocols.
+  That would be useful information when it comes to calculating election results (although it is already impossible to calculate results without every protocol).  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \backmatter
