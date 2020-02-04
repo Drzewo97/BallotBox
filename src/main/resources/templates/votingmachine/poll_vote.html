@@ -7,7 +7,7 @@
 <body>
 <div th:fragment="pollVote">
     <div th:text="${poll.name}" />
-    <!--  TODO: Poll instruction  -->
+    <p th:text="${poll.description}"></p>
     <div th:each="c: ${poll.candidates}">
         <input type="checkbox" th:text="${c.name}" th:field="*{candidateIdPreferenceMap[__${c.id}__].checked}"/>
     </div>
