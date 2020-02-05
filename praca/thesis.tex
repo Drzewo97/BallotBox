@@ -560,7 +560,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
 
   \section{Methodology of design and implementation}
     Base of every application is a well designed database schema. 
-    Once schema is considered with required functionalities of application in mind, and with space for extensibility predicted,
+    Once schema is designed with required functionalities of application in mind, and with space for extensibility predicted,
     it makes development not only go faster and more efficient, but also more pleasant for a developer.
 
     With proper database schema, we have to consider what is the best way for user to use our application---through web browser or application?
@@ -571,32 +571,32 @@ Gliwice, dnia {\selectlanguage{polish}\today}
     There are two most common approaches when it comes to Spring application:
     \begin{itemize}
       \item Exposing REST API from Spring application, that contains all of business logic and create another application, that consumes that API and interacts with the user in any way desired.
-      \item Keep view rendering on server side, and expose pure html to the user.
+      \item Keep view rendering on server side and expose pure html to the user.
     \end{itemize}
-    I chose the second option, because it is not the most important thing for \Title\ to be pretty and responsive, I wanted to focus on backend side of the application.
+    I chose the second option, because it is not the most important thing for \Title\ to be pretty and responsive, I wanted to focus on a backend side of the application.
 
     Once view presenting is established, we want to consider how we want to design architecture of the application.
     I can see two approaches in choosing the architecture: basing on application requirements or basing on technology used in application.
-    Because Spring provides whole framework dedicated to MVC design pattern, and also it is widely used in the industry, I chose to develop application in that manner,
+    Because Spring provides a whole framework dedicated to the MVC design pattern, and also it is widely used in the industry, I chose to develop the application in that manner
     rather than choosing architecture basing on application requirements. 
     My application is not large enough to be hugely impacted by bad architecture. I could only harm my project by using some fancy architecture.
 
 \chapter{External specification}
   \section{Types of users and cockpits}
     \subsection{Overview}
-    In order to secure application from unauthorized access  I divided application into four main cockpits:
+    In order to secure the application from unauthorized access  I divided the application into four main cockpits:
     \begin{itemize}
-      \item Voter cockpit
-      \item Administrator cockpit
-      \item Ward administrator cockpit
-      \item Committee administrator cockpit
+      \item Voter cockpit,
+      \item Administrator cockpit,
+      \item Ward administrator cockpit, and
+      \item Committee administrator cockpit.
     \end{itemize}
-    Each cockpit requires specific user role to access it's website.
-    In order to have access to anything we have to be authenticated (active, successfully registered) user, with assigned role that gives us permission for certain cockpits.
-    A guest---not registered user---is only available to register or login.
+    Each cockpit requires a specific user role to access it's website.
+    In order to have access to anything we have to be an authenticated (active, successfully registered) user with assigned role that gives us permission for certain cockpits.
+    A guest---not registered user---is only allowed to register or login.
 
     \subsection{Voter cockpit}
-    A user with a role of a voter is able to vote for election and see election results after it is closed.
+    A user with a role of a voter is able to vote for election and see election results after the election is closed.
     In case of voting a user is be able to vote on a poll only once without any exception.
 
     \subsection{Administrator cockpit}
@@ -619,33 +619,33 @@ Gliwice, dnia {\selectlanguage{polish}\today}
 
   \section{Installation procedure}
     %TODO: Add database connection procedure
-    In order to build project, you have to execute Maven install lifecycle \lstinline[language=bash]|mvn install| in APP\_ROOT directory.
-    This lifecycle will generate \lstinline[language=bash]|ballotbox-0.0.1-SNAPSHOT.jar| jar file in APP\_ROOT/target directory.
+    In order to build project, you have to execute Maven install lifecycle \lstinline[language=bash]|mvn install| in \lstinline|APP_ROOT| directory.
+    This lifecycle will generate \lstinline[language=bash]|ballotbox-0.0.1-SNAPSHOT.jar| jar file in \lstinline|APP_ROOT/target| directory.
     To run application you have to execute \lstinline[language=bash]|java -jar APP_ROOT/target/ballotbox-0.0.1-SNAPSHOT.jar|. 
     Application server will listen on PORT 8080 by default. 
     
   \section{Activation procedure}
     Users' roles definitions are loaded into a database on first server startup if they do not exist in the database already.
-    Same behaviour with default admin user with password 'nimda'---it is in the database on first startup.
+    Same behaviour with the default admin user with password 'nimda' \ksremark{`nimda'}---it is in the database on the first startup.
     To secure the application you have to register a proper user which is meant to be an administrator, and execute  following query in the database:
 
     \lstinline[language=sql]|INSERT INTO users_roles(user_id, role_id) values (ADM_ID, ROLE_ID);|
-    Where ADM\_ID is id of desired administrator in table 'user', and ROLE\_ID is id of row with column name equal to "ROLE\_ADMIN" in table 'role'---1 by default.
-    That's the procedure you should follow when you want to add administrator to the system.
-    After that you should delete predefined admin user from table user, with following query:
+    Where \lstinline[language=sql]|ADM_ID| is an id of a desired administrator in table 'user', and \lstinline[language=sql]|ROLE_ID| is an id of a row with a column name equal to \lstinline[language=sql]|"ROLE_ADMIN"| in table 'role'---1 by default.
+    That is the procedure you should follow when you want to add an administrator to the system.
+    After that you should delete the predefined admin user from table user, with following query:
 
     \lstinline[language=sql]|DELETE FROM user WHERE username='admin';|
 
   \section{User manual}
     \subsection{Voter manual}
-      Voter can access voting page at root endpoint of the application---\mbox{\lstinline|HOST:PORT|.}
-      After clicking \lstinline|show all elections|, user can choose election on which he wishes to vote in.
+      A Voter can access voting page at the root endpoint of the application---\mbox{\lstinline|HOST:PORT|.}
+      After clicking \lstinline|show all elections|, a user can choose election on which he wishes to vote in.
       After clicking on vote button, he can cast a vote in all polls available in this election.
       There are two types of voting methods. One is a single choice vote---voter can mark a checkbox next to candidate he wishes to vote on.
 
       /////single choice vote screenshot/////
 
-      Second one is a preference voting, in which voter can mark candidates by his choice of preference:
+      Second one \ksremark{Może: \emph{Second type}?} is a preference voting, in which voter can mark candidates by his choice of preference:
       1 for a candidate of his first choice, 2 for his second favourite candidate and so on.
 
       /////preference vote screenshot/////
@@ -760,8 +760,8 @@ Gliwice, dnia {\selectlanguage{polish}\today}
       \label{fig:system_concept}
     \end{figure}
 
-    User communicates with the system via web browser. 
-    Web browser sends HTTP requests to the application server, which constructs the response using resources available in the database.
+    A user communicates with the system via a web browser. 
+    A web browser sends HTTP requests to the application server which constructs the response using resources available in a database.
 
   \section{System architecture}
     \begin{figure}[h]
@@ -771,7 +771,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
     \end{figure}
 
     Figure \ref{fig:architecture_diagram} shows architecture of the application. 
-    User interacts with web browser, and his actions trigger communication of the browser with application server via HTTP.
+    A user interacts with a web browser and his actions trigger communication of the browser with the application server via HTTP.
     Those requests are passed through security filters of Spring Security, which check if user is authenticated and authorized to fetch the resource he requests.
     After that, all requests hit dispatcher servlet, which delegates request to it's specific request controller.
     Repository layer provides data available directly in the database, 
@@ -796,13 +796,13 @@ Gliwice, dnia {\selectlanguage{polish}\today}
       An entity class is a representation of a table in a database.
       It can be treated as implementation of business data model, which is used to achieve some business result.
 
-      On figure \ref{fig:ward_entity} we can see example code for an entity.
+      In Figure \ref{fig:ward_entity} we can see example code for an entity.
       Apart from standard Java syntax, there are some annotations related to JPA:
       \begin{itemize}
-        \item @Entity---marks class as entity. It will be represented in database as a table.
-        \item @Id---marks class field as primary key for table.
-        \item @GeneratedValue---determines strategy for generating this value when writing to database in case of null.
-        \item@ManyToOne---marks class field as many to one relationship with another entity. 
+        \item\lstinline|@Entity|---marks class as entity. It will be represented in database as a table.
+        \item\lstinline|@Id|---marks class field as primary key for table.
+        \item\lstinline|@GeneratedValue|---determines strategy for generating this value when writing to database in case of null.
+        \item\lstinline|@ManyToOne|---marks class field as many to one relationship with another entity. 
         It will store primary key of target entity in table of this entity.
         There is a twin annotation to this one, \lstinline|@OneToMany| for entity on the other side of this relation.
       \end{itemize}
@@ -819,9 +819,9 @@ Gliwice, dnia {\selectlanguage{polish}\today}
       There are several derivatives of \lstinline|@Component| annotation, which serve the same purpose, but are named differently for simpler understanding of class role and behavior.
       Examples of \lstinline|@Component| specialized annotations:
       \begin{itemize}
-        \item @Service
-        \item @Controller
-        \item @Repository
+        \item \lstinline|@Service|
+        \item \lstinline|@Controller|
+        \item \lstinline|@Repository|
       \end{itemize}
       If needed, those dependencies can be injected using \lstinline|@Autowired| annotation.
       It looks for dependency of matching type as field under annotation, and assigns desired object to class field after owner object construction.
@@ -858,10 +858,10 @@ Gliwice, dnia {\selectlanguage{polish}\today}
       \subsection{Planning}
         When planning a new feature, I first thought about it from user point of view---how user could use it, given already implemented features or database schema and relations.
         For example, when planning ward administrator cockpit, user has to be able to choose ward to manage, because he can be administrator of many wards.
-        That's why we need to add page in between, so user can choose specific ward.
-        When new feature requires some complicated logic, first I try to break it down on paper, I try to understand it better.
+        That's \ksremark{That is} why we need to add a page in between, so user can choose a specific ward.
+        When a new feature requires some complicated logic, first I try to break it down on paper, I try to understand it better.
 
-        Then, I go into more technical stuff---can I use logic available in repository, or should I create service responsible for logic required?
+        Then, I go into more technical stuff---can I use logic available in a repository, or should I create a service responsible for logic required?
         Are there any additional data structures that could be helpful?
         How should I divide responsibility between classes?
 
