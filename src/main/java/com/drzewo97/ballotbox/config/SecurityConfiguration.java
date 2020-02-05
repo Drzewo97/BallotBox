@@ -30,7 +30,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/manage/**").hasRole("MODERATOR")
                 .antMatchers("/wardpanel/**").hasRole("WARDADMIN")
                 .antMatchers("/committeepanel/**").hasRole("COMMITTEEADMIN")
-                .antMatchers("/register").permitAll()
+                .antMatchers("/register", "/registrationConfirm").permitAll()
                 .antMatchers("/**").hasRole("USER")
                 .anyRequest().authenticated()
                 .and()

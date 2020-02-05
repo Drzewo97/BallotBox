@@ -3,6 +3,8 @@ package com.drzewo97.ballotbox.core.service.userservice;
 import com.drzewo97.ballotbox.core.model.role.RoleRepository;
 import com.drzewo97.ballotbox.core.model.user.User;
 import com.drzewo97.ballotbox.core.model.user.UserRepository;
+import com.drzewo97.ballotbox.core.model.verificationtoken.VerificationToken;
+import com.drzewo97.ballotbox.core.model.verificationtoken.VerificationTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,6 +24,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private RoleRepository roleRepository;
+    
+    @Autowired
+    VerificationTokenRepository tokenRepository;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
@@ -67,5 +72,11 @@ public class UserServiceImpl implements UserService {
         return !(userRepository.existsByUsername(user.getUsername()) ||
                 userRepository.existsByCitizenId(user.getCitizenId()) ||
                 userRepository.existsByEmail(user.getEmail()));
+    }
+    
+    @Override
+    public void createVerificationToken(User user, String token) {
+        VerificationToken verificationToken = new VerificationToken(token, user);
+        tokenRepository.save(verificationToken);
     }
 }

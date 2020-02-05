@@ -1,5 +1,6 @@
-package com.drzewo97.ballotbox.votingmachine.controller.election;
+package com.drzewo97.ballotbox.votingmachine.controller.user;
 
+import com.drzewo97.ballotbox.core.event.OnRegistrationCompleteEvent;
 import com.drzewo97.ballotbox.core.model.country.CountryRepository;
 import com.drzewo97.ballotbox.core.model.district.DistrictRepository;
 import com.drzewo97.ballotbox.core.model.user.User;
@@ -9,6 +10,7 @@ import com.drzewo97.ballotbox.core.service.roleservice.RoleService;
 import com.drzewo97.ballotbox.core.service.userservice.UserService;
 import com.drzewo97.ballotbox.votingmachine.dto.VoterDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -40,6 +43,9 @@ public class UserRegistrationController {
 	
 	@Autowired
 	private RoleService roleService;
+	
+	@Autowired
+	private ApplicationEventPublisher eventPublisher;
 	
 	@ModelAttribute("voter")
 	private VoterDto voterDto(){
@@ -73,10 +79,13 @@ public class UserRegistrationController {
 		
 		userService.save(user);
 		
-//		generate confirmation link
-//		send email
-
-//		send letter
+		try {
+			String appUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+			eventPublisher.publishEvent(new OnRegistrationCompleteEvent
+					(user, appUrl));
+		} catch (Exception me) {
+			return "redirect:/";
+		}
 		
 		return "redirect:/";
 	}
