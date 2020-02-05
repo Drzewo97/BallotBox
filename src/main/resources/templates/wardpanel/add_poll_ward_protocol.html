@@ -6,10 +6,8 @@
     <title>Create ward protocol</title>
 </head>
 <body>
-<div th:if="${param.success}">
-    <div class="alert alert-info">
-        You've successfully created a protocol!
-    </div>
+<div th:each="message : ${messages}">
+    <p th:text="${message}"></p>
 </div>
 
 <h1>Create poll protocol</h1>

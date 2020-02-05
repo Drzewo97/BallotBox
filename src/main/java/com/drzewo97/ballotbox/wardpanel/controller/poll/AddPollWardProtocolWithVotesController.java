@@ -4,22 +4,23 @@ import com.drzewo97.ballotbox.core.model.candidate.Candidate;
 import com.drzewo97.ballotbox.core.model.candidate.CandidateRepository;
 import com.drzewo97.ballotbox.core.model.candidateprotocolvotes.CandidateProtocolVotes;
 import com.drzewo97.ballotbox.core.model.candidateprotocolvotes.CandidateProtocolVotesRepository;
+import com.drzewo97.ballotbox.core.model.candidatesvotescountwardprotocol.CandidatesVotesCountWardProtocol;
+import com.drzewo97.ballotbox.core.model.candidatesvotescountwardprotocol.CandidatesVotesCountWardProtocolRepository;
 import com.drzewo97.ballotbox.core.model.poll.Poll;
 import com.drzewo97.ballotbox.core.model.poll.PollRepository;
 import com.drzewo97.ballotbox.core.model.ward.Ward;
 import com.drzewo97.ballotbox.core.model.ward.WardRepository;
-import com.drzewo97.ballotbox.core.model.candidatesvotescountwardprotocol.CandidatesVotesCountWardProtocol;
-import com.drzewo97.ballotbox.core.model.candidatesvotescountwardprotocol.CandidatesVotesCountWardProtocolRepository;
 import com.drzewo97.ballotbox.core.service.ward.WardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.text.MessageFormat;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Controller
 @RequestMapping("wardpanel/{wardId}/poll/{pollId}/protocol/add/withVotes")
@@ -43,24 +44,49 @@ public class AddPollWardProtocolWithVotesController {
 	@Autowired
 	private CandidateRepository candidateRepository;
 	
+	private final String POST_ORDERING_LANDING_PAGE = "redirect:/wardpanel/{0}/poll/all";
+	
 	@GetMapping
-	public String showAddPollWardProtocol(Model model, @PathVariable("wardId") Integer wardId, @PathVariable("pollId") Integer pollId){
+	public String showAddPollWardProtocol(Model model,
+	                                      @PathVariable("wardId") Integer wardId,
+	                                      @PathVariable("pollId") Integer pollId,
+	                                      RedirectAttributes redirectAttributes)
+	{
+		List<String> outputMessages = new ArrayList<>();
+		redirectAttributes.addFlashAttribute("messages", outputMessages);
+		
 		//Get username
 		String currentPrincipalName = SecurityContextHolder.getContext().getAuthentication().getName();
 		if(!wardService.isWardAdmin(currentPrincipalName, wardId)){
-			return "redirect:/";
+			outputMessages.add("You are not this ward admin!");
+			return MessageFormat.format(POST_ORDERING_LANDING_PAGE, wardId);
 		}
 		
-		// ward is present for sure
-		Optional<Ward> ward = wardRepository.findById(wardId);
-		// returns null if poll is not in this ward
-		Optional<Poll> poll = pollRepository.findByIdAndCountryOrDistrictOrWard(pollId, ward.get().getDistrict().getCountry(), ward.get().getDistrict(), ward.get());
+		Ward ward = wardRepository.findById(wardId).get();
+		
+		Optional<Poll> poll = pollRepository.findById(pollId);
 		if(poll.isEmpty()){
-			return "redirect:/";
+			// no such poll
+			outputMessages.add("No such poll!");
+			return MessageFormat.format(POST_ORDERING_LANDING_PAGE, wardId);
 		}
-		Optional<CandidatesVotesCountWardProtocol> wardProtocolOptional = wardProtocolRepository.findByWardAndPoll(ward.get(), poll.get());
+		
+		// if poll is not in this ward or poll is protocol votes eligible
+		if(!poll.get().equals(pollRepository.findByIdAndCountryOrDistrictOrWard(pollId, ward.getDistrict().getCountry(), ward.getDistrict(), ward).get()) || !poll.get().isProtocolVotesCountEligible()){
+			outputMessages.add("Inconsistency between poll and ward.");
+			return MessageFormat.format(POST_ORDERING_LANDING_PAGE, wardId);
+		}
+		
+		if(poll.get().getActive() || poll.get().getOpenFrom().isAfter(LocalDateTime.now())){
+			outputMessages.add("You cannot add ward protocol yet.");
+			return MessageFormat.format(POST_ORDERING_LANDING_PAGE, wardId);
+		}
+		
+		
+		Optional<CandidatesVotesCountWardProtocol> wardProtocolOptional = wardProtocolRepository.findByWardAndPoll(ward, poll.get());
 		if(wardProtocolOptional.isPresent()){
-			return "redirect:/";
+			outputMessages.add("Protocol is already sent.");
+			return MessageFormat.format(POST_ORDERING_LANDING_PAGE, wardId);
 		}
 		
 		CandidatesVotesCountWardProtocol wardProtocol = new CandidatesVotesCountWardProtocol();
@@ -76,27 +102,66 @@ public class AddPollWardProtocolWithVotesController {
 	}
 	
 	@PostMapping
-	public String addPollWardProtocol(Model model, @PathVariable("wardId") Integer wardId, @PathVariable("pollId") Integer pollId, @ModelAttribute("wardProtocol") CandidatesVotesCountWardProtocol wardProtocol){
+	public String addPollWardProtocol(Model model,
+	                                  @PathVariable("wardId") Integer wardId,
+	                                  @PathVariable("pollId") Integer pollId,
+	                                  @ModelAttribute("wardProtocol") CandidatesVotesCountWardProtocol wardProtocol,
+	                                  RedirectAttributes redirectAttributes)
+	{
+		List<String> outputMessages = new ArrayList<>();
+		redirectAttributes.addFlashAttribute("messages", outputMessages);
+		
 		//Get username
 		String currentPrincipalName = SecurityContextHolder.getContext().getAuthentication().getName();
 		if(!wardService.isWardAdmin(currentPrincipalName, wardId)){
-			return "redirect:/";
+			outputMessages.add("You are not this ward admin!");
+			return MessageFormat.format(POST_ORDERING_LANDING_PAGE, wardId);
 		}
 		
-		// ward is present for sure
-		Optional<Ward> ward = wardRepository.findById(wardId);
-		// returns null if poll is not in this ward
-		Optional<Poll> poll = pollRepository.findByIdAndCountryOrDistrictOrWard(pollId, ward.get().getDistrict().getCountry(), ward.get().getDistrict(), ward.get());
-		if(poll.isEmpty() || !poll.get().isProtocolVotesCountEligible()){
-			return "redirect:/";
+		Ward ward = wardRepository.findById(wardId).get();
+		
+		Optional<Poll> poll = pollRepository.findById(pollId);
+		if(poll.isEmpty()){
+			// no such poll
+			outputMessages.add("No such poll!");
+			return MessageFormat.format(POST_ORDERING_LANDING_PAGE, wardId);
 		}
-		Optional<CandidatesVotesCountWardProtocol> wardProtocolOptional = wardProtocolRepository.findByWardAndPoll(ward.get(), poll.get());
+		
+		// if poll is not in this ward or poll is protocol votes eligible
+		if(!poll.get().equals(pollRepository.findByIdAndCountryOrDistrictOrWard(pollId, ward.getDistrict().getCountry(), ward.getDistrict(), ward).get()) || !poll.get().isProtocolVotesCountEligible()){
+			outputMessages.add("Inconsistency between poll and ward.");
+			return MessageFormat.format(POST_ORDERING_LANDING_PAGE, wardId);
+		}
+		
+		if(poll.get().getActive() || poll.get().getOpenFrom().isAfter(LocalDateTime.now())){
+			outputMessages.add("You cannot add ward protocol yet.");
+			return MessageFormat.format(POST_ORDERING_LANDING_PAGE, wardId);
+		}
+		
+		
+		Optional<CandidatesVotesCountWardProtocol> wardProtocolOptional = wardProtocolRepository.findByWardAndPoll(ward, poll.get());
 		if(wardProtocolOptional.isPresent()){
-			return "redirect:/";
+			outputMessages.add("Protocol is already sent.");
+			return MessageFormat.format(POST_ORDERING_LANDING_PAGE, wardId);
 		}
 		
-		//TODO: check ward protocol values
-		wardProtocol.setWard(ward.get());
+		if(!wardService.isProtocolValid(wardProtocol)){
+			outputMessages.add("Protocol has logic errors. Please correct.");
+			Set<CandidateProtocolVotes> candidateProtocolVotes = new HashSet<>();
+			for(CandidateProtocolVotes c : wardProtocol.getCandidateProtocolVotesAsList()){
+				CandidateProtocolVotes newCPV = new CandidateProtocolVotes();
+				newCPV.setVotesCount(c.getVotesCount());
+				newCPV.setCandidatesVotesCountWardProtocol(c.getCandidatesVotesCountWardProtocol());
+				newCPV.setCandidate(candidateRepository.findById(c.getCandidate().getId()).get());
+				candidateProtocolVotes.add(newCPV);
+			}
+			wardProtocol.setCandidateProtocolVotes(candidateProtocolVotes);
+			model.addAttribute("wardProtocol", wardProtocol);
+			model.addAttribute("messages", outputMessages);
+			return "wardpanel/add_poll_ward_protocol_with_votes";
+		}
+		
+		wardProtocol.setWard(ward);
 		wardProtocol.setPoll(poll.get());
 		wardProtocolRepository.save(wardProtocol);
 		
@@ -109,7 +174,7 @@ public class AddPollWardProtocolWithVotesController {
 		}
 		candidateProtocolVotesRepository.saveAll(candidateProtocolVotesSet);
 		
-		
-		return "redirect:/";
+		outputMessages.add("Protocol saved correctly.");
+		return MessageFormat.format(POST_ORDERING_LANDING_PAGE, wardId);
 	}
 }
