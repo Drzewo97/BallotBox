@@ -5,16 +5,39 @@
     <title>Ballotbox Administration Panel</title>
 </head>
 <body>
+<ul>
+    <li>
     <a th:href="@{/panel/poll/create}" sec:authorize="hasRole('ROLE_ADMIN')">Add poll</a>
+    </li>
+    <li>
     <a th:href="@{/panel/country/create}" sec:authorize="hasRole('ROLE_ADMIN')">Add country</a>
+    </li>
+    <li>
     <a th:href="@{/panel/district/create}" sec:authorize="hasRole('ROLE_ADMIN')">Add district</a>
+    </li>
+    <li>
     <a th:href="@{/panel/ward/create}" sec:authorize="hasRole('ROLE_ADMIN')">Add ward</a>
+    </li>
+    <li>
     <a th:href="@{/panel/committee/create}" sec:authorize="hasRole('ROLE_ADMIN')">Add committee</a>
+    </li>
+    <li>
     <a th:href="@{/panel/candidate/register}" sec:authorize="hasRole('ROLE_ADMIN')">Register candidate</a>
+    </li>
+    <li>
     <a th:href="@{/panel/election/create}" sec:authorize="hasRole('ROLE_ADMIN')">Create election</a>
+    </li>
+    <li>
     <a th:href="@{/panel/poll/all}" sec:authorize="hasRole('ROLE_ADMIN')">Polls</a>
+    </li>
+    <li>
     <a th:href="@{/panel/ward/admin/add}" sec:authorize="hasRole('ROLE_ADMIN')">Grant ward administrator privileges</a>
+    </li>
+    <li>
     <a th:href="@{/panel/committee/admin/add}" sec:authorize="hasRole('ROLE_ADMIN')">Grant committee administrator privileges</a>
+    </li>
+</ul>
+
     <!-- show all current/future (exclude past) -->
     <!-- show finished -->
 </body>
