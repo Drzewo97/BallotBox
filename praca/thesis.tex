@@ -454,9 +454,17 @@ Gliwice, dnia {\selectlanguage{polish}\today}
     Figure \ref{fig:citizen_uml} shows available use cases for a citizen. He can register and in that case he will receive an email, 
     or he can see some error regarding registration. A citizen can try to login, which will trigger checks if he is registered and that password matches.
     In case of any errors, he will see a message. 
-    A citizen can vote, and after that he will see status of his vote regarding every poll in the election, no matter if vote is valid or not.
-    However, even if a citizen casted an invalid vote, he is not able to vote again.
-    \pagebreak
+
+    \subsection{Voter use case UML}
+    \begin{figure}[h]
+      \includegraphics[width=\linewidth]{voter_uml.png}
+      \caption{Voter use case UML for \Title}
+      \label{fig:voter_uml}
+    \end{figure}
+
+    Figure \ref{fig:voter_uml} shows available use cases for a voter. A voter is a registered and successfully logged in user of the application.
+    He can vote, and after that he will see status of his vote regarding every poll in the election, no matter if the vote is valid or not.
+    However, even if a voter casted an invalid vote, he will not be able to vote again.
 
     \subsection{Ward administrator use case UML}
     \begin{figure}[h]
