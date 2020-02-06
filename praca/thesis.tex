@@ -423,11 +423,11 @@ Gliwice, dnia {\selectlanguage{polish}\today}
       \item A vote of a citizen should not be trackable---no person should be able to tell which citizen voted on which candidate.
       \item A person designated as a ward administrator---and only that person---should be able to send a ward protocol to the system.
       \item Protocols sent from wards should be taken into account when calculating results of an election.
-      \item A person designated as a commission administrator---and only that person---should be able to enter a commission's closed list candidates order to the system.
+      \item A person designated as a committee administrator---and only that person---should be able to enter a committee's closed list candidates order to the system.
       \item An administrator of the application should be able to perform steps that lead to creation of an election identical to one provided to him.
       \item An administrator should be able to trigger calculation of the results of an election.
       \item Election results should not be calculated with some of ward protocols missing.
-      \item An administrator should be able to grant privileges of ward and commission administrators to designated people separately.
+      \item An administrator should be able to grant privileges of ward and committee administrators to designated people separately.
       \item An administrator should not be able to perform actions in replacement of  a ward or committee administrator.
     \end{itemize}
 
@@ -435,8 +435,8 @@ Gliwice, dnia {\selectlanguage{polish}\today}
     After reviewing functional requirements, we can define nonfunctional requirements:
     \begin{itemize}
       \item User interface should be understandable to English speaking individuals.
-      \item The application should be implemented in Java, with help of Spring Boot and related frameworks for an backend, 
-      and Thymeleaf template engine for an frontend.
+      \item The application should be implemented in Java, with help of Spring Boot and related frameworks for the backend, 
+      and Thymeleaf template engine for the frontend.
       \item The application should store all necessary data in a MySQL database.
       \item The application should hash all sensitive data stored in a database. %TODO
       \item The application should offer all available functionalities on Google Chrome version 79.
