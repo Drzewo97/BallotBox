@@ -1,14 +1,12 @@
 insert into role (id, name) values
   ('1', 'ROLE_ADMIN'),
   ('2', 'ROLE_USER'),
-  ('3', 'ROLE_MODERATOR'),
-  ('4', 'ROLE_WARDADMIN'),
-  ('5', 'ROLE_COMMITTEEADMIN');
+  ('3', 'ROLE_WARDADMIN'),
+  ('4', 'ROLE_COMMITTEEADMIN');
 
 insert into user (id, username, password, active) values
   ('1', 'admin', 'test', 1),
-  ('2', 'user', 'test', 1),
-  ('3', 'moderator', 'test', 1);
+  ('2', 'user', 'test', 1);
 
 insert into country(id, name) values
 ('1', 'polandia'),
@@ -96,19 +94,16 @@ insert into users_roles (user_id, role_id) values
   ('1', '1'),
 -- user
   ('2', '2'),
--- moderator
-  ('3', '2'),
-  ('3', '3'),
 -- ward admin
   ('16', '2'),
-  ('16', '4'),
+  ('16', '3'),
 -- committee admins
   ('17', '2'),
   ('18', '2'),
   ('19', '2'),
-  ('17', '5'),
-  ('18', '5'),
-  ('19', '5'),
+  ('17', '4'),
+  ('18', '4'),
+  ('19', '4'),
 -- users
   ('4', '2'),
   ('5', '2'),

@@ -27,7 +27,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception{
         http.authorizeRequests()
                 .antMatchers("/h2_console/**", "/h2/**", "/panel/**").hasRole("ADMIN")
-                .antMatchers("/manage/**").hasRole("MODERATOR")
                 .antMatchers("/wardpanel/**").hasRole("WARDADMIN")
                 .antMatchers("/committeepanel/**").hasRole("COMMITTEEADMIN")
                 .antMatchers("/register", "/registrationConfirm").permitAll()
@@ -68,7 +67,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public RoleHierarchy getRoleHierarchy(){
         RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
-        roleHierarchy.setHierarchy("ROLE_ADMIN > ROLE_MODERATOR > ROLE_USER");
+        roleHierarchy.setHierarchy("ROLE_ADMIN > ROLE_USER");
 
         return roleHierarchy;
     }
