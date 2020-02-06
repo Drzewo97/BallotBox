@@ -20,7 +20,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity http) throws Exception{
         http.authorizeRequests()
-                .antMatchers("/h2_console/**", "/h2/**", "/panel/**").hasRole("ADMIN")
+                .antMatchers("/panel/**").hasRole("ADMIN")
                 .antMatchers("/wardpanel/**").hasRole("WARDADMIN")
                 .antMatchers("/committeepanel/**").hasRole("COMMITTEEADMIN")
                 .antMatchers("/register", "/registrationConfirm").permitAll()
@@ -35,10 +35,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .permitAll()
                 .and()
                 .httpBasic();
-
-        // For accessing H2 database ¯\_(ツ)_/¯
-        http.csrf().disable();
-        http.headers().frameOptions().disable();
     }
 
     @Override
