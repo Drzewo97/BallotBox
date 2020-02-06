@@ -649,52 +649,51 @@ Gliwice, dnia {\selectlanguage{polish}\today}
       A Voter can access voting page at the root endpoint of the application---\mbox{\lstinline|HOST:PORT|.}
       After clicking \lstinline|show all elections|, a user can choose election on which he wishes to vote in.
       After clicking on vote button, he can cast a vote in all polls available in this election.
+      \pagebreak
       There are two types of voting methods. One is a single choice vote---voter can mark a checkbox next to candidate he wishes to vote on.
-
-      /////single choice vote screenshot/////
+      \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.3\linewidth]{single_choice_vote_screenshot.png}
+        \caption{Single choice vote screenshot}
+        \label{fig:single_choice_vote_screenshot}
+      \end{figure}
 
       Second one \ksremark{Może: \emph{Second type}?} is a preference voting, in which voter can mark candidates by his choice of preference:
       1 for a candidate of his first choice, 2 for his second favourite candidate and so on.
-
-      /////preference vote screenshot/////
+      \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.3\linewidth]{preference_vote_screenshot.png}
+        \caption{Preference vote screenshot}
+        \label{fig:preference_vote_screenshot}
+      \end{figure}
 
       Description provides user with specific instructions on how to vote on a specific poll. If user does not follow the instructions, vote is invalidated, and voter cannot vote again.
       After casting a vote, user gets information on status of his votes - if vote is validated or not, and if not, why.
-
-      /////polls statuses screenshot/////
-
       After election is finished and results are calculated, voter can see results of poll after clicking on results button.
       He will get information about how many valid votes were casted in a poll, and who are the winners of that poll.
-
-      /////poll results screenshot/////
 
     \subsection{Committee administrator manual}
       Committee administrator can access committee management page after going to \lstinline|HOST:PORT/committeepanel| endpoint of the application.
       After that, he can choose which committee that he is an administrator of he wishes to manage.
       Then, he can set closed list order of that committee, required for D'Hondt method.
-
-      /////closed list order screenshot/////
-
       If he makes any error, he will be displayed appropriate message, and order will not be saved---it will be held at previous stage.
-
-      /////closed list order result screenshot/////
 
     \subsection{Ward administrator manual}
       Ward administrator can access ward management page after going to \lstinline|HOST:PORT/wardpanel| endpoint of the application.
       After that, he can choose which ward thet he is an administrator of he wishes to manage.
       Then, he can send specific poll protocol from that ward.
-
-      /////ward management page screenshot/////
-      /////poll protocol sending page screenshot/////
-
       If administrator makes any error in protocol, he will be displayed appropriate message, and protocol will not be sent.
 
   \section{System administration}
     In order to access administrator cockpit, we should go under \lstinline|HOST:PORT/panel| URL in the browser, when logged in as user with administrator rights.
+    \begin{figure}[h]
+      \centering
+      \includegraphics[width=0.5\linewidth]{admin_panel_screenshot.png}
+      \caption{Administrator panel screenshot}
+      \label{fig:admin_panel_screenshot}
+    \end{figure}
 
-    /////localhost:8080/panel screenshot/////
-
-    We can see all available actions for administrator.
+    On figure \ref{fig:admin_panel_screenshot} we can see all available actions for administrator.
     \subsection{Add country}
       Crete a country with typed in name. 
 
@@ -715,9 +714,6 @@ Gliwice, dnia {\selectlanguage{polish}\today}
       Choose committee and existing user. Chosen user will be committee administrator of chosen committee. One user could be administrator of many wards.
 
     \subsection{Add poll}
-
-      /////add poll screenshot/////
-
       Create poll. Type in unique name and short description. Choose date in which poll will be available to vote.
       Choose poll scope---citizens from which wards can place a vote in this poll.
       For example, if you choose country scope, citizens from all wards that belong to all districts that belong to country chosen will be able to vote in this poll.
@@ -733,6 +729,12 @@ Gliwice, dnia {\selectlanguage{polish}\today}
         \item D'Hondt method---Number of seats to fill must be less than number of candidates participating (type in desired number),
         voter can mark only 1 candidate. Results of poll will be calculated using D'Hondt method, using closed lists from committees, provided by committee administrators.
       \end{itemize}
+      \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.4\linewidth]{add_poll_screenshot.png}
+        \caption{Add poll screenshot}
+        \label{fig:add_poll_screenshot}
+      \end{figure}
 
     \subsection{Register candidate}
       Select an existing user and register him as a candidate in a poll, as candidate from chosen committee.
@@ -742,7 +744,12 @@ Gliwice, dnia {\selectlanguage{polish}\today}
 
     \subsection{Polls}
 
-      /////polls screenshot/////
+      \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.4\linewidth]{polls_screenshot.png}
+        \caption{Polls menu screenshot}
+        \label{fig:polls_screenshot}
+      \end{figure}
 
       Opens available polls menu. For each poll we have two options: Summary and Results.
 
