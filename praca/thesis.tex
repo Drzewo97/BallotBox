@@ -621,12 +621,12 @@ Gliwice, dnia {\selectlanguage{polish}\today}
     In a committee administrator cockpit he is able to choose an order of committee candidates in a closed list. 
   
   \section{Software requirements}
-    %TODO: Add database installed piece
-    In order to run the application, you have to have Java 12, Maven 3.6.X installed on your computer, 
+    In order to run the application, you have to have Java 12, Maven 3.6.X installed and MySQL 8.0.17 running on the application server, 
     make sure that \lstinline[language=bash]|java| and \lstinline[language=bash]|mvn| executables are in PATH environment variable.
 
   \section{Installation procedure}
-    %TODO: Add database connection procedure
+    First, you have to adjust the database connection properties in \lstinline|APP_ROOT/src/main/resources/application.properties|. Exemplary properties are already provided in the source code.
+    Also in that file, you have to specify the connection properties to the SMTP server to be able to send e-mails. Exemplary SMTP server connection properties are also provided.
     In order to build project, you have to execute Maven install lifecycle \lstinline[language=bash]|mvn install| in \lstinline|APP_ROOT| directory.
     This lifecycle will generate \lstinline[language=bash]|ballotbox-0.0.1-SNAPSHOT.jar| jar file in \lstinline|APP_ROOT/target| directory.
     To run application you have to execute \lstinline[language=bash]|java -jar APP_ROOT/target/ballotbox-0.0.1-SNAPSHOT.jar|. 
@@ -977,6 +977,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
   \item[MVC] Model--View--Controller
   \item[PORT] Port on which application server listens
   \item[REST] Representational State Transfer
+  \item[STMP] Simple Mail Transfer Protocol 
   \item[UML] Unified Modeling Language
   \item[URL] Uniform Resource Locator
   \item[UX] User experience 
