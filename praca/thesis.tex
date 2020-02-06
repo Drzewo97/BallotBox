@@ -634,7 +634,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
     
   \section{Activation procedure}
     Users' roles definitions are loaded into a database on first server startup if they do not exist in the database already.
-    Same behaviour with the default admin user with password 'nimda' \ksremark{`nimda'}---it is in the database on the first startup.
+    Same behaviour with the default admin user with password `nimda'---it is in the database on the first startup.
     To secure the application you have to register a proper user which is meant to be an administrator, and execute  following query in the database:
 
     \lstinline[language=sql]|INSERT INTO users_roles(user_id, role_id) values (ADM_ID, ROLE_ID);|
@@ -658,7 +658,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
         \label{fig:single_choice_vote_screenshot}
       \end{figure}
 
-      Second one \ksremark{Może: \emph{Second type}?} is a preference voting, in which voter can mark candidates by his choice of preference:
+      Second type of voting is preference voting, in which voter can mark candidates by his choice of preference:
       1 for a candidate of his first choice, 2 for his second favourite candidate and so on.
       \begin{figure}[h]
         \centering
