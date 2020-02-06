@@ -796,8 +796,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
       An entity class is a representation of a table in a database.
       It can be treated as implementation of business data model, which is used to achieve some business result.
 
-      In Figure \ref{fig:ward_entity} we can see example code for an entity.
-      Apart from standard Java syntax, there are some annotations related to JPA:
+      Apart from standard Java syntax, there are some annotations related to JPA in an entity class:
       \begin{itemize}
         \item\lstinline|@Entity|---marks class as entity. It will be represented in database as a table.
         \item\lstinline|@Id|---marks class field as primary key for table.
@@ -811,7 +810,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
       A repository is an interface that allows a developer for interaction with objects stored in a database.
       Spring Data JPA provides out--of--the--box implementation of a CRUD repository.
       A \lstinline|@Repository| annotation allows Spring to identify such interface, create implementation of it and hold it in the context.
-      It is easily extensible with help of custom finder methods, for example see figure \ref{fig:ward_repository} in the appendices.
+      It is easily extensible with help of custom finder methods, which search and filter based on name of the method declared in an interface.
 
     \subsection{Component}
       In order to help Spring identify dependency classes eligible for DI, we can annotate such classes with any derivative of \lstinline|@Component| annotation.
@@ -825,7 +824,6 @@ Gliwice, dnia {\selectlanguage{polish}\today}
       \end{itemize}
       If needed, those dependencies can be injected using \lstinline|@Autowired| annotation.
       It looks for dependency of matching type as field under annotation, and assigns desired object to class field after owner object construction.
-      Example of \lstinline|@Service| annotated class can be seen on figure \ref{fig:ward_service} in the appendices.
 
     \subsection{Controller}
       A controller is a class that can process HTTP requests. It is annotated with \lstinline|@Controller| annotation, along with \lstinline|@RequestMapping| annotation, 
@@ -838,7 +836,6 @@ Gliwice, dnia {\selectlanguage{polish}\today}
       In case of POST HTTP method, we can use \lstinline|BindingResult| class in method argument to get information about form that was sent with HTTP request.
       Controller decides which template should be used by returning template location in \lstinline|String| type.
       This location is relative to folder \lstinline[language=bash]|APP_ROOT/src/main/resources/templates| by default.
-      An example of Controller class can be seen on figure \ref{fig:ward_creation_controller} in the appendices.
 
     \subsection{View template}
       A view template is a HTML file with additional tags and attributes which are parsed by Thymeleaf after populating template with a model.
@@ -978,174 +975,6 @@ Gliwice, dnia {\selectlanguage{polish}\today}
 
 
 \chapter*{Listings}
-\begin{figure}
-  \centering
-    \begin{lstlisting}
-//TODO: change root package name
-package com.drzewo97.ballotbox.core.model.ward;
-
-import com.drzewo97.ballotbox.core.model.candidate.Candidate;
-import com.drzewo97.ballotbox.core.model.district.District;
-import com.drzewo97.ballotbox.core.model.user.User;
-
-import javax.persistence.*;
-import java.util.Set;
-
-@Entity
-public class Ward {
-          
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Integer id;
-          
-private String name;
-          
-@ManyToOne
-private District district;
-          
-@OneToMany(mappedBy = "ward")
-private Set<Candidate> candidates;
-          
-@ManyToOne
-private User wardAdmin;
-
-...
-
-get methods
-set methods
-}
-    \end{lstlisting}
-    \caption{The \lstinline|Ward| entity.}
-    \label{fig:ward_entity}
-  \end{figure}
-
-  \begin{figure}
-    \centering
-    \begin{lstlisting}
-package com.drzewo97.ballotbox.core.model.ward;
-
-import com.drzewo97.ballotbox.core.model.country.Country;
-import com.drzewo97.ballotbox.core.model.district.District;
-import org.springframework.data.repository.CrudRepository;
-    
-import java.util.Set;
-    
-public interface WardRepository extends CrudRepository<Ward, Integer> {
-  Boolean existsByNameAndDistrict_Name(String name, String districtName);
-  Set<Ward> findAllByWardAdminIsNull();
-  Set<Ward> findAllByWardAdminUsername(String username);
-  Set<Ward> findAllByDistrict(District district);
-  Set<Ward> findAllByDistrictCountry(Country country);
-}
-    \end{lstlisting}
-    \caption{The \lstinline|Ward repository|.}
-    \label{fig:ward_repository}
-  \end{figure}
-
-  \begin{figure}
-    \centering
-    \begin{lstlisting}
-package com.drzewo97.ballotbox.core.service.ward;
-
-import com.drzewo97.ballotbox.core.model.poll.Poll;
-import com.drzewo97.ballotbox.core.model.ward.Ward;
-import com.drzewo97.ballotbox.core.model.ward.WardRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-  
-import java.util.HashSet;
-import java.util.Set;
-  
-@Service
-public class WardServiceImpl implements WardService {
-    
-  @Autowired
-  private WardRepository wardRepository;
-   
-  @Override
-  public Boolean isWardAdmin(String username, Integer wardId) {
-    Set<Ward> adminsWards = wardRepository.findAllByWardAdminUsername(username);
-    return adminsWards.stream().filter(ward -> ward.getId().equals(wardId)).count() > 0;
-  }
-    
-  /**
-   * Get all wards that could and should provide protocols for this poll
-   * @param poll
-   * @return
-   */
-  @Override
-  public Set<Ward> findAllEligibleForPollProtocol(Poll poll) {
-    Set<Ward> returner = new HashSet<>();
-      
-    switch (poll.getPollScope()){
-      case COUNTRY:
-        returner.addAll(wardRepository.findAllByDistrictCountry(poll.getCountry()));
-        break;
-      case DISTRICT:
-        returner.addAll(wardRepository.findAllByDistrict(poll.getDistrict()));
-        break;
-      case WARD:
-        returner.add(poll.getWard());
-        break;
-    }
-      
-    return returner;
-  }
-}
-    \end{lstlisting}
-    \caption{The \lstinline|Ward service|.}
-    \label{fig:ward_service}
-  \end{figure}
-
-  \begin{figure}
-    \centering
-    \begin{lstlisting}
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-          
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-          
-@Controller
-@RequestMapping(path = "/panel/ward/create")
-public class WardCreationController {
-  @Autowired
-  private WardRepository wardRepository;
-            
-  @Autowired
-  private DistrictRepository districtRepository;
-            
-  @ModelAttribute("ward")
-  private Ward ward() {
-    return new Ward();
-  }
-            
-  @GetMapping
-  private String showWardCreate(Model model){
-    model.addAttribute("districts", StreamSupport.stream(districtRepository.findAll().spliterator(), false).collect(Collectors.toList()));
-    return "panel/ward_create";
-  }
-            
-  @PostMapping
-  private String createWard(@ModelAttribute("ward") Ward ward, BindingResult result){
-    if(wardRepository.existsByNameAndDistrict_Name(ward.getName(), ward.getDistrict().getName())){
-      result.rejectValue("name", "name.exist", "Ward already exists.");
-    }
-              
-    if(result.hasErrors()){
-      return "panel/ward_create";
-    }
-              
-    wardRepository.save(ward);
-              
-    return "redirect:create?success";
-  }
-}
-    \end{lstlisting}
-    \caption{The \lstinline|Ward creation controller|.}
-    \label{fig:ward_creation_controller}
-  \end{figure}
 
 \chapter*{Contents of attached CD}
 
