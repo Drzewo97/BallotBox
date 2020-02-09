@@ -860,9 +860,9 @@ Gliwice, dnia {\selectlanguage{polish}\today}
     While many design patterns may be useful in big projects, there was no need to introduce any sophisticated methods of organizing application layers and communication.
     I kept it simple, and it worked for me. Here are three design patterns visible directly in the application code:
     \begin{itemize}
-      \item MVC
-      \item DI
-      \item Observer pattern
+      \item MVC \ksremark{To już bardziej podchodzi pod wzorzec architektoniczny.}
+      \item DI \ksremark{To bardzo drobny wzorzec, ale niech będzie :-) Trzeba rozwinąć nazwę i podać z jakieś dwa przykłady zastosowania.}
+      \item Observer pattern \ksremark{W którym miejscu? Jakiś drobny przykład.}
     \end{itemize}
 
 \chapter{Verification and validation}
@@ -901,53 +901,53 @@ Gliwice, dnia {\selectlanguage{polish}\today}
           \item Calculation correctness---when implementing methods that calculate results of polls, I tried to think of an example that contains all edge cases of a method.
           After populating the database with exemplary data, I calculated results of that example by hand, and compared them with application results.
           If the results were the same, I repeated the scenario with data generated randomly. 
-          If the result was still the same as results calculated by hand, I assumed the solution is sufficient.
+          If the result was still the same as results calculated by hand, I assumed the solution is sufficient. \ksremark{To było jakoś zautomatyzowane? Jakieś testy jednostkowe?}
         \end{itemize}
 
   \section{Testing scope}
     Every part of application that is exposed to typical user is tested and error protected. 
-    That means that functionalities in voter, ward administrator and committee administrator cockpits are fault tolerant.
+    That means that functionalities in voter, ward administrator, and committee administrator cockpits are fault tolerant.
     Because we assume that administrator knows what he is doing, administrator cockpit is error prone. 
     Only poll results calculation is protected, because it involves data entered by third party, and administrator cannot be sure that this data was sent.
 
   \section{Test cases}
     \subsection{Voting test}
       In voter cockpit user enters data when he casts a vote. Apart from casting a proper vote, he can cast empty vote (no candidates marked) and
-      he can cast too many votes (more candidates than necessary marked). Both of these scenarios invalidate vote.
+      he can cast too many votes (more candidates than necessary marked). Both of these scenarios invalidate a vote.
 
-      When it comes to preference voting, he also can cast empty vote and vote with too many candidates marked, but also he can repeat preference numbers and
+      When it comes to preference voting, he also can cast an empty vote or a vote with too many candidates marked, but also he can repeat preference numbers or a
       preference number can exceed limit value, which also invalidates a vote.
 
-      Those scenarios are tested and application displays appropriate messages to user.
+      Those scenarios were tested and the application displays appropriate messages to a user.
 
     \subsection{Closed list order test}
-      As a committee administrator we can set order on closed list of a committee.
-      There should be a continuity in order (no numbers missed), and no candidate should be left without a number.
-      When committee administrator tries to save improper closed list order, he should be displayed appropriate message.
+      As a committee administrator we can set order on a closed list of a committee.
+      There should be a continuity in order (no numbers missed) nor any candidate should be left without a number.
+      When committee administrator tries to save an improper closed list order, he should be displayed an appropriate message.
 
-      This scenario is tested and application displays appropriate messages to user.
+      This scenario was tested and the application displays appropriate messages to a user.
 
     \subsection{Sending ward protocol test}
       As a ward administrator we can send protocol from that ward.
       In case of any inconsistency in entered numbers, ward administrator should state reason why there is such inconsistency.
 
-      This scenario is tested and application displays appropriate messages to user.
+      This scenario was tested and the application displays appropriate messages to a user.
 
     \subsection{Calculating poll results test}
       As an administrator we can calculate polls results only when poll is finished and all wards have sent their protocols.
       Otherwise results should not be calculated and administrator should be displayed appropriate message.
       
-      This scenario is tested and application displays appropriate messages to user.
+      This scenario was tested and the application displays appropriate messages to a user.
 
 \chapter{Conclusions}
-  Objective of the thesis was to achieve voting system in accordance with requirements presented in \autoref{chap:req&tools}.
+  Objective of the thesis was to create an voting system in accordance with the requirements stated in \autoref{chap:req&tools}. \ksremark{Tu trzeba napisać trochę więcej o systemie. Tak żeby wyszedł jeden akapit o cechach aplikacji.}
   All of the functional and nonfunctional requirements are met using tools described in that chapter.
 
   As to development itself, proposed architecture passed the exam---implementing features was smooth, and it was easy to extend any functionality of the application.
   However, not everything met my expectations. I found it annoying to work with view templates in Thymeleaf. 
   Presenting data from backend is quite easy, but sending forms filled by user to the controller is counterintuitive and it required more learning than I expected when choosing this technology.
 
-  Although everything works as expected, frontend navigation does not work according to UX spirit.
+  Although everything works as expected, frontend navigation does not work according to UX \ksremark{skrót trzeba rozwinąć} spirit.
   It definitely has to be more intuitive for the user. However, that was not in the scope of this project.
   Another thing that should be considered in terms of further development is more information presented to the user.
   For example it is possible to present to the administrator which wards have, and which wards have not sent their protocols.
