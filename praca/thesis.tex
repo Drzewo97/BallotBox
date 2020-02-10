@@ -318,7 +318,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
 
 
 \chapter{Introduction}
-  According to "V-Dem Annual Democracy Report 2019", prepared by Department of Political Science, University of Gothenburg,
+  According to "V-Dem Annual Democracy Report 2019" \ksremark{``quotation marks''}, prepared by the Department of Political Science, University of Gothenburg,
   "Democracy is still the most common type of regime [in the world]" \cite{bib:v-dem_report}.
   In the advanced stage of internet age that we are living in right now, it is weird, that almost all democratic countries carry out their elections in voting wards.
   As the society becomes more and more up to date with the latest technical innovations, there will be a point in the future, 
@@ -442,6 +442,8 @@ Gliwice, dnia {\selectlanguage{polish}\today}
       \item The application should offer all available functionalities on Google Chrome version 79.
     \end{itemize}
   \pagebreak
+  
+  \ksremark{Jak system zapewnia anonimowość głosowania?}
 
   \section{Use cases}
     \subsection{Citizen use case UML}
@@ -776,7 +778,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
     \end{figure}
 
     A user communicates with the system via a web browser. 
-    A web browser sends HTTP requests to the application server which constructs the response using resources available in a database.
+    A web browser sends HTTP requests to the application server which constructs the response using resources available in a database. \ksremark{Rys. \ref{fig:system_concept}: Czy strzałki nie powinny być w obie strony?}
 
   \section{System architecture}
     \begin{figure}[h]
@@ -785,13 +787,14 @@ Gliwice, dnia {\selectlanguage{polish}\today}
       \label{fig:architecture_diagram}
     \end{figure}
 
+    \ksremark{Czy dałoby się trochę przeprzestawiać bloczki na rys. \ref{fig:architecture_diagram}, żeby go nieco zwęzić?}
     Figure \ref{fig:architecture_diagram} shows architecture of the application. 
     A user interacts with a web browser and his actions trigger communication of the browser with the application server via HTTP.
     Those requests are passed through security filters of Spring Security, which check if user is authenticated and authorized to fetch the resource he requests.
     After that, all requests hit dispatcher servlet, which delegates request to it's specific request controller.
     Repository layer provides data available directly in the database, 
     while service layer performs some additional logic, which is not available in the repository logic (some simple filtering of fetched data).
-    Repository talks to database with help of Hibernate, JPA implementation used by Spring Data JPA. 
+    Repository talks to the database with help of Hibernate, JPA implementation used by Spring Data JPA. 
     Controller connects all data provided to it by service or repository layer into business logic, and constructs a view model for HTTP request.
     This view model is passed to template engine, 
     which applies this view model to specific view template (information regarding which template is also mentioned in view model), 
@@ -805,6 +808,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
       \caption{Entity-Relationship Diagram}
       \label{fig:erd}
     \end{figure}
+    \ksremark{Podpis pod rys. \ref{fig:erd}: Formalnie to jest prawda, choć można by napisać nieco szczegółowiej.}
 
   \section{Implementation of the application}
     \subsection{Entity}
@@ -940,7 +944,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
       This scenario was tested and the application displays appropriate messages to a user.
 
 \chapter{Conclusions}
-  Objective of the thesis was to create an voting system in accordance with the requirements stated in \autoref{chap:req&tools}. \ksremark{Tu trzeba napisać trochę więcej o systemie. Tak żeby wyszedł jeden akapit o cechach aplikacji.}
+  Objective of the thesis was to create an voting system in accordance with the requirements stated in \autoref{chap:req&tools}. \ksremark{Tu trzeba napisać trochę więcej o systemie. Tak żeby wyszedł jeden akapit o cechach aplikacji. Trzeba krótko napisać, co zostało zrobione.}
   All of the functional and nonfunctional requirements are met using tools described in that chapter.
 
   As to development itself, proposed architecture passed the exam---implementing features was smooth, and it was easy to extend any functionality of the application.
