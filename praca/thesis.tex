@@ -982,8 +982,12 @@ Gliwice, dnia {\selectlanguage{polish}\today}
       This scenario was tested and the application displays appropriate messages to a user.
 
 \chapter{Conclusions}
-  Objective of the thesis was to create an voting system in accordance with the requirements stated in \autoref{chap:req&tools}. \ksremark{Tu trzeba napisać trochę więcej o systemie. Tak żeby wyszedł jeden akapit o cechach aplikacji. Trzeba krótko napisać, co zostało zrobione.}
-  All of the functional and nonfunctional requirements are met using tools described in that chapter.
+  Objective of the thesis was to create an voting system in accordance with the requirements stated in \autoref{chap:req&tools}.
+  Final solution allows for proper creation of an election. A citizen can register, and---when confirmed---login and cast a vote in an election.
+  Results are properly calculated using votes casted in the internet and protocols sent from wards.
+  In case of the D'Hondt method, seats are allocated according to the committee closed list.
+  The most crucial and commonly used functionalities are protected against misuse.
+  All of the functional and nonfunctional requirements are met using tools described in \autoref{chap:req&tools}.
 
   As to development itself, proposed architecture passed the exam---implementing features was smooth, and it was easy to extend any functionality of the application.
   However, not everything met my expectations. I found it annoying to work with view templates in Thymeleaf. 
