@@ -157,9 +157,7 @@ escapeinside={@*}{*@},%
 
 
 \begin{document} 
-
 \kslistofremarks
-
 \cleardoublepage
 	
 %%%%%%%%%%%%%%%%%%  Title page %%%%%%%%%%%%%%%%%%% 
@@ -319,7 +317,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
 
 \chapter{Introduction}
   According to ``V-Dem Annual Democracy Report 2019'', prepared by the Department of Political Science, University of Gothenburg,
-  "Democracy is still the most common type of regime [in the world]" \cite{bib:v-dem_report}.
+  "Democracy is still the most common type of regime [in the world]" \ksremark{``quotation marks''} \cite{bib:v-dem_report}.
   In the advanced stage of internet age that we are living in right now, it is weird, that almost all democratic countries carry out their elections in voting wards.
   As the society becomes more and more up to date with the latest technical innovations, there will be a point in the future, 
   when some kind of remote voting becomes the most used voting method across the globe.
@@ -430,6 +428,8 @@ Gliwice, dnia {\selectlanguage{polish}\today}
       \item An administrator should be able to grant privileges of ward and committee administrators to designated people separately.
       \item An administrator should not be able to perform actions in replacement of  a ward or committee administrator.
     \end{itemize}
+    
+    \ksremark{Jak system zapewnia anonimowość głosowania?}
 
   \section{Nonfunctional requirements}
     After reviewing functional requirements, we can define nonfunctional requirements:
@@ -770,7 +770,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
       Every registered user is granted a `USER' role, which permits him to access every resource at root URL (\nameref{subsec:voter_cockpit}).
       After user is authenticated---he is confirmed to exist in database, to be activated and password provided matches that in a database---his roles are checked.
       If and only if his set of roles includes that required by the resource, the authorization filter passes the request forward to the controller.
-      It's configured in the \lstinline{SecurityConfiguration} class.
+      It's configured in the \lstinline|SecurityConfiguration| class.
 
     \subsection{Business logic security}
       API calls which may affect data written to database are additionally protected against misuse of the application, which may lead to taking advantage of it.
@@ -793,7 +793,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
         \item Validation of every vote on a poll. In case of any unwanted or corrupted data, vote is invalidated.
       \end{enumerate}
       But before that checks, all polls from that election are marked as voted by the user posting the vote.
-      In order to fulfill requirement that user's vote should be untraceable, few actions are worth mentioning:
+      In order to fulfil requirement that user's vote should be untraceable, few actions are worth mentioning:
       \begin{itemize}
         \item All polls from requested election are added to set of polls that user has voted in.
         \item Vote itself has no information about who casted it and when---vote is impersonal, 
@@ -803,15 +803,16 @@ Gliwice, dnia {\selectlanguage{polish}\today}
 
 \chapter{Internal specification}
   \section{Concept of the system}
-    \begin{figure}[h]
+    \begin{figure}[t]
       \includegraphics[width=\linewidth]{system_concept.png}
       \caption{Concept of the system}
       \label{fig:system_concept}
     \end{figure}
 
+    
     A user communicates with the system via a web browser. 
-    A web browser sends HTTP requests to the application server which constructs the response using resources available in a database.
-    \pagebreak
+    A web browser sends HTTP requests to the application server which constructs the response using resources available in a database (Fig. \ref{fig:system_concept}).
+   % \pagebreak
 
   \section{System architecture}
     Figure \ref{fig:architecture_diagram} shows architecture of the application. 
@@ -826,21 +827,25 @@ Gliwice, dnia {\selectlanguage{polish}\today}
     which applies this view model to specific view template (information regarding which template is also mentioned in view model), 
     and constructs HTTP response for this template.
     This response comes back to security filters, which send response back to web browser.
-    \pagebreak
-    \begin{figure}[h]
+   % \pagebreak
+    \begin{figure}%[p]
       \includegraphics[width=\linewidth]{architecture_diagram.png}
       \caption{Application architecture}
       \label{fig:architecture_diagram}
     \end{figure}
-    \pagebreak
+ %   \pagebreak
 
   \section{Data structure}
-    \begin{figure}[h]
+  \ksremark{Pusty podrozdział – brak tekstu :-)}
+  
+   
+  
+    \begin{figure}%[p]
       \includegraphics[width=\linewidth]{erd.png}
       \caption{Entity-Relationship Diagram of the data structure used by the application}
       \label{fig:erd}
     \end{figure}
-    \pagebreak
+  %  \pagebreak
 
   \section{Implementation of the application}
     \subsection{Entity}
@@ -899,9 +904,9 @@ Gliwice, dnia {\selectlanguage{polish}\today}
     I based my architecture on MVC architectural pattern. 
     I chose it because of wide use in the industry and the fact that there is a separate dedicated Spring framework to help developers when using that pattern. 
 
-    All dependencies between classes are managed according to Dependency Injection (DI) design pattern. It is best seen in \lstinline{PollResultController} class. 
+    All dependencies between classes are managed according to Dependency Injection (DI) design pattern. It is best seen in \lstinline|PollResultController| class. 
     This controller uses a defined interface of calculation services, which implementations are provided by application context, first given a specific poll to be calculated.
-    It is also visible in almost every service class of the application (see \lstinline{CommitteeServiceImpl} for example). 
+    It is also visible in almost every service class of the application (see \lstinline|CommitteeServiceImpl| for example). 
     Services use repository interfaces, which are constructed by Spring Data JPA, and injected from application context with help of \lstinline|@Autowired| annotation.
   
     Lastly, there is a usage of observer pattern in the application. Whenever a user is registered, it publishes an event.
@@ -923,7 +928,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
 
         After I have some understanding of the problem, I try to think if there is a better and simpler way of achieving the same result---many times I found myself overcomplicating things.
 
-        After that I have solid overview of the problem, and I can start implementing it.
+        After that I have a solid  overview of the problem and I can start implementing it.
 
       \subsection{Implementation}
         It usually involves creating a controller for new functionality, and placing reference to it in some root template, so I can trigger this logic.
@@ -944,7 +949,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
           \item Calculation correctness---when implementing methods that calculate results of polls, I tried to think of an example that contains all edge cases of a method.
           After populating the database with exemplary data, I calculated results of that example by hand, and compared them with application results.
           If the results were the same, I repeated the scenario with data generated randomly. 
-          If the result was still the same as results calculated by hand, I assumed the solution is sufficient. \ksremark{To było jakoś zautomatyzowane? Jakieś testy jednostkowe?}
+          If the result was still the same as results calculated by hand, I assumed the solution is sufficient.  
         \end{itemize}
 
   \section{Testing scope}
