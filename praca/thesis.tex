@@ -810,16 +810,10 @@ Gliwice, dnia {\selectlanguage{polish}\today}
     \end{figure}
 
     A user communicates with the system via a web browser. 
-    A web browser sends HTTP requests to the application server which constructs the response using resources available in a database. \ksremark{Rys. \ref{fig:system_concept}: Czy strzałki nie powinny być w obie strony?}
+    A web browser sends HTTP requests to the application server which constructs the response using resources available in a database.
+    \pagebreak
 
   \section{System architecture}
-    \begin{figure}[h]
-      \includegraphics[width=\linewidth]{architecture_diagram.png}
-      \caption{Application architecture}
-      \label{fig:architecture_diagram}
-    \end{figure}
-
-    \ksremark{Czy dałoby się trochę przeprzestawiać bloczki na rys. \ref{fig:architecture_diagram}, żeby go nieco zwęzić?}
     Figure \ref{fig:architecture_diagram} shows architecture of the application. 
     A user interacts with a web browser and his actions trigger communication of the browser with the application server via HTTP.
     Those requests are passed through security filters of Spring Security, which check if user is authenticated and authorized to fetch the resource he requests.
@@ -833,6 +827,12 @@ Gliwice, dnia {\selectlanguage{polish}\today}
     and constructs HTTP response for this template.
     This response comes back to security filters, which send response back to web browser.
     \pagebreak
+    \begin{figure}[h]
+      \includegraphics[width=\linewidth]{architecture_diagram.png}
+      \caption{Application architecture}
+      \label{fig:architecture_diagram}
+    \end{figure}
+    \pagebreak
 
   \section{Data structure}
     \begin{figure}[h]
@@ -840,6 +840,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
       \caption{Entity-Relationship Diagram of the data structure used by the application}
       \label{fig:erd}
     \end{figure}
+    \pagebreak
 
   \section{Implementation of the application}
     \subsection{Entity}
