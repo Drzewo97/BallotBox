@@ -442,8 +442,6 @@ Gliwice, dnia {\selectlanguage{polish}\today}
       \item The application should offer all available functionalities on Google Chrome version 79.
     \end{itemize}
   \pagebreak
-  
-  \ksremark{Jak system zapewnia anonimowość głosowania?}
 
   \section{Use cases}
     \subsection{Citizen use case UML}
@@ -606,6 +604,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
     A guest---not registered user---is only allowed to register or login.
 
     \subsection{Voter cockpit}
+    \label{subsec:voter_cockpit}
     A user with a role of a voter is able to vote for election and see election results after the election is closed.
     In case of voting a user is be able to vote on a poll only once without any exception.
 
@@ -762,12 +761,45 @@ Gliwice, dnia {\selectlanguage{polish}\today}
         Calculates and shows results of chosen election. Results will not be calculated if poll is still active, or if any ward did not send the protocol.
         Once results are calculated they are stored in database and will not be calculated again---there is no need to.
 
-  \section{Security issues}
-    Application is protected against unauthorized access with help of Spring Security. It handles authentication and authorization following only guidelines of the developer.
-    Moreover, I handle business logic security directly in API calls which may affect data written to database. 
-    Whenever there is a call that should be protected by some business logic, before it performs anything, 
-    it checks whether user that makes that call can perform desired action. If not, it returns with message why action was not performed. 
-    For example, see trying to vote in election that you, as a voter, have already voted in.
+  \section{Security}
+    There are two layers on which application is protected from misuse. 
+    First checks if user has access to requested resource, second makes sure that user cannot affect data in an unwanted way.
+
+    \subsection{Access check}
+      Application is protected against unauthorized access with help of Spring Security. It handles authentication and authorization following only guidelines of the developer.
+      Every registered user is granted a `USER' role, which permits him to access every resource at root URL (\nameref{subsec:voter_cockpit}).
+      After user is authenticated---he is confirmed to exist in database, to be activated and password provided matches that in a database---his roles are checked.
+      If and only if his set of roles includes that required by the resource, the authorization filter passes the request forward to the controller.
+      It's configured in the \lstinline{SecurityConfiguration} class.
+
+    \subsection{Business logic security}
+      API calls which may affect data written to database are additionally protected against misuse of the application, which may lead to taking advantage of it.
+      Whenever there is a call that should be protected by some business logic, before it performs anything, 
+      it checks whether user that makes that call can perform desired action. If not, it returns with message why action was not performed. 
+      
+      Protection against casting a second vote in an election is a great example to understand how business logic security works.
+      Given an authenticated and authorized user, let's assume that he wants to cast a vote in an election. 
+      Here are steps performed to secure the application from misuse:
+      \begin{enumerate}
+        \item Regular checks if election from url exists.
+        \item Check if user's location (ward, district and country) matches polls in the election.
+        \item Check if user has not already voted in this election.
+        \item Check if polls in the election are currently active.
+      \end{enumerate}
+      Those checks are common for displaying the vote page and posting a vote form.
+      Apart from those standard checks, posting a vote form has some additional checks:
+      \begin{enumerate}
+        \item Check if polls posted in a form actually belong to requested election.
+        \item Validation of every vote on a poll. In case of any unwanted or corrupted data, vote is invalidated.
+      \end{enumerate}
+      But before that checks, all polls from that election are marked as voted by the user posting the vote.
+      In order to fulfill requirement that user's vote should be untraceable, few actions are worth mentioning:
+      \begin{itemize}
+        \item All polls from requested election are added to set of polls that user has voted in.
+        \item Vote itself has no information about who casted it and when---vote is impersonal, 
+          there are no application logs at any level regarding casting a vote, 
+          there is no timestamp in the database that could connect when vote was created and marking poll as voted by a user.
+      \end{itemize}
 
 \chapter{Internal specification}
   \section{Concept of the system}
