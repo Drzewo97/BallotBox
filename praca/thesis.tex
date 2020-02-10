@@ -893,12 +893,19 @@ Gliwice, dnia {\selectlanguage{polish}\today}
 
   \section{Applied design patterns}
     While many design patterns may be useful in big projects, there was no need to introduce any sophisticated methods of organizing application layers and communication.
-    I kept it simple, and it worked for me. Here are three design patterns visible directly in the application code:
-    \begin{itemize}
-      \item MVC \ksremark{To już bardziej podchodzi pod wzorzec architektoniczny.}
-      \item DI \ksremark{To bardzo drobny wzorzec, ale niech będzie :-) Trzeba rozwinąć nazwę i podać z jakieś dwa przykłady zastosowania.}
-      \item Observer pattern \ksremark{W którym miejscu? Jakiś drobny przykład.}
-    \end{itemize}
+    I kept it simple, and it worked for me. 
+
+    I based my architecture on MVC architectural pattern. 
+    I chose it because of wide use in the industry and the fact that there is a separate dedicated Spring framework to help developers when using that pattern. 
+
+    All dependencies between classes are managed according to Dependency Injection (DI) design pattern. It is best seen in \lstinline{PollResultController} class. 
+    This controller uses a defined interface of calculation services, which implementations are provided by application context, first given a specific poll to be calculated.
+    It is also visible in almost every service class of the application (see \lstinline{CommitteeServiceImpl} for example). 
+    Services use repository interfaces, which are constructed by Spring Data JPA, and injected from application context with help of \lstinline|@Autowired| annotation.
+  
+    Lastly, there is a usage of observer pattern in the application. Whenever a user is registered, it publishes an event.
+    That event is captured by an event observer, which only then sends a confirmation email to newly registered user.
+    It helps to distinguish classes responsibility and manage complex logic.
 
 \chapter{Verification and validation}
   \section{Testing paradigm}
