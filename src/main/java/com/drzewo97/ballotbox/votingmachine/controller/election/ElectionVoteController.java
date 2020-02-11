@@ -64,21 +64,19 @@ public class ElectionVoteController {
 		String currentPrincipalName = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userRepository.findByUsername(currentPrincipalName).get();
 		
-		Set<Poll> polls = pollRepository.findByCountryOrDistrictOrWard(user.getCountry(), user.getDistrict(), user.getWard());
-		
 		// check if there are any polls here for user
-		if(polls.stream().anyMatch(p -> !user.getCountry().equals(p.getCountry()) && !user.getDistrict().equals(p.getDistrict()) && !user.getWard().equals(p.getWard()))){
+		if(election.get().getPolls().stream().anyMatch(p -> !user.getCountry().equals(p.getCountry()) && !user.getDistrict().equals(p.getDistrict()) && !user.getWard().equals(p.getWard()))){
 			outputMessages.add("There are no polls for You to vote on this election!");
 			return POST_VOTE_LANDING_PAGE;
 		}
 		
-		if(polls.stream().anyMatch(p -> user.getPollsVoted().contains(p))){
+		if(election.get().getPolls().stream().anyMatch(p -> user.getPollsVoted().contains(p))){
 			outputMessages.add("You have already voted on this election!");
 			return POST_VOTE_LANDING_PAGE;
 		}
 		
 		// show only active polls to user
-		polls = polls.stream().filter(Poll::getActive).collect(Collectors.toSet());
+		Set<Poll> polls = election.get().getPolls().stream().filter(Poll::getActive).collect(Collectors.toSet());
 		
 		if(polls.size() < 1){
 			outputMessages.add("There are currently no active polls.");
@@ -109,20 +107,18 @@ public class ElectionVoteController {
 		String currentPrincipalName = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userRepository.findByUsername(currentPrincipalName).get();
 		
-		Set<Poll> userPolls = pollRepository.findByCountryOrDistrictOrWard(user.getCountry(), user.getDistrict(), user.getWard());
-		
 		// check if there are any polls here for user
-		if(userPolls.stream().anyMatch(p -> !user.getCountry().equals(p.getCountry()) && !user.getDistrict().equals(p.getDistrict()) && !user.getWard().equals(p.getWard()))){
+		if(election.get().getPolls().stream().anyMatch(p -> !user.getCountry().equals(p.getCountry()) && !user.getDistrict().equals(p.getDistrict()) && !user.getWard().equals(p.getWard()))){
 			outputMessages.add("There are no polls for You to vote on this election!");
 			return POST_VOTE_LANDING_PAGE;
 		}
 		
-		if(userPolls.stream().anyMatch(p -> user.getPollsVoted().contains(p))){
+		if(election.get().getPolls().stream().anyMatch(p -> user.getPollsVoted().contains(p))){
 			outputMessages.add("You have already voted on this election!");
 			return POST_VOTE_LANDING_PAGE;
 		}
 		
-		Set<Poll> activePolls = userPolls.stream().filter(Poll::getActive).collect(Collectors.toSet());
+		Set<Poll> activePolls = election.get().getPolls().stream().filter(Poll::getActive).collect(Collectors.toSet());
 		
 		if(activePolls.size() < 1){
 			outputMessages.add("There are currently no active polls. You were too late.");
@@ -130,7 +126,7 @@ public class ElectionVoteController {
 		}
 		
 		// mark that user voted in this election
-		for(Poll poll : userPolls){
+		for(Poll poll : election.get().getPolls()){
 			user.getPollsVoted().add(poll);
 		}
 		userRepository.save(user);
