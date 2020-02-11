@@ -838,10 +838,9 @@ Gliwice, dnia {\selectlanguage{polish}\today}
  %   \pagebreak
 
   \section{Data structure}
-  \ksremark{Pusty podrozdział – brak tekstu :-)}
-  
-   
-  
+    Figure \ref{fig:erd} shows entity-relationship diagram of the data structure used by the application. 
+    Spring Data JPA automatically generates this data structure according to the classes annotated with \lstinline|@Entity|.
+    We can see that relations between the tables are very complex, but it is necessary in order to facilitate handling entity classes directly in code.
     \begin{figure}%[p]
       \includegraphics[width=\linewidth]{erd.png}
       \caption{Entity-Relationship Diagram of the data structure used by the application}
