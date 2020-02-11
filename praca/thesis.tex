@@ -317,7 +317,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
 
 \chapter{Introduction}
   According to ``V-Dem Annual Democracy Report 2019'', prepared by the Department of Political Science, University of Gothenburg,
-  "Democracy is still the most common type of regime [in the world]" \ksremark{``quotation marks''} \cite{bib:v-dem_report}.
+  ``Democracy is still the most common type of regime [in the world]'' \cite{bib:v-dem_report}.
   In the advanced stage of internet age that we are living in right now, it is weird, that almost all democratic countries carry out their elections in voting wards.
   As the society becomes more and more up to date with the latest technical innovations, there will be a point in the future, 
   when some kind of remote voting becomes the most used voting method across the globe.
@@ -639,7 +639,7 @@ Gliwice, dnia {\selectlanguage{polish}\today}
     To secure the application you have to register a proper user which is meant to be an administrator, and execute  following query in the database:
 
     \lstinline[language=sql]|INSERT INTO users_roles(user_id, role_id) values (ADM_ID, ROLE_ID);|
-    Where \lstinline[language=sql]|ADM_ID| is an id of a desired administrator in table 'user', and \lstinline[language=sql]|ROLE_ID| is an id of a row with a column name equal to \lstinline[language=sql]|"ROLE_ADMIN"| in table 'role'---1 by default.
+    Where \lstinline[language=sql]|ADM_ID| is an id of a desired administrator in table `user', and \lstinline[language=sql]|ROLE_ID| is an id of a row with a column name equal to \lstinline[language=sql]|``ROLE_ADMIN''| in table `role'---1 by default.
     That is the procedure you should follow when you want to add an administrator to the system.
     After that you should delete the predefined admin user from table user, with following query:
 
