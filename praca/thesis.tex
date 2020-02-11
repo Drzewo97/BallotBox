@@ -429,8 +429,6 @@ Gliwice, dnia {\selectlanguage{polish}\today}
       \item An administrator should not be able to perform actions in replacement of  a ward or committee administrator.
     \end{itemize}
     
-    \ksremark{Jak system zapewnia anonimowość głosowania?}
-
   \section{Nonfunctional requirements}
     After reviewing functional requirements, we can define nonfunctional requirements:
     \begin{itemize}
@@ -792,7 +790,11 @@ Gliwice, dnia {\selectlanguage{polish}\today}
         \item Check if polls posted in a form actually belong to requested election.
         \item Validation of every vote on a poll. In case of any unwanted or corrupted data, vote is invalidated.
       \end{enumerate}
-      But before that checks, all polls from that election are marked as voted by the user posting the vote.
+    
+    Apart from standard technical security of the application, the solution also takes into account user protection and anonymity of his vote.
+    Vote that user casts is completely decoupled from any data that is unrelated to value that the vote brings to the results calculation.
+
+    \subsection{User protection}
       In order to fulfil requirement that user's vote should be untraceable, few actions are worth mentioning:
       \begin{itemize}
         \item All polls from requested election are added to set of polls that user has voted in.
